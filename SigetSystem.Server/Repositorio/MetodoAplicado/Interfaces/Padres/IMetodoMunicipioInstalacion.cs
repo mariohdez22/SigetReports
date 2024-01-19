@@ -2,5 +2,6 @@
 {
     public interface IMetodoMunicipioInstalacion
     {
+        Task<List<MunicipioInstalacion>> ConsultaMunicipioInstalacion();
     }
 }
