@@ -140,7 +140,7 @@ namespace SigetSystem.Server.Controllers
         }
 
 
-        [HttpPost("Editar/{id:int}")]
+        [HttpPut("Editar/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> EditarReporteInspeccion(ReporteInspeccionDTO dto, int id)
@@ -193,7 +193,7 @@ namespace SigetSystem.Server.Controllers
             return BadRequest(_apiResponse);
         }
 
-        [HttpPost("Editar/{id:int}")]
+        [HttpDelete("Eliminar/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> EliminarReporteInspeccion(int id)
