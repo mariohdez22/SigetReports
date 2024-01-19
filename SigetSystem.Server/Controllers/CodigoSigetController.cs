@@ -13,11 +13,11 @@ namespace SigetSystem.Server.Controllers
     [ApiController]
     public class CodigoSigetController : ControllerBase
     {
-        private readonly ILogger<CodigoSiget> _logger;
+        private readonly ILogger<CodigoSigetController> _logger;
         private readonly IMetodoCodigoSiget _repo;
         private readonly IMapper _mapper;
 
-        public CodigoSigetController(ILogger<CodigoSiget> logger, IMetodoCodigoSiget repo, IMapper mapper)
+        public CodigoSigetController(ILogger<CodigoSigetController> logger, IMetodoCodigoSiget repo, IMapper mapper)
         {
             _logger = logger;
             _repo = repo;

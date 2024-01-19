@@ -15,10 +15,10 @@ namespace SigetSystem.Server.Controllers
     public class CodigoConformidadController : ControllerBase
     {
         private readonly IMetodoCodigoConformidad _repo;
-        private readonly ILogger<CodigoConformidad> _logger;
+        private readonly ILogger<CodigoConformidadController> _logger;
         private readonly IMapper _mapper;
 
-        public CodigoConformidadController(IMetodoCodigoConformidad repo, ILogger<CodigoConformidad> logger, IMapper mapper)
+        public CodigoConformidadController(IMetodoCodigoConformidad repo, ILogger<CodigoConformidadController> logger, IMapper mapper)
         {
             _repo = repo;
             _logger = logger;

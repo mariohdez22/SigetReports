@@ -15,10 +15,10 @@ namespace SigetSystem.Server.Controllers
     public class MunicipioInstalacionController : ControllerBase
     {
         public readonly IMetodoMunicipioInstalacion _repo;
-        public readonly ILogger<MunicipioInstalacion> _logger;
+        public readonly ILogger<MunicipioInstalacionController> _logger;
         public readonly IMapper _mapper;
 
-        public MunicipioInstalacionController(IMetodoMunicipioInstalacion repo, ILogger<MunicipioInstalacion> logger, IMapper mapper)
+        public MunicipioInstalacionController(IMetodoMunicipioInstalacion repo, ILogger<MunicipioInstalacionController> logger, IMapper mapper)
         {
             _repo = repo;
             _logger = logger;
