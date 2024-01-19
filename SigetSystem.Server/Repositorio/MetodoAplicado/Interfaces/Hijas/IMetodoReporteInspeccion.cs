@@ -1,4 +1,7 @@
-﻿namespace SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas
+﻿using SigetSystem.Server.Models.Entidades.Hijas;
+using SigetSystem.Shared.MPPs;
+
+namespace SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas
 {
     public interface IMetodoReporteInspeccion
     {

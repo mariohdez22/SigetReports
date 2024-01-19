@@ -1,14 +1,20 @@
-﻿using SigetSystem.Client.Shared;
+﻿using System.Linq.Expressions;
+using Hangfire;
+using Microsoft.EntityFrameworkCore;
+using SigetSystem.Shared;
+using SigetSystem.Server.Models.Entidades.Hijas;
 using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
+using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
+using SigetSystem.Shared.MPPs;
 
 namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 {
     public class MetodoReporteInspeccion : IMetodoReporteInspeccion
     {
         private readonly IMetodoGenerico<ReporteInspeccion> _repoGenerico;
-        private readonly IBackGroundJobClient _bjob;
+        private readonly IBackgroundJobClient _bjob;
 
-        public MetodoReporteInspeccion(IMetodoGenerico<ReporteInspeccion> repoGenerico, IBackGroundJobClient bjob)
+        public MetodoReporteInspeccion(IMetodoGenerico<ReporteInspeccion> repoGenerico, IBackgroundJobClient bjob)
         {
             _repoGenerico = repoGenerico;
             _bjob = bjob;
@@ -20,7 +26,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             string formatoOrden
         )
         {
-            var resultado = formatoOrden == 'Ascendente'
+            var resultado = formatoOrden == "Ascendente"
                 ? lista.OrderBy(criterioOrden)
                 : formatoOrden == "Descendente"
                     ? lista.OrderByDescending(criterioOrden)
@@ -43,7 +49,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 
             if (pp.ID1 != 0)
             {
-                lista = lista.Where(p => p.idEstadoReporte == pp.ID1);
+                lista = lista.Where(p => p.IdEstadoReporte == pp.ID1);
             }
 
             //if (pp.ID2 != 0)
@@ -61,11 +67,10 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
                 .Include(dp => dp.IdDepartamentoInstalacion)
                 .Include(m => m.IdMunicipioInstalacion)
                 .Include(c => c.IdCodigoConformidad)
-                .Include(i => i.IdCodigoInconformidad)
                 .Include(s => s.IdCodigoSiget)
                 .Include(rqmr => rqmr.IdRequisitoMenor)
                 .Include(rqmy => rqmy.IdRequisitoMayor)
-                .Include(e => e.IdEstamoReporte)
+                .Include(e => e.IdEstadoReporte)
                 .Skip((pp.NumeroPagina - 1) * pp.TamañoPagina)
                 .Take(pp.TamañoPagina)
                 .ToListAsync();
@@ -75,14 +80,14 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 
         public async Task<ReporteInspeccion> BuscarReporte(int id)
         {
-            return await _repo.Buscar(id);
+            return await _repoGenerico.Buscar(id);
         }
 
         public async Task<ReporteInspeccion> CrearReporte(ReporteInspeccion reporte)
         {
             try
             {
-                return await _repo.Crear(reporte);
+                return await _repoGenerico.Crear(reporte);
             }
             catch (Exception e)
             {
@@ -94,7 +99,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             try
             {
-                return await _repo.Editar(reporte);
+                return await _repoGenerico.Editar(reporte);
             }
             catch (Exception e)
             {
@@ -106,7 +111,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             try
             {
-                return await _repo.Borrar(reporte);
+                await _repoGenerico.Borrar(reporte);
             }
             catch (Exception e)
             {
@@ -122,32 +127,31 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 
                 ReporteInspeccion reporteUpdate = new ReporteInspeccion()
                 {
-                    IdReporteInspeccion = reporte.IdReporteInspeccion
-                    CodigoInspeccion = reporte.CodigoInspeccion
-                    NombreSolicitante = reporte.NombreSolicitante
-                    CodigoDepartamentalInstElectrica = reporte.CodigoDepartamentalInstElectrica
-                    CodigoMunicipioInstalacion = reporte.CodigoMunicipioInstalacion
-                    ColoniaInstalacion = reporte.ColoniaInstalacion
-                    DireccionInstalacion = reporte.DireccionInstalacion
-                    FechaDepagoSolicitante = reporte.FechaDepagoSolicitante
-                    FechaPrimeraInspeccion = reporte.FechaPrimeraInspeccion
-                    FechaUltimaInspeccion = reporte.FechaUltimaInspeccion
-                    FechaEntregaConformidad = reporte.FechaEntregaConformidad
-                    EspecificacionesCertificado = reporte.EspecificacionesCertificado
-                    MontoSolicitante = reporte.MontoSolicitante
-                    NumeroCreditoFiscal = reporte.NumeroCreditoFiscal
+                    IdReporteInspeccion = reporte.IdReporteInspeccion,
+                    CodigoInspeccion = reporte.CodigoInspeccion,
+                    NombreSolicitante = reporte.NombreSolicitante,
+                    CodigoDepartamentalInstElectrica = reporte.CodigoDepartamentalInstElectrica,
+                    CodigoMunicipioInstalacion = reporte.CodigoMunicipioInstalacion,
+                    ColoniaInstalacion = reporte.ColoniaInstalacion,
+                    DireccionInstalacion = reporte.DireccionInstalacion,
+                    FechaDepagoSolicitante = reporte.FechaDepagoSolicitante,
+                    FechaPrimeraInspeccion = reporte.FechaPrimeraInspeccion,
+                    FechaUltimaInspeccion = reporte.FechaUltimaInspeccion,
+                    FechaEntregaConformidad = reporte.FechaEntregaConformidad,
+                    EspecificacionesCertificado = reporte.EspecificacionesCertificado,
+                    MontoSolicitante = reporte.MontoSolicitante,
+                    NumeroCreditoFiscal = reporte.NumeroCreditoFiscal,
 
 
-                    IdOrganismo = reporte.IdOrganismo
-                    IdRepresentante = reporte.IdRepresentante
-                    IdDepartamentoInstalacion = reporte.IdDepartamentoInstalacion
-                    IdMunicipioInstalacion = reporte.IdMunicipioInstalacion
-                    IdCodigoConformidad = reporte.IdCodigoConformidad
-                    IdCodigoInconformidad = reporte.IdCodigoInconformidad
-                    IdCodigoSiget = reporte.IdCodigoSiget
-                    IdRequisitoMenor = reporte.IdRequisitoMenor
-                    IdRequisitoMayor = reporte.IdRequisitoMayor
-                    IdEstamoReporte = 3
+                    IdOrganismo = reporte.IdOrganismo,
+                    IdRepresentante = reporte.IdRepresentante,
+                    IdDepartamentoInstalacion = reporte.IdDepartamentoInstalacion,
+                    IdMunicipioInstalacion = reporte.IdMunicipioInstalacion,
+                    IdCodigoConformidad = reporte.IdCodigoConformidad,
+                    IdCodigoSiget = reporte.IdCodigoSiget,
+                    IdRequisitoMenor = reporte.IdRequisitoMenor,
+                    IdRequisitoMayor = reporte.IdRequisitoMayor,
+                    IdEstadoReporte = 3
                 };
 
                 var token = _bjob.Schedule(() => EditarReporte(reporteUpdate), TimeSpan.FromMinutes(5));
