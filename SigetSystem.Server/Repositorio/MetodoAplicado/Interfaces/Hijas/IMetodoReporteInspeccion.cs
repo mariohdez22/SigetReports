@@ -10,7 +10,7 @@
 
         Task<ReporteInspeccion> EditarReporte(ReporteInspeccion reporte);
 
-        Task BorrarReporte(ReporteInspeccion);
+        Task BorrarReporte(ReporteInspeccion reporte);
 
         Task<(int id, string tokenJob)> GenerarEdicionPrograma(int idReporte);
     }

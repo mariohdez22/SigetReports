@@ -41,10 +41,15 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             IQueryable<ReporteInspeccion> lista = await _repoGenerico.Consulta();
 
-            if (pp.ID1 == 0)
+            if (pp.ID1 != 0)
             {
                 lista = lista.Where(p => p.idEstadoReporte == pp.ID1);
             }
+
+            //if (pp.ID2 != 0)
+            //{
+            //    lista = lista.Where(p => p.idEstadoReporte == pp.ID2);
+            //}
 
             int totalRegistros = await lista.CountAsync();
 
