@@ -1,4 +1,9 @@
-﻿using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using SigetSystem.Server.Models.Entidades.Hijas;
+using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
+using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
+using SigetSystem.Shared.MPPs;
 
 namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 {
@@ -34,7 +39,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             }
         }
 
-        public async Task<(List<RequisitoMayor>, int totalRegistros)> ConsultaRquisitoMayor(ParametrosPaginacion pp)
+        public async Task<(List<RequisitoMayor>, int totalRegistros)> ConsultaRequisitoMayor(ParametrosPaginacion pp)
         {
             IQueryable<RequisitoMayor> lista = await _repoGenerico.Consulta();
 
@@ -45,7 +50,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 
             if (pp.ID2 != 0)
             {
-                lista = lista.Where(pp => p.IdRepresentante == pp.ID2);
+                lista = lista.Where(p => p.IdRepresentante == pp.ID2);
             }
 
             int totalRegistros = await lista.CountAsync();
@@ -88,7 +93,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             }
             catch (Exception ex)
             {
-                throw
+                throw;
             }
         }
 
