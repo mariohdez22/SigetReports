@@ -2,5 +2,6 @@
 {
     public interface IMetodoEstadoReporte
     {
+        Task<List<EstadoReporte>> ConsultaEstadoReporte();
     }
 }
