@@ -2,5 +2,6 @@
 {
     public interface IMetodoCodigoConformidad
     {
+        Task<CodigoConformidad> ConsultaCodigoConformidad;
     }
 }
