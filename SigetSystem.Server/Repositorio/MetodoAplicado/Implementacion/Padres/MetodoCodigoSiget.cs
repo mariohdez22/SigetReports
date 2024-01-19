@@ -4,9 +4,9 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Padres
 {
     public class MetodoCodigoSiget : IMetodoCodigoSiget
     {
-        private readonly IMetodoGenerico<CodigoSiget> _repoGenerico;
+        private readonly IMetodoLookupGenerico<CodigoSiget> _repoGenerico;
 
-        public MetodoCodigoSiget(IMetodoGenerico<CodigoSiget> repoGenerico)
+        public MetodoCodigoSiget(IMetodoLookupGenerico<CodigoSiget> repoGenerico)
         {
             _repoGenerico = repoGenerico;
         }

@@ -4,9 +4,9 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Padres
 {
     public class MetodoCodigoConformidad : IMetodoCodigoConformidad
     {
-        private readonly IMetodoGenerico<CodigoConformidad> _repoGenerico;
+        private readonly IMetodoLookupGenerico<CodigoConformidad> _repoGenerico;
 
-        public MetodoCodigoConformidad(IMetodoGenerico<CodigoConformidad> repoGenerico)
+        public MetodoCodigoConformidad(IMetodoLookupGenerico<CodigoConformidad> repoGenerico)
         {
             _repoGenerico = repoGenerico;
         }
