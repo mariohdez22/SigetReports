@@ -2,5 +2,6 @@
 {
     public interface IMetodoCodigoSiget
     {
+        Task<List<CodigoSiget>> ConsultaCodigoSiget();
     }
 }
