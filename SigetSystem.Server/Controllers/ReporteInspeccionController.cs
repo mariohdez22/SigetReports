@@ -60,7 +60,7 @@ namespace SigetSystem.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> EditarReporteInspeccion(int id)
+        public async Task<IActionResult> BuscarReporteInspeccion(int id)
         {
             var _apiResponse = new APIResponse<ReporteInspeccionDTO>();
 
