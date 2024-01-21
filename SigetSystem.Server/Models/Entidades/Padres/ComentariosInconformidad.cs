@@ -11,5 +11,8 @@ namespace SigetSystem.Server.Models.Entidades.Padres
 
         [Required]
         public string ComentarioInconformidad { get; set; } = string.Empty;
+
+        [Required]
+        public DateTime FechaComentario { get; set; }
     }
 }
