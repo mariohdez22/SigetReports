@@ -43,7 +43,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Independi
             }
             catch (Exception ex)
             {
-
+                throw;
             }
         }
 
