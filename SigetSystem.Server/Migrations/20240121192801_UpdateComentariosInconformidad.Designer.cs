@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SigetSystem.Server.Models.Contexto;
 
@@ -11,9 +12,11 @@ using SigetSystem.Server.Models.Contexto;
 namespace SigetSystem.Server.Migrations
 {
     [DbContext(typeof(SigetDbContext))]
-    partial class SigetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240121192801_UpdateComentariosInconformidad")]
+    partial class UpdateComentariosInconformidad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
