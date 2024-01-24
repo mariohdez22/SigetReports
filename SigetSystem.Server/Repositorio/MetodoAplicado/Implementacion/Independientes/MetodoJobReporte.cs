@@ -23,7 +23,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Independi
             {
                 return await _repoGenerico.Crear(jobReporte);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -41,7 +41,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Independi
 
                 return await CrearJobReporte(job);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

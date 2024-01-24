@@ -79,7 +79,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 return await _repoGenerico.Crear(requisitoMayor);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -91,7 +91,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 return await _repoGenerico.Editar(requisitoMayor);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -103,7 +103,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 await _repoGenerico.Borrar(requisitoMayor);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

@@ -89,7 +89,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 return await _repoGenerico.Crear(reporte);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
@@ -101,7 +101,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 return await _repoGenerico.Editar(reporte);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
@@ -113,7 +113,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 await _repoGenerico.Borrar(reporte);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
@@ -158,7 +158,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 
                 return (reporte.IdReporteInspeccion, token);
             } 
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
