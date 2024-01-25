@@ -15,8 +15,8 @@ namespace SigetSystem.Server
             CreateMap<Personal, PersonalDTO>().ReverseMap();
             CreateMap<ReporteInspeccion, ReporteInspeccionDTO>().ReverseMap();
             CreateMap<Representante, RepresentanteDTO>().ReverseMap();
-            CreateMap<RequisitoMayor, RequisitoMayor>().ReverseMap();
-            CreateMap<RequisitoMenor, RequisitoMenor>().ReverseMap();
+            CreateMap<RequisitoMayor, RequisitoMayorDTO>().ReverseMap();
+            CreateMap<RequisitoMenor, RequisitoMenorDTO>().ReverseMap();
 
             CreateMap<CodigoConformidad, ComentarioSigetDTO>().ReverseMap();
             CreateMap<CodigoSiget, CodigoSigetDTO>().ReverseMap();

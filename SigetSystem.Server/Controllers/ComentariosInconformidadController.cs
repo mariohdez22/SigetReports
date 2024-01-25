@@ -27,7 +27,7 @@ namespace SigetSystem.Server.Controllers
 
         [HttpGet("Consulta")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> ConsultaComentarioInconformidad([FromQuery] ParametrosPaginacion pp)
+        public async Task<IActionResult> ConsultaComentarioInconformidad([FromQuery]ParametrosPaginacion parametros)
         {
             var _apiResponse = new APIResponse<List<ComentariosInconformidadDTO>>();
 
@@ -35,7 +35,7 @@ namespace SigetSystem.Server.Controllers
             {
                 _logger.LogInformation("Obteniendo los comentarios de inconformidad");
 
-                (List<ComentariosInconformidad> lista, int totalRegistro) = await _repo.ConsultaComentariosInconformidad(pp);
+                (var lista, int totalRegistro) = await _repo.ConsultaComentariosInconformidad(parametros);
 
                 _apiResponse.Resultado = _mapper.Map<List<ComentariosInconformidadDTO>>(lista);
                 _apiResponse.TotalRegistros = totalRegistro;
