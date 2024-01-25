@@ -98,7 +98,7 @@ namespace SigetSystem.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AgregarRequisitoMayor(RequisitoMayorDTO dto)
         {
-            var _apiResponse = new APIResponse<RequisitoMayorDTO>();
+            var _apiResponse = new APIResponse<string>();
 
             try
             {
@@ -117,6 +117,7 @@ namespace SigetSystem.Server.Controllers
 
                 _apiResponse.EsExitoso = true;
                 _apiResponse.CodigoEstado = HttpStatusCode.NoContent;
+                _apiResponse.Resultado = "El requisito ha sido creado";
 
 
                 return Ok(_apiResponse);
