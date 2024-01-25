@@ -52,25 +52,39 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
                 lista = lista.Where(p => p.IdEstadoReporte == pp.ID1);
             }
 
-            //if (pp.ID2 != 0)
-            //{
-            //    lista = lista.Where(p => p.idEstadoReporte == pp.ID2);
-            //}
+            if (!String.IsNullOrEmpty(pp.Buscar))
+            {
+                lista = lista.Where(r =>
+                    r.CodigoDepartamentalInstElectrica!.Contains(pp.Buscar) ||
+                    r.ColoniaInstalacion!.Contains(pp.Buscar) ||
+                    r.CodigoDepartamentalInstElectrica!.Contains(pp.Buscar) ||
+                    r.CodigoInspeccion!.Contains(pp.Buscar) ||
+                    r.CodigoMunicipioInstalacion!.Contains(pp.Buscar) ||
+                    r.DireccionInstalacion!.Contains(pp.Buscar) ||
+                    r.EspecificacionesCertificado!.Contains(pp.Buscar) ||
+                    r.NombreSolicitante!.Contains(pp.Buscar) ||
+                    r.NumeroCreditoFiscal!.Contains(pp.Buscar) ||
+                    r.FechaDepagoSolicitante.ToString() == pp.Buscar ||
+                    r.FechaEntregaConformidad.ToString() == pp.Buscar ||
+                    r.FechaPrimeraInspeccion.ToString() == pp.Buscar ||
+                    r.FechaUltimaInspeccion.ToString() == pp.Buscar
+                );
+            }
 
             int totalRegistros = await lista.CountAsync();
 
             var listaOrdenada = OrdenarReportes(lista, p => p.IdReporteInspeccion, pp.Orden);
 
             var listaReportes = await listaOrdenada
-                .Include(o => o.IdOrganismo)
-                .Include(r => r.IdRepresentante)
-                .Include(dp => dp.IdDepartamentoInstalacion)
-                .Include(m => m.IdMunicipioInstalacion)
-                .Include(c => c.IdCodigoConformidad)
-                .Include(s => s.IdCodigoSiget)
-                .Include(rqmr => rqmr.IdRequisitoMenor)
-                .Include(rqmy => rqmy.IdRequisitoMayor)
-                .Include(e => e.IdEstadoReporte)
+                .Include(o => o.Organismo)
+                .Include(r => r.Representante)
+                .Include(dp => dp.DepartamentoInstalacion)
+                .Include(m => m.MunicipioInstalacion)
+                .Include(c => c.CodigoConformidad)
+                .Include(s => s.CodigoSiget)
+                .Include(rqmr => rqmr.RequisitoMenor)
+                .Include(rqmy => rqmy.RequisitoMayor)
+                .Include(e => e.EstadoReporte)
                 .Skip((pp.NumeroPagina - 1) * pp.TamañoPagina)
                 .Take(pp.TamañoPagina)
                 .ToListAsync();

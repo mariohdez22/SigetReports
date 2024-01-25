@@ -53,14 +53,30 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
                 lista = lista.Where(p => p.IdRepresentante == pp.ID2);
             }
 
+            if (!String.IsNullOrEmpty(pp.Buscar))
+            {
+                lista = lista.Where(c =>
+                    c.CodigoRequisito!.Contains(pp.Buscar) ||
+                    c.ArchivoCopiaCarnetElectricista!.Contains(pp.Buscar) ||
+                    c.ArchivoCopiaDuiElectricista!.Contains(pp.Buscar) ||
+                    c.ArchivoCopiaDuiPropietario!.Contains(pp.Buscar) ||
+                    c.ArchivoCopiaDuiRetiro!.Contains(pp.Buscar) ||
+                    c.ArchivoCopiaFacturaDeMateriales!.Contains(pp.Buscar) ||
+                    c.ArchivoCopiaGarantiaDeTransformador!.Contains(pp.Buscar) ||
+                    c.ArchivoPlanosDualesDeConstruccion!.Contains(pp.Buscar) ||
+                    c.ArchivoPlanosDualesDeDiseñoMinimo!.Contains(pp.Buscar) ||
+                    c.FechaRegistro!.ToString() == pp.Buscar
+                );
+            }
+
             int totalRegistros = await lista.CountAsync();
 
             var listaOrdenada = OrdenarRequisitos(lista, p => p.IdMayores, pp.Orden);
 
             var listaRequisitos = await 
                 listaOrdenada
-                    .Include(o => o.IdOrganismo)
-                    .Include(r => r.IdRepresentante)
+                    .Include(o => o.Organismo)
+                    .Include(r => r.Representante)
                     .Skip((pp.NumeroPagina - 1) * pp.TamañoPagina)
                     .Take(pp.NumeroPagina)
                     .ToListAsync();

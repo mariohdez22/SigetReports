@@ -23,6 +23,8 @@ namespace SigetSystem.Server.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("Consulta")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> ConsultaEstadoReporte()
         {
             var _apiResponse = new APIResponse<List<EstadoReporteDTO>>();

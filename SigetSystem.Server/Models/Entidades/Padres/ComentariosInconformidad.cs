@@ -9,7 +9,8 @@ namespace SigetSystem.Server.Models.Entidades.Padres
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdComentarioInconformidad { get; set; }
 
-        public string? ComentarioInconformidad { get; set; }
+        [Required]
+        public string? ComentarioInconformidad { get; set; } = string.Empty;
 
         [Required]
         public DateTime FechaComentario { get; set; }
