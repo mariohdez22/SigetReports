@@ -57,10 +57,10 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             var listaOrdenada = OrdenarComentario(lista, p => p.IdComentario, pp.Orden);
 
             var listaComentario = await listaOrdenada
-                                            .Include(t => t.IdTipoConformidad)
-                                            .Include(r => r.IdReporteInspeccion)
-                                            .Include(r => r.IdRepresentante)
-                                            .Include(p => p.IdPersonal)
+                                            .Include(t => t.TipoConformidad)
+                                            .Include(r => r.ReporteInspeccion)
+                                            .Include(r => r.Representante)
+                                            .Include(p => p.Personal)
                                             .Skip((pp.NumeroPagina - 1) * pp.TamañoPagina)
                                             .Take(pp.TamañoPagina)
                                             .ToListAsync();
