@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34302.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigetSystem.Server", "SigetSystem.Server\SigetSystem.Server.csproj", "{D07466A6-FCBA-43DD-A235-430FB0FC7601}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigetSystem.Server", "SigetSystem.Server\SigetSystem.Server.csproj", "{D07466A6-FCBA-43DD-A235-430FB0FC7601}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigetSystem.Shared", "SigetSystem.Shared\SigetSystem.Shared.csproj", "{DCBB7965-056B-4857-9133-516D8723F38D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigetSystem.Shared", "SigetSystem.Shared\SigetSystem.Shared.csproj", "{DCBB7965-056B-4857-9133-516D8723F38D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigetSystem.Client", "SigetSystem.Client\SigetSystem.Client.csproj", "{C6C9CE29-5A80-4CCA-BB2C-843A9FE89BE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigetSystem.Client", "SigetSystem.Client\SigetSystem.Client.csproj", "{C6C9CE29-5A80-4CCA-BB2C-843A9FE89BE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

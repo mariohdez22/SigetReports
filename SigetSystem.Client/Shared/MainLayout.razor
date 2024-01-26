@@ -1,13 +1,26 @@
-﻿@inherits LayoutComponentBase
+﻿
+
+@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
+    <div class="">
         <NavMenu />
     </div>
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            
+            <div class="ApartadoMenu">
+                <button class="btn btn-secondary botonMenu" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"><i class="oi oi-menu"></i></button>
+                <h3>INICIO</h3>
+            </div>
+
+            <a class="user" style="text-decoration:none; color:white; z-index: 5;" href="#" target="_blank">TheMarioHerz</a>
+
+            <div class="sombreado1"></div>
+            <div class="sombreado2"></div>
+            <div class="sombreado3"></div>
+
         </div>
 
         <article class="content px-4">

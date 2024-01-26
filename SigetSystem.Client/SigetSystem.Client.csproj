@@ -7,8 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.Modal" Version="7.2.0" />
+    <PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.14" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SigetSystem.Shared\SigetSystem.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\ComentariosSiget\" />
+    <Folder Include="Pages\ReporteInspeccion\" />
+    <Folder Include="Pages\RequisitosMayores\" />
+    <Folder Include="Pages\RequisitosMenores\" />
+    <Folder Include="Pages\Organismo\" />
+    <Folder Include="Pages\Representante\" />
   </ItemGroup>
 
 </Project>

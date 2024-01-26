@@ -26,6 +26,8 @@ namespace SigetSystem.Server.Models.Contexto
 
         public DbSet<ReporteInspeccion> ReporteInspeccions { get; set; }
 
+        public DbSet<JobReporte> JobReportes { get; set; }
+
         public DbSet<Bitacora> Bitacoras { get; set; }
 
         public DbSet<RangoPersonal> RangoPersonals { get; set; }
