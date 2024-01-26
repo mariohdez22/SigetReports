@@ -1,5 +1,4 @@
-﻿
-
+﻿@inject TituloService tituloService
 @inherits LayoutComponentBase
 
 <div class="page">
@@ -12,7 +11,7 @@
             
             <div class="ApartadoMenu">
                 <button class="btn btn-secondary botonMenu" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"><i class="oi oi-menu"></i></button>
-                <h3>INICIO</h3>
+                <h3>@tituloService.Titulo</h3>
             </div>
 
             <a class="user" style="text-decoration:none; color:white; z-index: 5;" href="#" target="_blank">TheMarioHerz</a>
@@ -28,3 +27,16 @@
         </article>
     </main>
 </div>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        tituloService.OnTitleChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        tituloService.OnTitleChanged -= StateHasChanged;
+    }
+}

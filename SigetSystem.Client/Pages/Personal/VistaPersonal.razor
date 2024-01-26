@@ -1,6 +1,7 @@
 ﻿@page "/vistaPersonal"
 @inject SweetAlertService Sweet;
 @inject IPersonalService personalService;
+@inject TituloService tituloService
 
 <section class="ContenedorGeneral">
 
@@ -10,15 +11,272 @@
 
         <div class="barra">
 
-            <div class="opciones"></div>
+            <div class="opciones">
 
-            <div class="filtro"></div>
+                <div class="tituloOpciones">
+                    <p>Opciones del personal</p>
+                </div>
+
+                <div class="botonesOpciones">
+
+                    <button class="agregar">Agregar</button>
+
+                    <button class="informe">Reporte</button>
+
+                </div>
+
+                <div class="tituloOpciones">
+                    <p>Buscador</p>
+                </div>
+
+                <input class="buscador" placeholder="Buscar Registro" />
+
+            </div>
+
+            <div class="filtro">
+
+                <div class="tituloFiltro">
+                    <p>Filtros para el personal</p>
+                </div>
+
+                <div class="contenidoFiltro">
+                    <div class="espacioFiltro"></div>
+                    <div class="espacioFiltro"></div>
+                    <div class="espacioFiltro"></div>
+                    <div class="espacioFiltro"></div>
+                </div>
+
+            </div>
 
         </div>
 
         <div class="contenido">
 
         @* ---------------------------------------------------------------------------------------------- *@
+
+            <div class="tarjeta">
+
+                <div class="perfil">
+
+                    <div class="apartadoA">
+
+                        <div class="muestraInicial">
+
+                            <div class="foto"></div>
+
+                            <div class="estado">
+
+                                <div class="icono"></div>
+
+                                <div class="nombreEstado">
+                                    <p>Vigente</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="apartadoB">
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <p>Theslayerapha12</p>
+                        </div>
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-fill-gear"></i>
+                            </div>
+                            <p>Administrador</p>
+                        </div>
+
+                    </div>
+
+                    <div class="apartadoC">
+
+                        <button class="edicion"><i class="bi bi-pencil-square"></i> Editar</button>
+
+                        <button class="rechazo"><i class="bi bi-x-circle"></i> Quitar</button>
+
+                    </div>
+
+                </div>
+
+                <div class="extras">
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>Mario Hernandez</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-person-vcard-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>087438734</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p class="correo">herzmariohdez@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>78459845</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-calendar2-week-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>22/06/2002</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-person-fill-exclamation"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>Vigente</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="tarjeta">
+
+                <div class="perfil">
+
+                    <div class="apartadoA">
+
+                        <div class="muestraInicial">
+
+                            <div class="foto"></div>
+
+                            <div class="estado">
+
+                                <div class="icono"></div>
+
+                                <div class="nombreEstado">
+                                    <p>Vigente</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="apartadoB">
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <p>Theslayerapha12</p>
+                        </div>
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-fill-gear"></i>
+                            </div>
+                            <p>Administrador</p>
+                        </div>
+
+                    </div>
+
+                    <div class="apartadoC">
+
+                        <button class="edicion"><i class="bi bi-pencil-square"></i> Editar</button>
+
+                        <button class="rechazo"><i class="bi bi-x-circle"></i> Quitar</button>
+
+                    </div>
+
+                </div>
+
+                <div class="extras">
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>Mario Hernandez</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-person-vcard-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>087438734</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p class="correo">herzmariohdez@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>78459845</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-calendar2-week-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>22/06/2002</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-person-fill-exclamation"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>Vigente</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
 
             <div class="tarjeta">
 
@@ -478,5 +736,8 @@
 
 @code 
 {
-
+    protected override async Task OnInitializedAsync()
+    {
+        tituloService.AgregarTitulo("Administracion de Personal");
+    }
 }

@@ -17,6 +17,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 builder.Services.AddScoped<IPersonalService, PersonalService>();
 builder.Services.AddScoped<IEstadoPersonalService, EstadoPersonalService>();
 builder.Services.AddScoped<IRangoPersonalService, RangoPersonalService>();
+builder.Services.AddScoped<TituloService>();
 
 //_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-|
 
