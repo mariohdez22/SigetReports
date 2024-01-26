@@ -156,7 +156,7 @@ namespace SigetSystem.Server.Controllers
                 }
 
                 RequisitoMenor requisito = _mapper.Map<RequisitoMenor>(requisitoMenorDTO);
-                await _repositorio.BorrarRequisitoMenor(requisito);
+                await _repositorio.EditarRequisitoMenor(requisito);
 
                 _apiResponse.Resultado = "Ejecucion Correcta";
                 _apiResponse.CodigoEstado = HttpStatusCode.NoContent;
