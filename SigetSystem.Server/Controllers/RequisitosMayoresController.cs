@@ -152,23 +152,16 @@ namespace SigetSystem.Server.Controllers
                     return BadRequest(dto);
                 }
 
-                if (id <= 0)
+                if (id <= 0 || id != dto.IdMayores)
                 {
                     _apiResponse.EsExitoso = false;
                     _apiResponse.CodigoEstado = HttpStatusCode.BadRequest;
                     return BadRequest(_apiResponse);
                 }
 
-                var reqBuscado = await _repo.BuscarRequisitoMayor(id);
+                var rm = _mapper.Map<RequisitoMayor>(dto);
 
-                if (reqBuscado == null)
-                {
-                    _apiResponse.EsExitoso = false;
-                    _apiResponse.CodigoEstado = HttpStatusCode.NotFound;
-                    return NotFound(_apiResponse);
-                }
-
-                await _repo.EditarRequisitoMayor(reqBuscado);
+                await _repo.EditarRequisitoMayor(rm);
 
                 _apiResponse.Resultado = "Ha sido actualizado con exito";
                 _apiResponse.EsExitoso = true;

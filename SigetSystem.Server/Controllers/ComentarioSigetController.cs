@@ -149,6 +149,9 @@ namespace SigetSystem.Server.Controllers
             {
                 if (comentarioSigetDTO == null || id != comentarioSigetDTO.IdComentario)
                 {
+                    _logger.LogInformation($"ID DTO: {comentarioSigetDTO.IdReporteInspeccion}");
+                    _logger.LogInformation($"ID P: {id}");
+
                     _apiResponse.CodigoEstado = HttpStatusCode.BadRequest;
                     _apiResponse.EsExitoso = false;
                     return BadRequest(_apiResponse);

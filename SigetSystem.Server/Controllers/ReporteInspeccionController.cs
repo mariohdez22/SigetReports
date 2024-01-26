@@ -56,7 +56,7 @@ namespace SigetSystem.Server.Controllers
             return Ok(_apiResponse);
         }
 
-        [HttpGet("Consulta/{id:int}")]
+        [HttpGet("Obtener/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -121,7 +121,9 @@ namespace SigetSystem.Server.Controllers
                 var reporte = _mapper.Map<ReporteInspeccion>(dto);
                 await _repo.CrearReporte(reporte);
 
+
                 (int id, string token) = await _repo.GenerarEdicionPrograma(reporte.IdReporteInspeccion);
+
 
                 await _job.GuardarJobReporte(id, token);
 
@@ -162,7 +164,7 @@ namespace SigetSystem.Server.Controllers
                 }
 
                 var repoJob = await _job.BuscarJobReporte(id);
-                var reporte = _mapper.Map<ReporteInspeccion>(repoJob);
+                var reporte = _mapper.Map<ReporteInspeccion>(dto);
 
                 if (repoJob != null && reporte.IdEstadoReporte == 1 || reporte.IdEstadoReporte != 2)
                 {

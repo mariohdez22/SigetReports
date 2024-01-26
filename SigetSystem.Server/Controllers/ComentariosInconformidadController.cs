@@ -146,7 +146,7 @@ namespace SigetSystem.Server.Controllers
 
             try
             {
-                if (dto == null || id <= 0)
+                if (dto == null || id <= 0 || id != dto.IdComentarioInconformidad)
                 {
                     _apiResponse.CodigoEstado = HttpStatusCode.BadRequest;
                     _apiResponse.EsExitoso = false;

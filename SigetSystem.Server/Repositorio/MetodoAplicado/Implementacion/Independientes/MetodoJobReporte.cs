@@ -35,7 +35,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Independi
             {
                 JobReporte job = new JobReporte()
                 {
-                    IdJob = id,
+                    IdReporteInspeccion = id,
                     TokenJob = token
                 };
 
