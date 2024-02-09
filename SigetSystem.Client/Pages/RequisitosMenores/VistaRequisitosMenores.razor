@@ -1,0 +1,68 @@
+﻿@page "/vistaRequisitosMenores"
+@inject SweetAlertService Sweet;
+@inject TituloService tituloService;
+
+<section class="ContenedorGeneral">
+
+    <h5 class="indice">Inicio > Administracion de Requisitos Menores</h5>
+
+    <section class="ContenidoPrincipal">
+
+        <div class="barra">
+
+            <div class="opciones">
+
+                @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+
+
+                @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+            </div>
+
+            <div class="filtro">
+
+                @* Apartado de Filtros mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+
+
+                @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+            </div>
+
+        </div>
+
+        <div class="contenido">
+
+            @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+
+
+            @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+        </div>
+
+    </section>
+
+    <section class="footer">
+
+        <div class="paginacion">
+
+            @* <PaginadoPersonal PaginaActual="@paginaActual"
+            TotalPaginas="@totalPaginas"
+            OnPageChanged="HandlePageChanged">
+            </PaginadoPersonal> *@
+
+        </div>
+
+    </section>
+
+</section>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        tituloService.AgregarTitulo("Administracion de Requisitos Menores");
+    }
+}

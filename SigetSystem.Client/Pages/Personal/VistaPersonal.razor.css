@@ -1,0 +1,464 @@
+﻿/*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+/* Opciones sub-componentes */
+
+
+.tituloOpciones
+{
+    background-color: #eaeaea;
+    width: 100%;
+    height: 28px;
+    padding: 4px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.tituloOpciones p
+{
+    font-size: 14px;
+    color: #383838;
+    font-family: 'Raleway', sans-serif;
+}
+
+.botonesOpciones
+{
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.agregar
+{
+    outline: none;
+    border: 0px;
+    width: 100%;
+    height: 30px;
+    background: #91afe5;
+    border-radius: 5px;
+    color: white;
+    transition: 0.5s;
+}
+
+.agregar:hover
+{
+    background: #658ed6;
+}
+
+.informe
+{
+    outline: none;
+    border: 0px;
+    width: 100%;
+    height: 30px;
+    background: #91afe5;
+    border-radius: 5px;
+    color: white;
+    transition: 0.5s;
+}
+
+.informe:hover
+{
+    background: #658ed6;
+}
+
+.buscador
+{
+    width: 100%;
+    outline: none;
+    border: 1px solid #c8c8c8;
+    border-radius: 5px;
+    padding-left: 8px;
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.buscador::placeholder
+{
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+}
+
+/*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+/* Filtro sub-componentes */
+
+.tituloFiltro
+{
+    background-color: #eaeaea;
+    width: 100%;
+    height: 28px;
+    padding: 4px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.tituloFiltro p
+{
+    font-size: 14px;
+    color: #383838;
+    font-family: 'Raleway', sans-serif;
+}
+
+.contenidoFiltro
+{
+    width: 100%;
+    height: 30.3vh;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+
+.contenidoFiltro::-webkit-scrollbar
+{
+    -webkit-appearance: none;
+}
+
+.contenidoFiltro::-webkit-scrollbar:vertical
+{
+    width: 5px;
+}
+
+.contenidoFiltro::-webkit-scrollbar-button:increment, #scroll::-webkit-scrollbar-button
+{
+    display: none;
+}
+
+.contenidoFiltro::-webkit-scrollbar:horizontal
+{
+    height: 10px;
+}
+
+.contenidoFiltro::-webkit-scrollbar-thumb
+{
+    background-color: #ededed;
+    border-radius: 20px;
+    border: 1px solid #e2e2e2;
+}
+
+.contenidoFiltro::-webkit-scrollbar-track
+{
+    border-radius: 10px;
+}
+
+.espacioFiltro
+{
+    /*background-color: #eaeaea;*/
+    width: 100%;
+    height: auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #c9c9c9;
+}
+
+.espacioFiltro h5
+{
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+    margin-bottom: 10px;
+}
+
+.contenedorChecks
+{
+    /*    background-color: crimson;*/
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.contenCheck
+{
+    /*    background-color: antiquewhite;*/
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 20px;
+}
+
+.nombreCheck
+{
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+}
+
+/*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+/* Contenido sub-componentes */
+
+
+.tarjeta
+{
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 33.5vw;
+    height: 40.9vh;
+    border-radius: 10px;
+    display: flex;
+}
+
+/*---------------------------------------------------------*/
+
+.perfil
+{
+    background: rgba(64, 50, 155, 0.16);
+    width: 20vw;
+    height: 40.9vh;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+/*---------------------------------------------------------*/
+
+.apartadoA
+{
+    width: 17vw;
+    height: 19.5vh;
+    padding: 15px;
+}
+
+.muestraInicial
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.foto
+{
+    background: linear-gradient(135deg, #74FFAB 0%, #7CA9FF 100%);
+    border-radius: 50px;
+    width: 90px;
+    height: 90px;
+}
+
+.estado
+{
+    border-radius: 10px;
+    width: auto;
+    height: 30px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.icono
+{
+    background-color: white;
+    border-radius: 5px;
+    height: 100%;
+    width: 20px;
+    margin-right: 5px;
+    padding-left: 1.5px;
+    padding-top: 0px;
+    position: relative;
+}
+
+.icos
+{
+    transform: translate(0%, -8%);
+    position: absolute;
+}
+
+.nombreEstado
+{
+    height: 100%;
+    width: auto;
+    padding-right: 5px;
+}
+
+.nombreEstado p
+{
+    margin-top: -2px;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+}
+
+/*===========================*/
+
+.apartadoB
+{
+    width: 17vw;
+    height: 15vh;
+    display: flex;
+    padding: 15px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.texto
+{
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+    gap: 5px;
+}
+
+.iconoTexto
+{
+    background-color: #e4e4e4;
+    border-radius: 5px;
+    height: 100%;
+    width: 20px;
+    margin-right: 5px;
+    color: #909090;
+    padding-left: 2.5px;
+    font-size: 15px;
+}
+
+.texto p
+{
+    font-size: 14px;
+    color: #666666;
+}
+
+/*===========================*/
+
+.apartadoC
+{
+    width: 17vw;
+    height: min-content;
+    display: flex;
+    padding: 15px;
+    padding-top: 0px;
+    gap: 15px;
+}
+
+.edicion
+{
+    outline: none;
+    border: 0px;
+    width: 100%;
+    height: 30px;
+    background: #b7aaed;
+    border-radius: 10px;
+    color: white;
+    transition: 0.5s;
+}
+
+.edicion:hover
+{
+    background: #9787dd;
+}
+
+.rechazo
+{
+    outline: none;
+    border: 0px;
+    width: 100%;
+    height: 30px;
+    background: #b7aaed;
+    border-radius: 10px;
+    color: white;
+    transition: 0.5s;
+}
+
+.rechazo:hover
+{
+    background: #9787dd;
+}
+
+/* Apartado Colores Cambiantes xxxxxxxxxxxxx*/
+                                       /* x */
+.background-Vigente                    /* x */
+{                                      /* x */
+    background: #63FFB4;               /* x */
+}                                      /* x */
+                                       /* x */
+.color-Vigente                         /* x */
+{                                      /* x */
+    color: #63FFB4;                    /* x */
+}                                      /* x */
+                                       /* x */
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+                                       /* x */
+.background-Despedido                  /* x */
+{                                      /* x */
+    background: #ff6363;               /* x */
+}                                      /* x */
+                                       /* x */
+.color-Despedido                       /* x */
+{                                      /* x */
+    color: #ff6363;                    /* x */
+}                                      /* x */
+                                       /* x */
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+                                       /* x */
+.background-Ausente                    /* x */
+{                                      /* x */
+    background: #ffc363;               /* x */
+}                                      /* x */
+                                       /* x */
+.color-Ausente                         /* x */
+{                                      /* x */
+    color: #ffc363;                    /* x */
+}                                      /* x */
+                                       /* x */
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+
+/*---------------------------------------------------------*/
+.extras
+{
+    width: 20vw;
+    height: 40.9vh;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+}
+
+/*---------------------------------------------------------*/
+
+.textoExtra
+{
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.iconoExtra
+{
+    width: 40px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    font-size: 20px;
+    padding-top: 1.5px;
+    padding-left: 6.5px;
+    color: #909090;
+}
+
+.apartadoExtra
+{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.06);
+    /*    background-color: aquamarine;*/
+    border-radius: 10px;
+    padding-top: 4px;
+    padding-left: 7px;
+}
+
+.apartadoExtra p
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4e4e4e;
+}
+
+.correo
+{
+    font-size: 10px !important;
+    margin-top: 4.5px;
+}

@@ -1,0 +1,127 @@
+﻿@page "/modalLookupPersonal"
+@inject IPersonalService personalService;
+
+<div class="contenedor">
+
+    <div class="centrado">
+        <h4 class="TituloModal">Elige el estado a cambiar</h4>
+    </div>
+
+    <div class="encajeBotones">
+
+        @if (personal.IdEstadoPersonal == 1)
+        {
+            <button @onclick="@(() => SuspenderUsuario())" class="btnEstados"><i class="bi bi-x-circle"></i>&nbsp;&nbsp;Suspender</button>
+            <button @onclick="@(() => InhabilitarUsuario())" class="btnEstados"><i class="bi bi-exclamation-circle"></i>&nbsp;&nbsp;Inhabilitar</button>
+        }
+        else if (personal.IdEstadoPersonal == 2)
+        {
+            <button @onclick="@(() => HabilitarUsuario())" class="btnEstados"><i class="bi bi-check-circle"></i>&nbsp;&nbsp;Habilitar</button>
+            <button @onclick="@(() => SuspenderUsuario())" class="btnEstados"><i class="bi bi-exclamation-circle"></i>&nbsp;&nbsp;Suspender</button>
+        }
+        else if (personal.IdEstadoPersonal == 3)
+        {
+            <button @onclick="@(() => HabilitarUsuario())" class="btnEstados"><i class="bi bi-x-circle"></i>&nbsp;&nbsp;Habilitar</button>
+            <button @onclick="@(() => InhabilitarUsuario())" class="btnEstados"><i class="bi bi-check-circle"></i>&nbsp;&nbsp;Inhabilitar</button>
+        }
+
+    </div>
+
+</div>
+
+@code 
+{
+    [Parameter]
+    public int idPersonalKey { get; set; } = 0;
+
+    //----------------------------------------------------------------------------------
+
+    PersonalDTO personal = new PersonalDTO();
+
+    PersonalDTO? personalNew;
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    //----------------------------------------------------------------------------------
+
+    protected override async Task OnInitializedAsync()
+    {
+        personal = await personalService.BuscarPersonal(idPersonalKey);
+    }
+
+    //----------------------------------------------------------------------------------
+
+    private PersonalDTO ObjetoPersona(int ID)
+    {
+        personalNew = new()
+            {
+                IdPersonal = personal.IdPersonal,
+                Nombres = personal.Nombres,
+                Celular = personal.Celular,
+                Email = personal.Email,
+                DUI = personal.DUI,
+                FechaNacimiento = personal.FechaNacimiento,
+                Nickname = personal.Nickname,
+                Contrasena = personal.Contrasena,
+                IdRangoPersonal = personal.IdRangoPersonal,
+                IdEstadoPersonal = ID
+            };
+
+        return personalNew;
+    }
+
+    private async Task HabilitarUsuario()
+    {
+        // personal.IdEstadoPersonal = 1;
+
+        string ValorDevuelto;
+
+        ValorDevuelto = await personalService.EditarPersonal(ObjetoPersona(1), idPersonalKey);
+
+        if (ValorDevuelto == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ValorDevuelto));
+        }
+        else
+        {
+            Console.WriteLine("No se Ejecuto Correctamente");
+        }
+    }
+
+    private async Task InhabilitarUsuario()
+    {
+        // personal.IdEstadoPersonal = 2;
+
+        string ValorDevuelto;
+
+        ValorDevuelto = await personalService.EditarPersonal(ObjetoPersona(2), idPersonalKey);
+
+        if (ValorDevuelto == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ValorDevuelto));
+        }
+        else
+        {
+            Console.WriteLine("No se Ejecuto Correctamente");
+        }
+    }
+
+    private async Task SuspenderUsuario()
+    {
+        // personal.IdEstadoPersonal = 3;
+
+        string ValorDevuelto;
+
+        ValorDevuelto = await personalService.EditarPersonal(ObjetoPersona(3), idPersonalKey);
+
+        if (ValorDevuelto == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ValorDevuelto));
+        }
+        else
+        {
+            Console.WriteLine("No se Ejecuto Correctamente");
+        }
+    }
+
+}

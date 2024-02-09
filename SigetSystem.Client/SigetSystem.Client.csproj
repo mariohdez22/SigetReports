@@ -17,13 +17,4 @@
     <ProjectReference Include="..\SigetSystem.Shared\SigetSystem.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\ComentariosSiget\" />
-    <Folder Include="Pages\ReporteInspeccion\" />
-    <Folder Include="Pages\RequisitosMayores\" />
-    <Folder Include="Pages\RequisitosMenores\" />
-    <Folder Include="Pages\Organismo\" />
-    <Folder Include="Pages\Representante\" />
-  </ItemGroup>
-
 </Project>

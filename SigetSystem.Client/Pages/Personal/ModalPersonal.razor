@@ -1,9 +1,140 @@
 ﻿@inject IPersonalService personalService;
 @inject IEstadoPersonalService estadoPersonalService;
 @inject IRangoPersonalService rangoPersonalService;
+<style>
+    :root{--color-inputs: #afafe7;}
+</style>
 
+<h5 class="tituloModalAgregar">@titulo</h5>
+<br />
 
+<EditForm Model="personal" OnValidSubmit="OnValidSubmit"> 
 
-@code {
+    <DataAnnotationsValidator></DataAnnotationsValidator>
 
+    <div class="contenedorInputs">
+
+        <div class="parteInputsA">
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
+                <InputText type="text" class="form-control" @bind-Value="personal.Nombres" placeholder="Agregar Trabajador" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill"></i></span>
+                <InputText type="text" class="form-control" @bind-Value="personal.Celular" placeholder="Agregar Celular" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-envelope-fill"></i></span>
+                <InputText type="email" class="form-control" @bind-Value="personal.Email" placeholder="Agregar Email" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-vcard-fill"></i></span>
+                <InputText type="text" class="form-control" @bind-Value="personal.DUI" placeholder="Agregar DUI" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+        </div>
+
+        <div class="parteInputsB">
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-calendar2-week-fill"></i></span>
+                <InputDate class="form-control" TValue="DateTime" @bind-Value="personal.FechaNacimiento" style="border: 1px solid var(--color-inputs);"></InputDate>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-badge-fill"></i></span>
+                <InputText type="text" class="form-control" @bind-Value="personal.Nickname" placeholder="Agregar Nickname" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-shield-lock-fill"></i></span>
+                <InputText type="text" class="form-control" @bind-Value="personal.Contrasena" placeholder="Agregar Contraseña" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill-gear"></i></span>
+                <InputSelect class="form-select" @bind-Value="personal.IdRangoPersonal" style="border: 1px solid var(--color-inputs);">
+                    <option value="0">Seleccionar Rango Personal...</option>
+                    @foreach (var item in listaRango)
+                    {
+                        <option value="@item.IdRangoPersonal">@item.Rangos</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <input type="hidden" value="@personal.IdEstadoPersonal" />
+
+        </div>
+
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>&nbsp;&nbsp;@btnTexto</button>
+
+</EditForm>
+
+@code 
+{
+    [Parameter]
+    public int idPersonalEditar { get; set; } = 0;
+
+    string titulo = string.Empty;
+    string btnTexto = string.Empty;
+
+    //----------------------------------------------------------------------------------
+
+    PersonalDTO personal = new PersonalDTO();
+
+    List<RangoPersonalDTO> listaRango = new List<RangoPersonalDTO>();
+
+    List<EstadoPersonalDTO> listaEstado = new List<EstadoPersonalDTO>();
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    //----------------------------------------------------------------------------------
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (idPersonalEditar != 0)
+        {
+            personal = await personalService.BuscarPersonal(idPersonalEditar);
+            btnTexto = "Actualizar Registro";
+            titulo = "Editar Personal";
+        }
+        else
+        {
+            btnTexto = "Agregar Registro";
+            titulo = "Agregar Personal";
+            personal.IdEstadoPersonal = 1;
+        }
+
+        listaRango = await rangoPersonalService.MostrarRangoPersonal();
+        listaEstado = await estadoPersonalService.MostrarEstadoPersonal();
+    }
+
+    //----------------------------------------------------------------------------------
+
+    private async Task OnValidSubmit()
+    {
+        string ValorDevuelto = "";
+
+        if (idPersonalEditar == 0)
+        {
+            ValorDevuelto = await personalService.CrearPersonal(personal);
+        }
+        else
+        {
+            ValorDevuelto = await personalService.EditarPersonal(personal, idPersonalEditar);
+        }
+
+        if (ValorDevuelto == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ValorDevuelto));
+        }
+    }
 }

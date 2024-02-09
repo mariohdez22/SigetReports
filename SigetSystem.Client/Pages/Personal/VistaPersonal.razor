@@ -1,7 +1,10 @@
 ﻿@page "/vistaPersonal"
 @inject SweetAlertService Sweet;
+@inject TituloService tituloService;
 @inject IPersonalService personalService;
-@inject TituloService tituloService
+@inject IEstadoPersonalService estadoPersonalService;
+@inject IRangoPersonalService rangoPersonalService;
+
 
 <section class="ContenedorGeneral">
 
@@ -13,15 +16,17 @@
 
             <div class="opciones">
 
+                @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
                 <div class="tituloOpciones">
                     <p>Opciones del personal</p>
                 </div>
 
                 <div class="botonesOpciones">
 
-                    <button class="agregar">Agregar</button>
+                    <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
 
-                    <button class="informe">Reporte</button>
+                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
 
                 </div>
 
@@ -29,22 +34,95 @@
                     <p>Buscador</p>
                 </div>
 
-                <input class="buscador" placeholder="Buscar Registro" />
+                <input type="text" @bind="valorBusqueda" @oninput="CargarPersonalBuscado" class="buscador" placeholder="Buscar Registro" />
+
+                @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
             </div>
 
             <div class="filtro">
+
+                @* Apartado de Filtros mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
                 <div class="tituloFiltro">
                     <p>Filtros para el personal</p>
                 </div>
 
                 <div class="contenidoFiltro">
-                    <div class="espacioFiltro"></div>
-                    <div class="espacioFiltro"></div>
-                    <div class="espacioFiltro"></div>
-                    <div class="espacioFiltro"></div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por orden:</h5>
+
+                        <div class="contenedorChecks">
+
+                            <div class="contenCheck">
+                                <input @onclick="@(()=> OrdenarPersonal("Ascendente"))" checked="@("Ascendente" == ordenSeleccionada)" type="checkbox" id="checkOrden1" name="checkOrden1" />
+                                <label class="nombreCheck" for="checkOrden1">Ascendente</label>
+                            </div>
+
+                            <div class="contenCheck">
+                                <input @onclick="@(()=> OrdenarPersonal("Descendente"))" checked="@("Descendente" == ordenSeleccionada)" type="checkbox" id="checkOrden2" name="checkOrden2" />
+                                <label class="nombreCheck" for="checkOrden2">Descendente</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por rango:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @if (listaRango != null)
+                            {
+                                @foreach (var item in listaRango)
+                                {
+                                    <div class="contenCheck">
+                                        <input @onclick="@(()=> FiltroRango(item.IdRangoPersonal))" checked="@(item.IdRangoPersonal == rangoSeleccionado)" type="checkbox" id="@($"check{item.Rangos}")" />
+                                        <label class="nombreCheck" for="@($"check{item.Rangos}")">@item.Rangos</label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No se encontro rangos</p>
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por estado:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @if (listaEstado != null)
+                            {
+                                @foreach (var item in listaEstado)
+                                {
+                                    <div class="contenCheck">
+                                        <input @onclick="@(()=> FiltroEstado(item.IdEstadoPersonal))" checked="@(item.IdEstadoPersonal == estadoSeleccionado)" type="checkbox" id="@($"check{item.Estados}")" />
+                                        <label class="nombreCheck" for="@($"check{item.Estados}")">@item.Estados</label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No se encontro estados</p>
+                            }
+
+                        </div>
+
+                    </div>
+
                 </div>
+
+                @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
             </div>
 
@@ -52,681 +130,148 @@
 
         <div class="contenido">
 
-        @* ---------------------------------------------------------------------------------------------- *@
+            @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-            <div class="tarjeta">
+            @if (respuestaPersonal?.Resultado != null)
+            {
+                @foreach (var item in respuestaPersonal.Resultado)
+                {
 
-                <div class="perfil">
+                    <div class="tarjeta">
 
-                    <div class="apartadoA">
+                        <div class="perfil">
 
-                        <div class="muestraInicial">
+                            <div class="apartadoA">
 
-                            <div class="foto"></div>
+                                <div class="muestraInicial">
 
-                            <div class="estado">
+                                    <div class="foto"></div>
 
-                                <div class="icono"></div>
+                                    <div class="estado @($"background-{item.EstadoPersonal.Estados}")">
 
-                                <div class="nombreEstado">
-                                    <p>Vigente</p>
+                                        <div class="icono">
+                                            <i class="bi bi-person-fill-exclamation icos @($"color-{item.EstadoPersonal.Estados}")"></i>
+                                        </div>
+
+                                        <div class="nombreEstado">
+                                            <p>@item.EstadoPersonal!.Estados</p>
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                        </div>
+                            <div class="apartadoB">
 
-                    </div>
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-person-circle"></i>
+                                    </div>
+                                    <p>@item.Nickname</p>
+                                </div>
 
-                    <div class="apartadoB">
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>Theslayerapha12</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-fill-gear"></i>
-                            </div>
-                            <p>Administrador</p>
-                        </div>
-
-                    </div>
-
-                    <div class="apartadoC">
-
-                        <button class="edicion"><i class="bi bi-pencil-square"></i> Editar</button>
-
-                        <button class="rechazo"><i class="bi bi-x-circle"></i> Quitar</button>
-
-                    </div>
-
-                </div>
-
-                <div class="extras">
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Mario Hernandez</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-vcard-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>087438734</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-envelope-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p class="correo">herzmariohdez@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>78459845</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-calendar2-week-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>22/06/2002</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill-exclamation"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Vigente</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="tarjeta">
-
-                <div class="perfil">
-
-                    <div class="apartadoA">
-
-                        <div class="muestraInicial">
-
-                            <div class="foto"></div>
-
-                            <div class="estado">
-
-                                <div class="icono"></div>
-
-                                <div class="nombreEstado">
-                                    <p>Vigente</p>
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-person-fill-gear"></i>
+                                    </div>
+                                    <p>@item.RangoPersonal!.Rangos</p>
                                 </div>
 
                             </div>
 
-                        </div>
+                            <div class="apartadoC">
 
-                    </div>
+                                <button class="edicion" @onclick="@(() => ShowModal(item.IdPersonal))"><i class="bi bi-pencil-square"></i> Editar</button>
 
-                    <div class="apartadoB">
+                                <button class="rechazo" @onclick="(() => ModalLookup(item.IdPersonal))"><i class="bi bi-x-circle"></i> Quitar</button>
 
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
                             </div>
-                            <p>Theslayerapha12</p>
+
                         </div>
 
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-fill-gear"></i>
-                            </div>
-                            <p>Administrador</p>
-                        </div>
+                        <div class="extras">
 
-                    </div>
-
-                    <div class="apartadoC">
-
-                        <button class="edicion"><i class="bi bi-pencil-square"></i> Editar</button>
-
-                        <button class="rechazo"><i class="bi bi-x-circle"></i> Quitar</button>
-
-                    </div>
-
-                </div>
-
-                <div class="extras">
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Mario Hernandez</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-vcard-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>087438734</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-envelope-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p class="correo">herzmariohdez@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>78459845</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-calendar2-week-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>22/06/2002</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill-exclamation"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Vigente</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="tarjeta">
-
-                <div class="perfil">
-
-                    <div class="apartadoA">
-
-                        <div class="muestraInicial">
-
-                            <div class="foto"></div>
-
-                            <div class="estado">
-
-                                <div class="icono"></div>
-
-                                <div class="nombreEstado">
-                                    <p>Vigente</p>
+                            <div class="textoExtra">
+                                <div class="iconoExtra">
+                                    <i class="bi bi-person-fill"></i>
                                 </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="apartadoB">
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>Theslayerapha12</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-fill-gear"></i>
-                            </div>
-                            <p>Administrador</p>
-                        </div>
-
-                    </div>
-
-                    <div class="apartadoC">
-
-                        <button class="edicion"><i class="bi bi-pencil-square"></i> Editar</button>
-
-                        <button class="rechazo"><i class="bi bi-x-circle"></i> Quitar</button>
-
-                    </div>
-
-                </div>
-
-                <div class="extras">
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Mario Hernandez</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-vcard-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>087438734</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-envelope-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p class="correo">herzmariohdez@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>78459845</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-calendar2-week-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>22/06/2002</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill-exclamation"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Vigente</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="tarjeta">
-
-                <div class="perfil">
-
-                    <div class="apartadoA">
-
-                        <div class="muestraInicial">
-
-                            <div class="foto"></div>
-
-                            <div class="estado">
-
-                                <div class="icono"></div>
-
-                                <div class="nombreEstado">
-                                    <p>Vigente</p>
+                                <div class="apartadoExtra">
+                                    <p>@item.Nombres</p>
                                 </div>
-
                             </div>
 
-                        </div>
-
-                    </div>
-
-                    <div class="apartadoB">
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>Theslayerapha12</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-fill-gear"></i>
-                            </div>
-                            <p>Administrador</p>
-                        </div>
-
-                    </div>
-
-                    <div class="apartadoC">
-
-                        <button class="edicion"><i class="bi bi-pencil-square"></i> Editar</button>
-
-                        <button class="rechazo"><i class="bi bi-x-circle"></i> Quitar</button>
-
-                    </div>
-
-                </div>
-
-                <div class="extras">
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Mario Hernandez</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-vcard-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>087438734</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-envelope-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p class="correo">herzmariohdez@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>78459845</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-calendar2-week-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>22/06/2002</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill-exclamation"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Vigente</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="tarjeta">
-
-                <div class="perfil">
-
-                    <div class="apartadoA">
-
-                        <div class="muestraInicial">
-
-                            <div class="foto"></div>
-
-                            <div class="estado">
-
-                                <div class="icono"></div>
-
-                                <div class="nombreEstado">
-                                    <p>Vigente</p>
+                            <div class="textoExtra">
+                                <div class="iconoExtra">
+                                    <i class="bi bi-person-vcard-fill"></i>
                                 </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="apartadoB">
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>Theslayerapha12</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-fill-gear"></i>
-                            </div>
-                            <p>Administrador</p>
-                        </div>
-
-                    </div>
-
-                    <div class="apartadoC">
-
-                        <button class="edicion"><i class="bi bi-pencil-square"></i> Editar</button>
-
-                        <button class="rechazo"><i class="bi bi-x-circle"></i> Quitar</button>
-
-                    </div>
-
-                </div>
-
-                <div class="extras">
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Mario Hernandez</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-vcard-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>087438734</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-envelope-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p class="correo">herzmariohdez@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>78459845</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-calendar2-week-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>22/06/2002</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill-exclamation"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Vigente</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="tarjeta">
-
-                <div class="perfil">
-
-                    <div class="apartadoA">
-
-                        <div class="muestraInicial">
-
-                            <div class="foto"></div>
-
-                            <div class="estado">
-
-                                <div class="icono"></div>
-
-                                <div class="nombreEstado">
-                                    <p>Vigente</p>
+                                <div class="apartadoExtra">
+                                    <p>@item.DUI</p>
                                 </div>
+                            </div>
 
+                            <div class="textoExtra">
+                                <div class="iconoExtra">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p class="correo">@item.Email</p>
+                                </div>
+                            </div>
+
+                            <div class="textoExtra">
+                                <div class="iconoExtra">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p>@item.Celular</p>
+                                </div>
+                            </div>
+
+                            <div class="textoExtra">
+                                <div class="iconoExtra">
+                                    <i class="bi bi-calendar2-week-fill"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p>@item.FechaNacimiento</p>
+                                </div>
+                            </div>
+
+                            <div class="textoExtra">
+                                <div class="iconoExtra">
+                                    <i class="bi bi-person-fill-exclamation"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p>@item.EstadoPersonal!.Estados</p>
+                                </div>
                             </div>
 
                         </div>
 
                     </div>
 
-                    <div class="apartadoB">
+                }
+            }
+            else
+            {
+                <p>No se encontro resultados</p>
+            }       
 
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>Theslayerapha12</p>
-                        </div>
+            @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-fill-gear"></i>
-                            </div>
-                            <p>Administrador</p>
-                        </div>
+        </div>
 
-                    </div>
+    </section>
 
-                    <div class="apartadoC">
+    <section class="footer">
 
-                        <button class="edicion"><i class="bi bi-pencil-square"></i> Editar</button>
+        <div class="paginacion">
 
-                        <button class="rechazo"><i class="bi bi-x-circle"></i> Quitar</button>
-
-                    </div>
-
-                </div>
-
-                <div class="extras">
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Mario Hernandez</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-vcard-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>087438734</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-envelope-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p class="correo">herzmariohdez@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>78459845</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-calendar2-week-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>22/06/2002</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill-exclamation"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>Vigente</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            @* ---------------------------------------------------------------------------------------------- *@
+            <PaginadoPersonal PaginaActual="@paginaActual"
+                              TotalPaginas="@totalPaginas"
+                              OnPageChanged="HandlePageChanged">
+            </PaginadoPersonal>
 
         </div>
 
@@ -736,8 +281,251 @@
 
 @code 
 {
+    // Objetos de modelos mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private APIResponse<List<PersonalDTO>>? respuestaPersonal;
+    private List<RangoPersonalDTO>? listaRango;
+    private List<EstadoPersonalDTO>? listaEstado;
+
+    // Variables con valores cambiantes mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private int rango = 0;
+    private int estado = 0;
+    private string valorOrden = "Descendente";
+    private string valorBusqueda = "";
+    private string? ordenSeleccionada;
+    private int? rangoSeleccionado;
+    private int? estadoSeleccionado;
+
+    // Variables para Paginacion mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private int paginaActual = 1;
+    private int tamanoPagina = 6;
+    private int registrosActuales;
+    private int totalPaginas;
+
+    // Modal mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    // MetodoInicializador mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
     protected override async Task OnInitializedAsync()
     {
         tituloService.AgregarTitulo("Administracion de Personal");
+
+        await CargarPagina(paginaActual, 0, 0, "Descendente");
+        listaRango = await rangoPersonalService.MostrarRangoPersonal();
+        listaEstado = await estadoPersonalService.MostrarEstadoPersonal();
     }
+
+    // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private async Task OrdenarPersonal(string valor)
+    {
+        if (ordenSeleccionada == valor)
+        {
+            ordenSeleccionada = null;
+        }
+        else
+        {
+            ordenSeleccionada = valor;
+        }
+
+        await CargarPagina(paginaActual, rango, estado, valor);
+        valorOrden = valor;
+    }
+
+    private async Task FiltroRango(int valor)
+    {
+        if (rangoSeleccionado == valor)
+        {
+            rangoSeleccionado = null;
+            valor = 0;
+        }
+        else
+        {
+            rangoSeleccionado = valor;
+        }
+
+        await CargarPagina(paginaActual, valor, estado, valorOrden);
+        rango = valor;
+    }
+
+    private async Task FiltroEstado(int valor)
+    {
+        if (estadoSeleccionado == valor)
+        {
+            estadoSeleccionado = null;
+            valor = 0;
+        }
+        else
+        {
+            estadoSeleccionado = valor;
+        }
+
+        await CargarPagina(paginaActual, rango, valor, valorOrden);
+        estado = valor;
+    }
+
+    private async Task CargarPagina(int numeroPagina, int idRango, int idEstado, string orden)
+    {
+        ParametrosPaginacion parametros = new()
+            {
+                NumeroPagina = numeroPagina,
+                TamañoPagina = tamanoPagina,
+                Orden = orden,
+                Buscar = valorBusqueda,
+                ID1 = idRango,
+                ID2 = idEstado
+            };
+
+        respuestaPersonal = await personalService.MostrarPersonal(parametros);
+        registrosActuales = respuestaPersonal.TotalRegistros;
+        totalPaginas = (int)Math.Ceiling((double)registrosActuales / tamanoPagina);
+        paginaActual = numeroPagina;
+    }
+
+    private async Task CargarPersonalBuscado(ChangeEventArgs e)
+    {
+        try
+        {
+            valorBusqueda = e.Value.ToString();
+
+            if (valorBusqueda != "")
+            {
+                await CargarPagina(paginaActual, 0, 0, valorOrden);
+            }
+            else
+            {
+                await CargarPagina(paginaActual, rango, estado, valorOrden);
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Error al realizar la solicitud: {ex.Message}");
+            throw;
+        }
+    }
+
+    // Handlers mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private async Task HandlePageChanged(int newPage)
+    {
+        paginaActual = newPage;
+        await CargarPagina(newPage, rango, estado, valorOrden);
+    }
+
+    // Modals mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private async Task ShowModal(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                Size = ModalSize.Large,
+                Position = ModalPosition.Middle
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalPersonal.idPersonalEditar), ID);
+
+        var modal = Modal.Show<ModalPersonal>("Gestion Personal", parametros, options);
+        var resultado = await modal.Result;
+
+        if (resultado.Confirmed)
+        {
+            if (resultado.Data.ToString() == "Ejecucion Correcta")
+            {
+                await CargarPagina(paginaActual, rango, estado, valorOrden);
+            }
+        }
+
+    }
+
+    private async Task ModalLookup(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                Size = ModalSize.Medium,
+                Position = ModalPosition.Middle
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalLookupPersonal.idPersonalKey), ID);
+
+        var modal = Modal.Show<ModalLookupPersonal>("Cambiar estado Personal", parametros, options);
+        var resultado = await modal.Result;
+
+        if (resultado.Confirmed)
+        {
+            if (resultado.Data.ToString() == "Ejecucion Correcta")
+            {
+                await CargarPagina(paginaActual, rango, estado, valorOrden);
+            }
+        }
+
+    }
+
+    private async Task Eliminar(int id)
+    {
+        var respuesta = await Sweet.FireAsync(new SweetAlertOptions
+            {
+                Title = "Eliminar Personal",
+                Text = "Deseas Eliminar el Trabajador?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true
+            });
+
+        if (respuesta.IsConfirmed)
+        {
+            var eliminado = await personalService.EliminarPersonal(id);
+
+            if (eliminado == "Ejecucion Correcta")
+            {
+                await CargarPagina(paginaActual, 0, 0, "Descendente");
+            }
+        }
+    }
+
 }
+
+
+
+
+
+
+@*                          
+    <div class="contenCheck">
+        <input @onclick="@(()=> FiltroRango(0))" checked="@(0 == rangoSeleccionado)" type="checkbox" id="checkGeneralRango" />
+        <label class="nombreCheck" for="checkGeneralRango">Registros Generales</label>
+    </div>
+*@
+
+@*
+    ValorBusqueda="@valorBusqueda"
+    IdRango="@rango"
+    IdEstado="@estado"
+    OnBusquedaChanged="HandleBusquedaChanged"
+    OnRangoChanged="HandleRangoChanged"
+    OnEstadoChanged="HandleEstadoChanged" 
+*@
+
+@*  
+    private async Task HandleBusquedaChanged(string newBusqueda)
+    {
+        valorBusqueda = newBusqueda;
+        await CargarPagina(paginaActual, 0, 0, valorOrden);
+    }
+
+    private async Task HandleRangoChanged(int newTipo)
+    {
+        rango = newTipo;
+        await CargarPagina(paginaActual, newTipo, estado, valorOrden);
+    }
+
+    private async Task HandleEstadoChanged(int newEstado)
+    {
+        rango = newEstado;
+        await CargarPagina(paginaActual, rango, newEstado, valorOrden);
+    }
+*@
+    
+

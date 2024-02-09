@@ -1,0 +1,48 @@
+﻿
+.paginado
+{
+    border-radius: 50px !important;
+}
+
+.btnPaginaInicial
+{
+    border-top-left-radius: 25px !important;
+    border-bottom-left-radius: 25px !important;
+    border: 2px solid #F1E8FF;
+    color: #91afe5;
+}
+
+.btnPaginaFinal
+{
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+    border: 2px solid #F1E8FF;
+    color: #91afe5;
+}
+
+.btnAtras
+{
+    border: 2px solid #F1E8FF;
+    color: #91afe5;
+}
+
+.btnNumeros
+{
+    border: 2px solid #F1E8FF;
+    color: #91afe5;
+}
+
+.btnSiguiente
+{
+    border: 2px solid #F1E8FF;
+    color: #91afe5;
+}
+
+/*----------------------------------------*/
+
+.activate
+{
+    background-color: #91afe5 !important;
+    color: white;
+}
+

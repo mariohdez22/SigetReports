@@ -32,8 +32,6 @@ font-family: 'Raleway', sans-serif;
     justify-content: space-between;
 }
 
-/*----------------------------------------------------------*/
-
 .barra
 {
     width: 18vw;
@@ -43,7 +41,8 @@ font-family: 'Raleway', sans-serif;
     gap: 35px;
 }
 
-/*----------------------------------------------------------*/
+/*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+/* Opciones componente */
 
 .opciones
 {
@@ -55,74 +54,9 @@ font-family: 'Raleway', sans-serif;
     padding: 15px;
 }
 
-/*---------------------------*/
+/*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+/* Filtro componente */
 
-.tituloOpciones
-{
-    background-color: #eaeaea;
-    width: 100%;
-    height: 28px;
-    padding: 4px;
-    padding-left: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.tituloOpciones p
-{
-    font-size: 14px;
-    color: #383838;
-    font-family: 'Raleway', sans-serif;
-}
-
-.botonesOpciones
-{
-    display: flex;
-    gap: 15px;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.agregar
-{
-    outline: none;
-    border: 0px;
-    width: 100%;
-    height: 30px;
-    background: #91afe5;
-    border-radius: 5px;
-    color: white;
-}
-
-.informe
-{
-    outline: none;
-    border: 0px;
-    width: 100%;
-    height: 30px;
-    background: #91afe5;
-    border-radius: 5px;
-    color: white;
-}
-
-.buscador
-{
-    width: 100%;
-    outline: none;
-    border: 1px solid #c8c8c8;
-    border-radius: 5px;
-    padding-left: 8px;
-    font-size: 14px;
-    font-family: 'Raleway', sans-serif;
-}
-
-.buscador::placeholder
-{
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-}
-
-/*----------------------------------------------------------*/
 .filtro
 {
     width: 100%;
@@ -133,73 +67,9 @@ font-family: 'Raleway', sans-serif;
     padding: 15px;
 }
 
-.tituloFiltro
-{
-    background-color: #eaeaea;
-    width: 100%;
-    height: 28px;
-    padding: 4px;
-    padding-left: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
+/*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+/* Contenido componente */
 
-.tituloFiltro p
-{
-    font-size: 14px;
-    color: #383838;
-    font-family: 'Raleway', sans-serif;
-}
-
-.contenidoFiltro
-{
-    width: 100%;
-    height: 30.3vh;
-    overflow-y: scroll;
-    padding-right: 10px;
-}
-
-.contenidoFiltro::-webkit-scrollbar
-{
-    -webkit-appearance: none;
-}
-
-.contenidoFiltro::-webkit-scrollbar:vertical
-{
-    width: 10px;
-}
-
-.contenidoFiltro::-webkit-scrollbar-button:increment, #scroll::-webkit-scrollbar-button
-{
-    display: none;
-}
-
-.contenidoFiltro::-webkit-scrollbar:horizontal
-{
-    height: 10px;
-}
-
-.contenidoFiltro::-webkit-scrollbar-thumb
-{
-    background-color: #DFDFDF;
-    border-radius: 20px;
-    border: 2px solid #f1f2f3;
-}
-
-.contenidoFiltro::-webkit-scrollbar-track
-{
-    border-radius: 10px;
-}
-
-.espacioFiltro
-{
-    background-color: #eaeaea;
-    width: 100%;
-    height: 10vh;
-    margin-bottom: 10px;
-}
-
-/*----------------------------------------------------------*/
 .contenido
 {
     width: 71vw;
@@ -220,7 +90,7 @@ font-family: 'Raleway', sans-serif;
 
 .contenido::-webkit-scrollbar:vertical
 {
-    width: 10px;
+    width: 8px;
 }
 
 .contenido::-webkit-scrollbar-button:increment, #scroll::-webkit-scrollbar-button
@@ -235,9 +105,9 @@ font-family: 'Raleway', sans-serif;
 
 .contenido::-webkit-scrollbar-thumb
 {
-    background-color: #DFDFDF;
+    background-color: #ffffff;
     border-radius: 20px;
-    border: 2px solid #f1f2f3;
+    border: 1px solid #D4D4D4;
 }
 
 .contenido::-webkit-scrollbar-track
@@ -245,219 +115,24 @@ font-family: 'Raleway', sans-serif;
     border-radius: 10px;
 }
 
-/*----------------------------------------------------------*/
+/*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+/* Footer componente */
 
-.tarjeta
-{
-    background-color: white;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    width: 33.5vw;
-    height: 40.9vh;
-    border-radius: 10px;
-    display: flex;
-}
-
-/*----------------------------------------------------------*/
-
-.perfil
-{
-    background: rgba(64, 50, 155, 0.16);
-    width: 20vw;
-    height: 40.9vh;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-/*---------------------------*/
-
-.apartadoA
-{
-    width: 17vw;
-    height: 19.5vh;
-    padding: 15px;
-}
-
-.muestraInicial
+.footer
 {
     width: 100%;
-    height: 100%;
+    height: 10.5vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    padding-right: 40px;
 }
 
-.foto
+.paginacion
 {
-    background: linear-gradient(135deg, #74FFAB 0%, #7CA9FF 100%);
-    border-radius: 50px;
-    width: 90px;
-    height: 90px;
-}
-
-.estado
-{
-    background: #63FFB4;
-    border-radius: 10px;
-    width: auto;
-    height: 30px;
-    padding: 5px;
+    width: 71vw;
+    height: 10.5vh;
+    padding: 20px;
+    padding-top: 28px;
     display: flex;
-    align-items: center;
-}
-
-.icono
-{
-    background-color: white;
-    border-radius: 5px;
-    height: 100%;
-    width: 20px;
-    margin-right: 5px;
-}
-
-.nombreEstado
-{
-    height: 100%;
-    width: auto;
-    padding-right: 5px;
-}
-
-.nombreEstado p
-{
-    margin-top: -2px;
-    font-family: 'Raleway', sans-serif;
-    color: white;
-}
-
-/*---------------------------*/
-
-.apartadoB
-{
-    width: 17vw;
-    height: 15vh;
-    display: flex;
-    padding: 15px;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.texto
-{
-    width: 100%;
-    height: 30px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 5px;
-    display: flex;
-    gap: 5px;
-}
-
-.iconoTexto
-{
-    background-color: #e4e4e4;
-    border-radius: 5px;
-    height: 100%;
-    width: 20px;
-    margin-right: 5px;
-    color: #909090;
-    padding-left: 2.5px;
-    font-size: 15px;
-}
-
-.texto p
-{
-    font-size: 14px;
-    color: #666666;
-}
-
-/*---------------------------*/
-.apartadoC
-{
-    width: 17vw;
-    height: min-content;
-    display: flex;
-    padding: 15px;
-    padding-top: 0px;
-    gap: 15px;
-}
-
-.edicion
-{
-    outline: none;
-    border: 0px;
-    width: 100%;
-    height: 30px;
-    background: #b7aaed;
-    border-radius: 10px;
-    color: white;
-}
-
-.rechazo
-{
-    outline: none;
-    border: 0px;
-    width: 100%;
-    height: 30px;
-    background: #b7aaed;
-    border-radius: 10px;
-    color: white;
-}
-
-/*----------------------------------------------------------*/
-.extras
-{
-    width: 20vw;
-    height: 40.9vh;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    gap: 15px;
-}
-
-/*---------------------------*/
-
-.textoExtra
-{
-    width: 100%;
-    height: 30px;
-    border-radius: 10px;
-    display: flex;
-    gap: 10px;
-}
-
-.iconoExtra
-{
-    width: 40px;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.06);
-    border-radius: 10px;
-    font-size: 20px;
-    padding-top: 1.5px;
-    padding-left: 6.5px;
-    color: #909090;
-}
-
-.apartadoExtra
-{
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.06);
-/*    background-color: aquamarine;*/
-    border-radius: 10px;
-    padding-top: 4px;
-    padding-left: 7px;
-}
-
-.apartadoExtra p
-{
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    color: #4e4e4e;
-}
-
-.correo
-{
-    font-size: 10px !important;
-    margin-top: 4.5px;
+    justify-content: center;
 }
