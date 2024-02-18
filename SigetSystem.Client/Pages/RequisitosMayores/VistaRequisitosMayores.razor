@@ -14,7 +14,21 @@
 
                 @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
+                <div class="tituloOpciones">
+                    <p>Opciones de los requisitos</p>
+                </div>
 
+                <div class="botonesOpciones">
+
+                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+
+                </div>
+
+                <div class="tituloOpciones">
+                    <p>Buscador</p>
+                </div>
+
+                <input type="text" @* @bind="valorBusqueda" *@ @* @oninput="CargarPersonalBuscado" *@ class="buscador" placeholder="Buscar Registro" />
 
                 @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -24,7 +38,69 @@
 
                 @* Apartado de Filtros mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
+                <div class="tituloFiltro">
+                    <p>Filtros para los requisitos</p>
+                </div>
 
+                <div class="contenidoFiltro">
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por orden:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 2 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="checkOrden1" name="checkOrden1" />
+                                <label class="nombreCheck" for="checkOrden1">Ascendente</label>
+                            </div>
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="checkOrden2" name="checkOrden2" />
+                                <label class="nombreCheck" for="checkOrden2">Descendente</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por tipo:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 2 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="" />
+                                <label class="nombreCheck" for="">Tipado 1</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por estado:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 1 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="" />
+                                <label class="nombreCheck" for="">Estado 1</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
                 @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -36,7 +112,222 @@
 
             @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
+            <div class="tarjeta">
 
+                <div class="tarjetaTitulos">
+
+                    <div class="tituloA">
+                        <p>RMN-103224</p>
+                    </div>
+
+                    <div class="tituloB">
+                        <p>@DateTime.Now</p>
+                    </div>
+
+                </div>
+
+                <div class="tarjetaContenido">
+
+                    <div class="perfil">
+
+                        <div class="apartadoA">
+
+                            <div class="texto">
+                                <div class="iconoTexto">
+                                    <i class="bi bi-building-fill"></i>
+                                </div>
+                                <p>ZT Ingenieros</p>
+                            </div>
+
+                            <div class="texto">
+                                <div class="iconoTexto">
+                                    <i class="bi bi-person-circle"></i>
+                                </div>
+                                <p>RogerDestres</p>
+                            </div>
+
+                            <div class="tituloChecks">
+                                <p>Apartado Checks</p>
+                            </div>
+
+                        </div>
+
+                        <div class="apartadoB">
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </div>
+                                <input class="mtp" checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-clipboard2-check-fill"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-person-vcard-fill"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-person-vcard"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-person-vcard"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-card-heading"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-map-fill"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-map"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-pass-fill"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-patch-check-fill"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-pass"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-file-medical-fill"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                            <div class="checks">
+                                <div class="iconoCheck">
+                                    <i class="bi bi-houses-fill"></i>
+                                </div>
+                                <input checked="" type="checkbox" id="" />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="extras">
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-person-vcard-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>DuiPropietario.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-person-vcard"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>DuiRetiro.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-person-vcard"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>DuiElectricista.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-card-heading"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>CarnetElectricista.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-map-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>PlanosDiseñoMinimo.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-map"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>PlanosConstruccion.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-pass-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>FacturaDeMateriales.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-patch-check-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>Transformador.pdf</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
             @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 

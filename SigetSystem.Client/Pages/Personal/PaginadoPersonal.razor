@@ -42,26 +42,8 @@
     [Parameter]
     public int TotalPaginas { get; set; }
 
-    // [Parameter]
-    // public string? ValorBusqueda { get; set; }
-
-    // [Parameter]
-    // public int IdRango { get; set; }
-
-    // [Parameter]
-    // public int IdEstado { get; set; }
-
     [Parameter]
     public EventCallback<int> OnPageChanged { get; set; }
-
-    [Parameter]
-    public EventCallback<string> OnBusquedaChanged { get; set; }
-
-    [Parameter]
-    public EventCallback<int> OnRangoChanged { get; set; }
-
-    [Parameter]
-    public EventCallback<int> OnEstadoChanged { get; set; }
 
     private bool PrimeraPagina => PaginaActual == 1;
 
@@ -82,8 +64,40 @@
 
         PaginaActual = pagina;
         await OnPageChanged.InvokeAsync(pagina);
-        // await OnBusquedaChanged.InvokeAsync(ValorBusqueda);
-        // await OnRangoChanged.InvokeAsync(IdRango);
-        // await OnEstadoChanged.InvokeAsync(IdEstado);
+        
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*     // [Parameter]
+    // public string? ValorBusqueda { get; set; }
+
+    // [Parameter]
+    // public int IdRango { get; set; }
+
+    // [Parameter]
+    // public int IdEstado { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnBusquedaChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnRangoChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnEstadoChanged { get; set; }
+
+    // await OnBusquedaChanged.InvokeAsync(ValorBusqueda);
+    // await OnRangoChanged.InvokeAsync(IdRango);
+    // await OnEstadoChanged.InvokeAsync(IdEstado); *@

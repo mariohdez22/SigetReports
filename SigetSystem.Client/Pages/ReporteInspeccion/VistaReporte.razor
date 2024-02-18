@@ -1,5 +1,186 @@
-﻿<h3>VistaReporte</h3>
+﻿@page "/vistaReporte"
+@inject SweetAlertService Sweet;
+@inject TituloService tituloService;
 
-@code {
+<section class="ContenedorGeneral">
+
+    <h5 class="indice">Inicio > Administracion de Organismos</h5>
+
+    <section class="ContenidoPrincipal">
+
+        <div class="barra">
+
+            <div class="opciones">
+
+                @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+                <div class="tituloOpciones">
+                    <p>Opciones para el organismo</p>
+                </div>
+
+                <div class="botonesOpciones">
+
+                    <button class="agregar"><i class="bi bi-plus-circle"></i> Agregar</button>
+
+                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+
+                </div>
+
+                <div class="tituloOpciones">
+                    <p>Buscador</p>
+                </div>
+
+                <input type="text" class="buscador" placeholder="Buscar Registro" />
+
+                <div class="botonesFilter">
+
+                    <button><i class="bi bi-exclamation-circle"></i></button>
+
+                    <button><i class="bi bi-check-circle"></i></button>
+
+                    <button><i class="bi bi-x-circle"></i></button>
+
+                </div>
+
+                @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+            </div>
+
+            <div class="filtro">
+
+                @* Apartado de Filtros mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+                <div class="tituloFiltro">
+                    <p>Filtros para el organismo</p>
+                </div>
+
+                <div class="contenidoFiltro">
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por orden:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 2 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="checkOrden1" name="checkOrden1" />
+                                <label class="nombreCheck" for="checkOrden1">Ascendente</label>
+                            </div>
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="checkOrden2" name="checkOrden2" />
+                                <label class="nombreCheck" for="checkOrden2">Descendente</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por tipo:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 2 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="" />
+                                <label class="nombreCheck" for="">Tipado 1</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por estado:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 1 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="" />
+                                <label class="nombreCheck" for="">Estado 1</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+            </div>
+
+        </div>
+
+        <div class="contenido">
+
+            @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+            
+
+            @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+        </div>
+
+    </section>
+
+    <section class="footer">
+
+        <div class="paginacion">
+            @*
+            <PaginadoOrganismo PaginaActual="@paginaActual"
+            TotalPaginas="@totalPaginas"
+            OnPageChanged="HandlePageChanged">
+            </PaginadoOrganismo> *@
+
+        </div>
+
+    </section>
+
+</section>
+
+@code 
+{
+    // Objetos de modelos mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Variables con valores cambiantes mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Variables para Paginacion mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Modal mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    // MetodoInicializador mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    protected override async Task OnInitializedAsync()
+    {
+        tituloService.AgregarTitulo("Administracion de Reportes");
+    }
+
+    // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Handlers mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Modals mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
 
 }

@@ -1,5 +1,54 @@
-﻿<h3>ModalRepresentante</h3>
+﻿@inject IRepresentanteService representanteService;
+<style>
+    :root
+    {
+        --color-inputs: #afafe7;
+    }
+</style>
 
-@code {
+<h5 class="tituloModalAgregar">Agregar Representante</h5>
+<br />
+
+@* <EditForm Model="representante" OnValidSubmit="OnValidSubmit"> 
+
+    <DataAnnotationsValidator></DataAnnotationsValidator> *@
+
+    <div class="contenedorInputs">
+
+        <div class="parteInputsA">
+        
+            @* apartado para agregar los inputs, selects, etc... *@
+
+        </div>
+
+        <div class="parteInputsB">
+
+            @* apartado para agregar los inputs, selects, etc... *@
+
+        </div>
+
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>&nbsp;&nbspHOLAXD</button>
+
+@* </EditForm> *@
+
+@code
+{
+    [Parameter]
+    public int idRepresentanteEditar { get; set; } = 0;
+
+    string titulo = string.Empty;
+    string btnTexto = string.Empty;
+
+    //----------------------------------------------------------------------------------
+
+    OrganismoDTO organismo = new OrganismoDTO();
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    //----------------------------------------------------------------------------------
 
 }

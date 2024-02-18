@@ -14,7 +14,31 @@
 
                 @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-                
+                <div class="tituloOpciones">
+                    <p>Opciones para el organismo</p>
+                </div>
+
+                <div class="botonesOpciones">
+
+                    <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
+
+                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+
+                </div>
+
+                <div class="tituloOpciones">
+                    <p>Buscador</p>
+                </div>
+
+                <input type="text" class="buscador" placeholder="Buscar Registro" />
+
+                @* <div class="botonesOpciones" style="margin-top: 15px; margin-bottom: 0px;">
+
+                    <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
+
+                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+
+                </div> *@
 
                 @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -24,7 +48,69 @@
 
                 @* Apartado de Filtros mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-                
+                <div class="tituloFiltro">
+                    <p>Filtros para el organismo</p>
+                </div>
+
+                <div class="contenidoFiltro">
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por orden:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 2 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="checkOrden1" name="checkOrden1" />
+                                <label class="nombreCheck" for="checkOrden1">Ascendente</label>
+                            </div>
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="checkOrden2" name="checkOrden2" />
+                                <label class="nombreCheck" for="checkOrden2">Descendente</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por tipo:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 2 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="" />
+                                <label class="nombreCheck" for="">Tipado 1</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por estado:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 1 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="" />
+                                <label class="nombreCheck" for="">Estado 1</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
                 @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -36,7 +122,83 @@
 
             @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-                  
+            <div class="tarjeta">
+
+                <div class="perfil">
+
+                    <p>ZT Ingenieros</p>
+
+                    <div class="estadoIcon color-Acreditado"><i class="bi bi-person-fill-exclamation"></i></div>
+
+                </div>
+
+                <div class="extras">
+
+                    <div class="textoExtra miniEspacio">
+                        <div class="iconoExtra">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>Mario Oscar Hernandez</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p class="correo">Herzmariohdez@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>7889-4343</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-c-circle-fill"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>UNH567843</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-building-fill-exclamation"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>Acreditada</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra">
+                        <div class="iconoExtra">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div class="apartadoExtra">
+                            <p>AmilMerck789</p>
+                        </div>
+                    </div>
+
+                    <div class="textoExtra miniEspacio">
+
+                        <button class="edicion" @* @onclick="@(() => ShowModal(item.IdPersonal))" *@><i class="bi bi-pencil-square"></i> Editar</button>
+
+                        <button class="rechazo" @* @onclick="(() => ModalLookup(item.IdPersonal))" *@><i class="bi bi-x-circle"></i> Quitar</button>
+
+                    </div>
+
+                </div>
+
+            </div>
 
             @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -47,11 +209,11 @@
     <section class="footer">
 
         <div class="paginacion">
-
-            @* <PaginadoPersonal PaginaActual="@paginaActual"
+@* 
+            <PaginadoOrganismo PaginaActual="@paginaActual"
                               TotalPaginas="@totalPaginas"
                               OnPageChanged="HandlePageChanged">
-            </PaginadoPersonal> *@
+            </PaginadoOrganismo> *@
 
         </div>
 
@@ -61,8 +223,60 @@
 
 @code 
 {
+
+    // Objetos de modelos mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Variables con valores cambiantes mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Variables para Paginacion mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Modal mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    // MetodoInicializador mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
     protected override async Task OnInitializedAsync()
     {
         tituloService.AgregarTitulo("Administracion de Organismos");
+    }
+
+    // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Handlers mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Modals mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private async Task ShowModal(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                Size = ModalSize.Large,
+                Position = ModalPosition.Middle
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalOrganismo.idOrganismoEditar), ID);
+
+        var modal = Modal.Show<ModalOrganismo>("Gestion Organismo", parametros, options);
+        var resultado = await modal.Result;
+
+        // if (resultado.Confirmed)
+        // {
+        //     if (resultado.Data.ToString() == "Ejecucion Correcta")
+        //     {
+        //         await CargarPagina(paginaActual, rango, estado, valorOrden);
+        //     }
+        // }
+
     }
 }
