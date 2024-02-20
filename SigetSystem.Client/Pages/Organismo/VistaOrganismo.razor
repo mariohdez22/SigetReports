@@ -216,9 +216,9 @@
 
                             <div class="textoExtra miniEspacio">
 
-                                <button class="edicion" @onclick="@(() => ShowModal(item.IdPersonal))"><i class="bi bi-pencil-square"></i> Editar</button>
+                                <button class="edicion" @onclick="@(() => ShowModal(item.IdOrganismo))"><i class="bi bi-pencil-square"></i> Editar</button>
 
-                                <button class="rechazo" @onclick="(() => ModalLookup(item.IdPersonal))"><i class="bi bi-x-circle"></i> Quitar</button>
+                                <button class="rechazo" @onclick="(() => ModalLookup(item.IdEstadoAcreditacion))"><i class="bi bi-x-circle"></i> Quitar</button>
 
                             </div>
 
@@ -301,7 +301,7 @@
 
 
 
-        await CargarPagina(paginaActual, 0, 0, "Descendente");
+        await CargarPagina(paginaActual, 0, 0, "Ascendente");
         var r = await perService.MostrarPersonal(parametros);
 
         listaPersonalDto = r.Resultado;
@@ -355,8 +355,17 @@
 
         resOrg = await orgService.MostrarOrganismos(parametros);
         registrosActuales = resOrg.TotalRegistros;
-        totalPaginas = (int)Math.Ceiling((double)registrosActuales / tamanoPagina);
-        tamanoPagina = numeroPagina;
+
+        if(registrosActuales > tamanoPagina)
+        {
+            totalPaginas = (int)Math.Ceiling((double)registrosActuales / tamanoPagina);
+        }
+        else
+        {
+            totalPaginas = 1;
+        }
+        
+        paginaActual = numeroPagina;
     }
 
     private async Task CargarOrganismosBuscados(ChangeEventArgs e)
