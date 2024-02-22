@@ -1,6 +1,9 @@
 ﻿@page "/vistaRequisitosMenores"
 @inject SweetAlertService Sweet;
 @inject TituloService tituloService;
+@inject IRequisitoMenorService requisitoService;
+@inject IOrganismoService organismoService;
+@inject IRepresentanteService representanteService;
 
 <section class="ContenedorGeneral">
 
@@ -28,7 +31,7 @@
                     <p>Buscador</p>
                 </div>
 
-                <input type="text" @* @bind="valorBusqueda" *@ @* @oninput="CargarPersonalBuscado" *@ class="buscador" placeholder="Buscar Registro" />
+                <input type="text" @bind="valorBusqueda"  @oninput="CargarRequisitoBuscado" class="buscador" placeholder="Buscar Registro" />
 
                 @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -53,26 +56,26 @@
                             @* apartado checks 2 *@
 
                             <div class="contenCheck">
-                                <input checked="" type="checkbox" id="checkOrden1" name="checkOrden1" />
+                                <input @onclick="@(() => OrdenarRequisitos("Ascendente"))" checked="@("Ascendente" == ordenSeleccionada)" type="checkbox" id="checkOrden1" name="checkOrden1" />
                                 <label class="nombreCheck" for="checkOrden1">Ascendente</label>
                             </div>
 
                             <div class="contenCheck">
-                                <input checked="" type="checkbox" id="checkOrden2" name="checkOrden2" />
+                                <input @onclick="@(() => OrdenarRequisitos("Descendente"))" checked="@("Descendente" == ordenSeleccionada)" type="checkbox" id="checkOrden2" name="checkOrden2" />
                                 <label class="nombreCheck" for="checkOrden2">Descendente</label>
                             </div>
 
                         </div>
 
                     </div>
-
+                    @*
                     <div class="espacioFiltro">
 
                         <h5>Filtrar por tipo:</h5>
 
                         <div class="contenedorChecks">
 
-                            @* apartado checks 2 *@
+                            @* apartado checks 2 
 
                             <div class="contenCheck">
                                 <input checked="" type="checkbox" id="" />
@@ -89,7 +92,7 @@
 
                         <div class="contenedorChecks">
 
-                            @* apartado checks 1 *@
+                             apartado checks 1 
 
                             <div class="contenCheck">
                                 <input checked="" type="checkbox" id="" />
@@ -98,7 +101,7 @@
 
                         </div>
 
-                    </div>
+            </div>*@
 
                 </div>
 
@@ -111,17 +114,20 @@
         <div class="contenido">
 
             @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
-
+        @if(resRequisito?.Resultado != null)
+            {
+            @foreach(var item in resRequisito.Resultado)
+            {
             <div class="tarjeta">
 
                 <div class="tarjetaTitulos">
 
                     <div class="tituloA">
-                        <p>RMN-103224</p>
+                        <p>@item.CodigoRequisito</p>
                     </div>
 
                     <div class="tituloB">
-                        <p>@DateTime.Now</p>
+                        <p>@item.FechaRegistro</p>
                     </div>
 
                 </div>
@@ -136,14 +142,14 @@
                                 <div class="iconoTexto">
                                     <i class="bi bi-building-fill"></i>
                                 </div>
-                                <p>ZT Ingenieros</p>
+                                <p>@item.Organismo?.NombreOIA</p>
                             </div>
 
                             <div class="texto">
                                 <div class="iconoTexto">
                                     <i class="bi bi-person-circle"></i>
                                 </div>
-                                <p>RogerDestres</p>
+                                <p>@item.Representante?.Nombres</p>
                             </div>
 
                             <div class="tituloChecks">
@@ -278,7 +284,12 @@
                 </div>
 
             </div>
-
+                }
+            }
+            else
+            {
+                <p>No se encontro resultados</p>
+            }
             @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
         </div>
@@ -302,8 +313,121 @@
 
 @code
 {
+        // Objetos de modelos mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private APIResponse<List<RequisitoMenorDTO>>? resRequisito;
+    private List<OrganismoDTO>? listaOrganismos;
+    private List<RepresentanteDTO>? listaRepresentante;
+
+    // Variables con valores cambiantes mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private int ID1 = 0;
+    private int ID2 = 0;
+    private string valorOrden = "Descendente";
+    private string valorBusqueda = "";
+    private string? ordenSeleccionada;
+    private int? rangoSeleccionado;
+    private int? estadoSeleccionado;
+
+    // Variables para Paginacion mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private int paginaActual = 1;
+    private int tamanoPagina = 6;
+    private int registrosActuales;
+    private int totalPaginas;
+
+    // Modal mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    // MetodoInicializador mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
     protected override async Task OnInitializedAsync()
     {
-        tituloService.AgregarTitulo("Administracion de Requisitos Menores");
+        tituloService.AgregarTitulo("Administracion de Requisitos Mayores");
+
+        ParametrosPaginacion parametros = new()
+            {
+                NumeroPagina = 1,
+                TamañoPagina = tamanoPagina,
+                Orden = "Ascendente",
+                Buscar = valorBusqueda,
+                ID1 = ID1,
+                ID2 = ID2
+            };
+
+        await CargarPagina(paginaActual, 0, 0, "Descendente");
+        var rOrg = await organismoService.MostrarOrganismos(parametros);
+        var rRep = await representanteService.MostrarRepresentante(parametros);
+
+        listaOrganismos = rOrg.Resultado;
+        listaRepresentante = rRep.Resultado;
     }
+
+    // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private async Task OrdenarRequisitos(string valor)
+    {
+        if (ordenSeleccionada == valor)
+        {
+            ordenSeleccionada = null;
+        }
+        else
+        {
+            ordenSeleccionada = valor;
+        }
+
+        await CargarPagina(paginaActual, ID1, ID2, valor);
+        valorOrden = valor;
+    }
+
+    private async Task CargarPagina(int numeroPagina, int ID1, int ID2, string orden)
+    {
+        ParametrosPaginacion parametros = new()
+            {
+                NumeroPagina = numeroPagina,
+                TamañoPagina = tamanoPagina,
+                Orden = orden,
+                Buscar = valorBusqueda,
+                ID1 = ID1,
+                ID2 = ID2
+            };
+
+        resRequisito = await requisitoService.MostrarRequisitoMenor(parametros);
+        registrosActuales = resRequisito.TotalRegistros;
+        totalPaginas = (int)Math.Ceiling((double)registrosActuales / tamanoPagina);
+        paginaActual = numeroPagina;
+    }
+
+    private async Task CargarRequisitoBuscado(ChangeEventArgs e)
+    {
+        try
+        {
+            valorBusqueda = e.Value.ToString();
+
+            if (valorBusqueda != "")
+            {
+                await CargarPagina(paginaActual, 0, 0, valorOrden);
+            }
+            else
+            {
+                await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Error al realizar la solicitud: {ex.Message}");
+            throw;
+        }
+    }
+
+    // Handlers mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private async Task HandlePageChanged(int newPage)
+    {
+        paginaActual = newPage;
+        await CargarPagina(newPage, ID1, ID2, valorOrden);
+    }
+
+    // Modals mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 }
