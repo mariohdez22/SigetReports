@@ -65,7 +65,10 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
                     c.ArchivoCopiaGarantiaDeTransformador!.Contains(pp.Buscar) ||
                     c.ArchivoPlanosDualesDeConstruccion!.Contains(pp.Buscar) ||
                     c.ArchivoPlanosDualesDeDiseñoMinimo!.Contains(pp.Buscar) ||
-                    c.FechaRegistro!.ToString() == pp.Buscar
+                    c.FechaRegistro!.ToString().Contains(pp.Buscar) ||
+                    c.Organismo.CodigoUnico!.Contains(pp.Buscar) ||
+                    c.Organismo.NombreOIA!.Contains(pp.Buscar) ||
+                    c.Representante.Nombres!.Contains(pp.Buscar)
                 );
             }
 
