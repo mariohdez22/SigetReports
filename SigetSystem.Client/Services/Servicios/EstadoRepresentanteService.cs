@@ -16,7 +16,7 @@ namespace SigetSystem.Client.Services.Servicios
 
         public async Task<List<EstadoRepresentanteDTO>> MostrarEstadoRepresentante()
         {
-            var resultado = await _httpClient.GetFromJsonAsync<APIResponse<List<EstadoRepresentanteDTO>>>("api/EstadoPersonal/Consulta");
+            var resultado = await _httpClient.GetFromJsonAsync<APIResponse<List<EstadoRepresentanteDTO>>>("api/EstadoRepresentante/Consulta");
 
             if (resultado!.EsExitoso == true)
             {

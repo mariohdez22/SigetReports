@@ -1,8 +1,10 @@
-﻿namespace SigetSystem.Client.Services.Interfaces
-{
-    public interface IRepresentanteService
-    {
+﻿using SigetSystem.Shared.DTOs.Hijas;
+using SigetSystem.Shared.MPPs;
 
+namespace SigetSystem.Client.Services.Interfaces
+{
+    public interface IRepresentanteService 
+    {
         Task<APIResponse<List<RepresentanteDTO>>> MostrarRepresentante(ParametrosPaginacion pp);
 
         Task<RepresentanteDTO> BuscarRepresentante(int id);

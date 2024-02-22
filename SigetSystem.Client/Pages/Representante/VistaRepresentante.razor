@@ -108,7 +108,7 @@
                                 @foreach (var item in listaOrganismo)
                                 {
                                     <div class="contenCheck">
-                                        <input @onclick="@(()=> FiltroOrganismo(item.IdOrganismo))" checked="@(item.IdOrganismo == estadoSeleccionado)" type="checkbox" id="@($"check{item.NombreOIA}")" />
+                                        <input @onclick="@(()=> FiltroOrganismo(item.IdOrganismo))" checked="@(item.IdOrganismo == organismoSeleccionado)" type="checkbox" id="@($"check{item.NombreOIA}")" />
                                         <label class="nombreCheck" for="@($"check{item.NombreOIA}")">@item.NombreOIA</label>
                                     </div>
                                 }
@@ -261,6 +261,7 @@
     private APIResponse<List<RepresentanteDTO>>? respuestaRepresentante;
     private List<EstadoRepresentanteDTO>? listaEstado;
     private List<OrganismoDTO>? listaOrganismo;
+    ParametrosPaginacion? pp;
 
     // Variables con valores cambiantes mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
