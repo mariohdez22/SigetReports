@@ -408,7 +408,7 @@
 
         await CargarPagina(paginaActual, 0, 0, "Descendente");
         var rOrg = await organismoService.MostrarOrganismos(parametros);
-        var rRep = await representanteService.MostrarRepresentantes(parametros);
+        var rRep = await representanteService.MostrarRepresentante(parametros);
 
         listaOrganimos = rOrg.Resultado;
         listaRepresentante = rRep.Resultado;

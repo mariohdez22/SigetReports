@@ -3,15 +3,15 @@ using SigetSystem.Shared.MPPs;
 
 namespace SigetSystem.Client.Services.Interfaces
 {
-    public interface IRepresentanteService
+    public interface IRepresentanteService 
     {
-        Task<APIResponse<List<RepresentanteDTO>>> MostrarRepresentantes(ParametrosPaginacion pp);
+        Task<APIResponse<List<RepresentanteDTO>>> MostrarRepresentante(ParametrosPaginacion pp);
 
         Task<RepresentanteDTO> BuscarRepresentante(int id);
 
-        Task<string> CrearRepresentante(RepresentanteDTO dto);
+        Task<string> CrearRepresentante(RepresentanteDTO representante);
 
-        Task<string> EditarRepresentante(RepresentanteDTO dto, int id);
+        Task<string> EditarRepresentante(RepresentanteDTO representante, int id);
 
         Task<string> EliminarRepresentante(int id);
     }
