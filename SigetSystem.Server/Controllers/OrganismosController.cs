@@ -133,7 +133,7 @@ namespace SigetSystem.Server.Controllers
         }
 
         [HttpPut("Editar/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> EditarOrganismos(OrganismoDTO dto, int id)
         {
@@ -141,7 +141,7 @@ namespace SigetSystem.Server.Controllers
 
             try
             {
-                if (dto == null || id <= 0)
+                if (dto == null || id != dto.IdOrganismo)
                 {
                     _apiResponse.EsExitoso = false;
                     _apiResponse.CodigoEstado = HttpStatusCode.BadRequest;
@@ -151,8 +151,8 @@ namespace SigetSystem.Server.Controllers
                 await _repoOrg.EditarOrganismo(_mapper.Map<Organismo>(dto));
 
                 _apiResponse.EsExitoso = true;
-                _apiResponse.CodigoEstado = HttpStatusCode.OK;
-                _apiResponse.Resultado = "Ejecucion correcta";
+                _apiResponse.CodigoEstado = HttpStatusCode.NoContent;
+                _apiResponse.Resultado = "Ejecucion Correcta";
 
                 return Ok(_apiResponse);
 

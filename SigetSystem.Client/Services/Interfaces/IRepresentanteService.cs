@@ -1,8 +1,4 @@
-﻿using SigetSystem.Shared.DTOs.Hijas;
-using SigetSystem.Shared.DTOs.Padres;
-using SigetSystem.Shared.MPPs;
-
-namespace SigetSystem.Client.Services.Interfaces
+﻿namespace SigetSystem.Client.Services.Interfaces
 {
     public interface IRepresentanteService
     {

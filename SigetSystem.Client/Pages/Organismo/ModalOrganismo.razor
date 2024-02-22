@@ -25,7 +25,7 @@
             </div>
 
             <div class="input-group mb-3">
-                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill"></i></span>
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
                 <InputText type="text" class="form-control" @bind-Value="organismo.Responsable" placeholder="Agregar Responsable" style="border: 1px solid var(--color-inputs);"></InputText>
             </div>
 
@@ -77,7 +77,7 @@
 
     <br />
 
-    <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>&nbsp;&nbsp;btnTexto</button>
+    <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>@btnTexto</button>
 
 </EditForm>
 
@@ -134,7 +134,6 @@
             titulo = "Crear registro";
             btnTexto = "Crear Organismo";
             txtPersonalTexto = "Seleccionar al personal...";
-            organismo.IdOrganismo = 1;
         }
 
         personal = res.Resultado;
