@@ -69,22 +69,20 @@
 
                     </div>
 
-@*                     <div class="espacioFiltro">
+                   <div class="espacioFiltro">
 
                         <h5>Filtrar por tipo:</h5>
 
                         <div class="contenedorChecks">
 
-                            apartado checks 2
-
                             <div class="contenCheck">
-                                <input checked="" type="checkbox" id="" />
-                                <label class="nombreCheck" for="">Tipado 1</label>
+                                 
+                                <label class="nombreCheck" for="">Filtrar por Personal</label>
                             </div>
 
                         </div>
 
-                    </div>
+                    </div>@*
 
                     <div class="espacioFiltro">
 
@@ -124,11 +122,11 @@
                         <div class="tarjetaTitulos">
 
                             <div class="tituloA">
-                                <p>RMN-103224</p>
+                                <p>@item.CodigoRequisito</p>
                             </div>
 
                             <div class="tituloB">
-                                <p>@DateTime.Now</p>
+                                <p>@item.FechaRegistro</p>
                             </div>
 
                         </div>
@@ -143,14 +141,14 @@
                                         <div class="iconoTexto">
                                             <i class="bi bi-building-fill"></i>
                                         </div>
-                                        <p>ZT Ingenieros</p>
+                                        <p>@item.Organismo.NombreOIA</p>
                                     </div>
 
                                     <div class="texto">
                                         <div class="iconoTexto">
                                             <i class="bi bi-person-circle"></i>
                                         </div>
-                                        <p>RogerDestres</p>
+                                        <p>@item.Representante.Nombres</p>
                                     </div>
 
                                     <div class="tituloChecks">
@@ -165,91 +163,91 @@
                                         <div class="iconoCheck">
                                             <i class="bi bi-check-circle-fill"></i>
                                         </div>
-                                        <input class="mtp" checked="" type="checkbox" id="" />
+                                        <input class="mtp" checked="@(item.Factibilidad == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-clipboard2-check-fill"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.TotalFormularios == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-person-vcard-fill"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.CopiaDuiPropietario == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-person-vcard"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.CopiaDuiRetiro == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-person-vcard"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.CopiaDuiElectricista == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-card-heading"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.CopiaDuiElectricista == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-map-fill"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.CopiaCarnetElectricista == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-map"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.CopiaCarnetElectricista == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-pass-fill"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.PlanosDualesDeDiseñoMinimo == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-patch-check-fill"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.PlanosDualesDeConstruccion == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-pass"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.CopiaFacturaDeMateriales == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-file-medical-fill"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.CopiaGarantiaDeTransformador == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
                                         <div class="iconoCheck">
                                             <i class="bi bi-houses-fill"></i>
                                         </div>
-                                        <input checked="" type="checkbox" id="" />
+                                        <input checked="@(item.ComprobanteDePago == true)" type="checkbox" id="" />
                                     </div>
 
                                 </div>
@@ -449,6 +447,7 @@
         registrosActuales = resRequisito.TotalRegistros;
         totalPaginas = (int)Math.Ceiling((double)registrosActuales / tamanoPagina);
         paginaActual = numeroPagina;
+
     }
 
     private async Task CargarRequisitoBuscado(ChangeEventArgs e)
