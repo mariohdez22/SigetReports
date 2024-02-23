@@ -1,5 +1,69 @@
-﻿<h3>ModalReporte</h3>
+﻿
+<h5 class="tituloModalAgregar">Detalles del Reporte</h5>
+<br />
 
-@code {
+<div class="contenedorInputs">
 
+    <div class="parteInputsA">
+
+       <div class="infoGeneral">
+
+            <div class="texto">
+                <div class="iconoTexto">
+                    <i class="bi bi-building-fill"></i>
+                </div>
+                <p>Hola como estas</p>
+            </div>
+
+            <div class="texto">
+                <div class="iconoTexto">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <p>Ennove la roche posai</p>
+            </div>
+
+            <div class="texto">
+                <div class="iconoTexto">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <p>Ennove la roche posai</p>
+            </div>
+
+            <div class="texto">
+                <div class="iconoTexto">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <p>Ennove la roche posai</p>
+            </div>
+
+       </div>
+
+       <div class="infoComentario">
+
+            <div class="coment">
+                <div class="iconoComent">
+                    <i class="bi bi-chat-dots-fill"></i> Comentario de Inconformidad
+                </div>
+                <p>No hay comentarios sobre el informe...</p>
+            </div>
+
+       </div>
+
+    </div>
+
+</div>
+
+@code 
+{
+    [Parameter]
+    public int idReporte { get; set; } = 0;
+
+    string titulo = string.Empty;
+    string btnTexto = string.Empty;
+
+    //----------------------------------------------------------------------------------
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    //----------------------------------------------------------------------------------
 }

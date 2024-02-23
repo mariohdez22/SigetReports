@@ -15,14 +15,12 @@
                 @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
                 <div class="tituloOpciones">
-                    <p>Opciones para el organismo</p>
+                    <p>Opciones para el reporte</p>
                 </div>
 
                 <div class="botonesOpciones">
 
-                    <button class="agregar"><i class="bi bi-plus-circle"></i> Agregar</button>
-
-                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Informe</button>
 
                 </div>
 
@@ -124,7 +122,174 @@
 
             @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-            
+            <div class="tarjeta">
+
+                <div class="tarjetaTitulos">
+
+                    <div class="tituloA">
+                        <p>RMN-103224</p>
+                    </div>
+
+                    <div class="tituloB">
+                        <button class="estadoIcon botonDetalles" @onclick="@(()=> ShowModal(0))"><i class="bi bi-card-text"></i> Detalles</button>
+                    </div>
+
+                </div>
+
+                <div class="tarjetaContenido">
+
+                    <div class="perfil">
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>Hola como estas</p>
+                        </div>
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <p>Ennove la roche posai</p>
+                        </div>
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <p>Celular pro max 12</p>
+                        </div>
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <p>Requisitos Minimos Extras</p>
+                        </div>
+
+                        <div class="tituloChecks">
+                            <p>Apartado Fechas</p>
+                        </div>
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>@DateTime.Now</p>
+                        </div>
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <p>@DateTime.Now</p>
+                        </div>
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <p>@DateTime.Now</p>
+                        </div>
+
+                        <div class="texto">
+                            <div class="iconoTexto">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <p>@DateTime.Now</p>
+                        </div>
+
+                    </div>
+
+                    <div class="extras">
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-person-vcard-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>DuiPropietario.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-person-vcard"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>DuiRetiro.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-person-vcard"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>DuiElectricista.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-card-heading"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>CarnetElectricista.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-map-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>PlanosDiseñoMinimo.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-map"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>PlanosConstruccion.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-pass-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>FacturaDeMateriales.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-patch-check-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>Transformador.pdf</p>
+                            </div>
+                        </div>
+
+                        <div class="textoExtra">
+                            <div class="iconoExtra">
+                                <i class="bi bi-map-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>PlanosDiseñoMinimo.pdf</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
             @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -182,5 +347,26 @@
 
     // Modals mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
+    private async Task ShowModal(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                Size = ModalSize.Medium,
+                Position = ModalPosition.Middle
+            };
 
+        var parametros = new ModalParameters().Add(nameof(ModalReporte.idReporte), ID);
+
+        var modal = Modal.Show<ModalReporte>("Gestion Reporte", parametros, options);
+        var resultado = await modal.Result;
+
+        // if (resultado.Confirmed)
+        // {
+        //     if (resultado.Data.ToString() == "Ejecucion Correcta")
+        //     {
+        //         await CargarPagina(paginaActual, rango, estado, valorOrden);
+        //     }
+        // }
+
+    }
 }
