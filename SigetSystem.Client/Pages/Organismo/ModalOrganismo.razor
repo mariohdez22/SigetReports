@@ -1,29 +1,75 @@
 ﻿@inject IOrganismoService organismoService;
+@inject IEstadoAcreditacionService acreditacionService;
+@inject IPersonalService personalService;
+
 <style>
-    :root
-    {
+    :root {
         --color-inputs: #afafe7;
     }
 </style>
 
-<h5 class="tituloModalAgregar">Agregar Organismo</h5>
+<h5 class="tituloModalAgregar">@titulo</h5>
 <br />
 
-@* <EditForm Model="organismo" OnValidSubmit="OnValidSubmit"> 
+<EditForm Model="organismo" OnValidSubmit="OnValidSubmit">
 
-    <DataAnnotationsValidator></DataAnnotationsValidator> *@
+    <DataAnnotationsValidator></DataAnnotationsValidator>
 
     <div class="contenedorInputs">
 
         <div class="parteInputsA">
-        
-            @* apartado para agregar los inputs, selects, etc... *@
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
+                <InputText type="text" class="form-control" @bind-Value="organismo.NombreOIA" placeholder="Agregar Nombre" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
+                <InputText type="text" class="form-control" @bind-Value="organismo.Responsable" placeholder="Agregar Responsable" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-envelope-fill"></i></span>
+                <InputText type="email" class="form-control" @bind-Value="organismo.Email" placeholder="Agregar Email" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-vcard-fill"></i></span>
+                <InputText type="text" class="form-control" @bind-Value="organismo.Telefono" placeholder="Agregar Telefono" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
 
         </div>
 
         <div class="parteInputsB">
 
-            @* apartado para agregar los inputs, selects, etc... *@
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
+                <InputText type="text" class="form-control" @bind-Value="organismo.CodigoUnico" placeholder="Agregar Codigo Unico" style="border: 1px solid var(--color-inputs);"></InputText>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill-gear"></i></span>
+                <InputSelect class="form-select" @bind-Value="organismo.IdEstadoAcreditacion" style="border: 1px solid var(--color-inputs);">
+                    <option value="0">Seleccionar Estado de Acreditacion...</option>
+                    @foreach (var item in acreditacion)
+                    {
+                        <option value="@item.IdEstadoAcreditacion">@item.Estados</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="input-group mb-3">
+                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill-gear"></i></span>
+                <InputSelect class="form-select" @bind-Value="organismo.IdPersonal" style="border: 1px solid var(--color-inputs);">
+                    <option value="@idPersonalTexto">@txtPersonalTexto</option>
+
+                    @foreach (var item in personal)
+                    {
+                        <option value="@item.IdPersonal">@item.Nombres</option>
+                    }
+                </InputSelect>
+            </div>
 
         </div>
 
@@ -31,25 +77,90 @@
 
     <br />
 
-    <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>&nbsp;&nbspHOLAXD</button>
+    <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>@btnTexto</button>
 
-@* </EditForm> *@
+</EditForm>
 
 
-@code 
+@code
 {
     [Parameter]
     public int idOrganismoEditar { get; set; } = 0;
 
     string titulo = string.Empty;
     string btnTexto = string.Empty;
+    string txtPersonalTexto = string.Empty;
+    int idPersonalTexto = 0;
 
     //----------------------------------------------------------------------------------
 
     OrganismoDTO organismo = new OrganismoDTO();
 
+    List<EstadoAcreditacionDTO> acreditacion = new List<EstadoAcreditacionDTO>();
+
+    List<PersonalDTO> personal = new List<PersonalDTO>();
+
+    ParametrosPaginacion? pp;
+
     [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
     //----------------------------------------------------------------------------------
+
+    protected override async Task OnInitializedAsync()
+    {
+        pp = new ParametrosPaginacion()
+            {
+                NumeroPagina = 1,
+                TamañoPagina = sizeof(int),
+                Orden = "Ascendente"
+            };
+
+        APIResponse<List<PersonalDTO>> res = await personalService.MostrarPersonal(pp);
+
+        if (idOrganismoEditar != 0)
+        {
+            organismo = await organismoService.BuscarOrganismo(idOrganismoEditar);
+            titulo = "Editar registro";
+            btnTexto = "Editar Organismo";
+            txtPersonalTexto = "Seleccionar al personal...";
+
+            //var r = res.Resultado.Find(item => item.IdPersonal == organismo.IdPersonal);
+
+            //txtPersonalTexto = r != null ? $"{r.Nombres}" : "Seleccionar al personal...";
+
+        }
+        else
+        {
+            titulo = "Crear registro";
+            btnTexto = "Crear Organismo";
+            txtPersonalTexto = "Seleccionar al personal...";
+        }
+
+        personal = res.Resultado;
+
+        acreditacion = await acreditacionService.MostrarEstadoAcreditacion();
+
+    }
+
+    //----------------------------------------------------------------------------------
+
+    private async Task OnValidSubmit()
+    {
+        string ssres = string.Empty;
+
+        if (idOrganismoEditar == 0)
+        {
+            ssres = await organismoService.AgregarOrganismo(organismo);
+        }
+        else
+        {
+            ssres = await organismoService.EditarOrganismo(organismo, idOrganismoEditar);
+        }
+
+        if (ssres == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ssres));
+        }
+    }
 
 }

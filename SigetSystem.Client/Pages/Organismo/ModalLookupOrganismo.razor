@@ -1,5 +1,121 @@
-﻿<h3>ModalLookupOrganismo</h3>
+﻿@page "/modalLookupOrganismo"
+@inject IOrganismoService sv;
+
+<div class="contenedor">
+
+    <div class="centrado">
+        <h4 class="TituloModal">Elige el estado a cambiar</h4>
+    </div>
+
+    <div class="encajeBotones">
+
+        @if (orgDto.IdEstadoAcreditacion == 1)
+        {
+            <button @onclick="@(() => SuspenderOrganismo())" class="btnEstados"><i class="bi bi-x-circle"></i>&nbsp;&nbsp;Suspendido</button>
+            <button @onclick="@(() => CancelarOrganismo())" class="btnEstados"><i class="bi bi-exclamation-circle"></i>&nbsp;&nbsp;Cancelado</button>
+        }
+        else if (orgDto.IdEstadoAcreditacion == 2)
+        {
+            <button @onclick="@(() => AcreditarOrganismo())" class="btnEstados"><i class="bi bi-check-circle"></i>&nbsp;&nbsp;Acreditado</button>
+            <button @onclick="@(() => CancelarOrganismo())" class="btnEstados"><i class="bi bi-exclamation-circle"></i>&nbsp;&nbsp;Cancelado</button>
+        }
+        else if (orgDto.IdEstadoAcreditacion == 3)
+        {
+            <button @onclick="@(() => AcreditarOrganismo())" class="btnEstados"><i class="bi bi-x-circle"></i>&nbsp;&nbsp;Acreditado</button>
+            <button @onclick="@(() => SuspenderOrganismo())" class="btnEstados"><i class="bi bi-check-circle"></i>&nbsp;&nbsp;Suspendido</button>
+        }
+
+    </div>
+
+</div>
 
 @code {
+
+    [Parameter]
+    public int idOrganismoKey { get; set; } = 0;
+
+    //----------------------------------------------------------------------------------
+
+    OrganismoDTO orgDto = new OrganismoDTO();
+
+    OrganismoDTO? orgNew;
+
+    [CascadingParameter]
+    BlazoredModalInstance blazoredModal { get; set; } = default;
+
+    //----------------------------------------------------------------------------------
+
+    protected override async Task OnInitializedAsync()
+    {
+        orgDto = await sv.BuscarOrganismo(idOrganismoKey);
+    }
+
+    //----------------------------------------------------------------------------------
+
+    private OrganismoDTO createOrganismo(int id)
+    {
+        orgNew = new OrganismoDTO()
+            {
+                IdOrganismo = orgDto.IdOrganismo,
+                NombreOIA = orgDto.NombreOIA,
+                Responsable = orgDto.Responsable,
+                Email = orgDto.Email,
+                Telefono = orgDto.Telefono,
+                CodigoUnico = orgDto.CodigoUnico,
+                IdEstadoAcreditacion = id,
+                IdPersonal = orgDto.IdPersonal
+            };
+
+        return orgNew;
+    }
+
+    //----------------------------------------------------------------------------------
+    private async Task AcreditarOrganismo()
+    {
+        string ssres;
+
+        ssres = await sv.EditarOrganismo(createOrganismo(1), idOrganismoKey);
+
+        if (ssres == "Ejecucion correcta")
+        {
+            await blazoredModal.CloseAsync(ModalResult.Ok(ssres));
+        }
+        else
+        {
+            Console.WriteLine("No se Ejecuto Correctamente");
+        }
+    }
+
+    private async Task SuspenderOrganismo()
+    {
+        string ssres;
+
+        ssres = await sv.EditarOrganismo(createOrganismo(2), idOrganismoKey);
+
+        if (ssres == "Ejecucion correcta")
+        {
+            await blazoredModal.CloseAsync(ModalResult.Ok(ssres));
+        }
+        else
+        {
+            Console.WriteLine("No se Ejecuto Correctamente");
+        }
+    }
+
+    private async Task CancelarOrganismo()
+    {
+        string ssres;
+
+        ssres = await sv.EditarOrganismo(createOrganismo(3), idOrganismoKey);
+
+        if (ssres == "Ejecucion correcta")
+        {
+            await blazoredModal.CloseAsync(ModalResult.Ok(ssres));
+        }
+        else
+        {
+            Console.WriteLine("No se Ejecuto Correctamente");
+        }
+    }
 
 }

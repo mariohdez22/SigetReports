@@ -119,8 +119,8 @@ namespace SigetSystem.Server.Controllers
                 await _repoOrg.CrearOrganismo(org);
 
                 _apiResponse.EsExitoso = true;
-                _apiResponse.CodigoEstado = HttpStatusCode.OK;
-                _apiResponse.Resultado = "El organismo ha sido creado con exito";
+                _apiResponse.CodigoEstado = HttpStatusCode.Created;
+                _apiResponse.Resultado = "Ejecucion Correcta";
             }
             catch (Exception ex)
             {
@@ -133,15 +133,15 @@ namespace SigetSystem.Server.Controllers
         }
 
         [HttpPut("Editar/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AgregarOrganismos(OrganismoDTO dto, int id)
+        public async Task<IActionResult> EditarOrganismos(OrganismoDTO dto, int id)
         {
             var _apiResponse = new APIResponse<string>();
 
             try
             {
-                if (dto == null || id <= 0)
+                if (dto == null || id != dto.IdOrganismo)
                 {
                     _apiResponse.EsExitoso = false;
                     _apiResponse.CodigoEstado = HttpStatusCode.BadRequest;
@@ -151,8 +151,8 @@ namespace SigetSystem.Server.Controllers
                 await _repoOrg.EditarOrganismo(_mapper.Map<Organismo>(dto));
 
                 _apiResponse.EsExitoso = true;
-                _apiResponse.CodigoEstado = HttpStatusCode.OK;
-                _apiResponse.Resultado = "El organismo ha sido modificado";
+                _apiResponse.CodigoEstado = HttpStatusCode.NoContent;
+                _apiResponse.Resultado = "Ejecucion Correcta";
 
                 return Ok(_apiResponse);
 
@@ -168,7 +168,7 @@ namespace SigetSystem.Server.Controllers
         }
 
 
-        [HttpDelete("Eliminar")]
+        [HttpDelete("Eliminar/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

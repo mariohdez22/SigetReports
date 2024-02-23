@@ -1,6 +1,10 @@
 ﻿@page "/vistaRepresentante"
 @inject SweetAlertService Sweet;
 @inject TituloService tituloService;
+@inject IRepresentanteService representanteService;
+@inject IEstadoRepresentanteService estadoRepresentanteService;
+@inject IOrganismoService organismoService;
+
 
 <section class="ContenedorGeneral">
 
@@ -30,7 +34,7 @@
                     <p>Buscador</p>
                 </div>
 
-                <input type="text" @* @bind="valorBusqueda" *@ @* @oninput="CargarPersonalBuscado" *@ class="buscador" placeholder="Buscar Registro" />
+                <input type="text"  @bind="valorBusqueda" @oninput="CargarRepresentanteBuscado"  class="buscador" placeholder="Buscar Registro" />
 
                 @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -55,30 +59,13 @@
                             @* apartado checks 2 *@
 
                             <div class="contenCheck">
-                                <input checked="" type="checkbox" id="checkOrden1" name="checkOrden1" />
+                                <input @onclick="@(()=> OrdenarRepresentante("Ascendente"))" checked="@("Ascendente" == ordenSeleccionada)" type="checkbox" id="checkOrden1" name="checkOrden1" />
                                 <label class="nombreCheck" for="checkOrden1">Ascendente</label>
                             </div>
 
                             <div class="contenCheck">
-                                <input checked="" type="checkbox" id="checkOrden2" name="checkOrden2" />
+                                <input @onclick="@(()=> OrdenarRepresentante("Descendente"))" checked="@("Descendente" == ordenSeleccionada)" type="checkbox" id="checkOrden2" name="checkOrden2" />
                                 <label class="nombreCheck" for="checkOrden2">Descendente</label>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="espacioFiltro">
-
-                        <h5>Filtrar por tipo:</h5>
-
-                        <div class="contenedorChecks">
-
-                            @* apartado checks 2 *@
-
-                            <div class="contenCheck">
-                                <input checked="" type="checkbox" id="" />
-                                <label class="nombreCheck" for="">Tipado 1</label>
                             </div>
 
                         </div>
@@ -91,17 +78,50 @@
 
                         <div class="contenedorChecks">
 
-                            @* apartado checks 1 *@
-
-                            <div class="contenCheck">
-                                <input checked="" type="checkbox" id="" />
-                                <label class="nombreCheck" for="">Estado 1</label>
-                            </div>
+                            @if (listaEstado != null)
+                            {
+                                @foreach (var item in listaEstado)
+                                {
+                                    <div class="contenCheck">
+                                        <input @onclick="@(()=> FiltroEstado(item.IdEstadoRepresentante))" checked="@(item.IdEstadoRepresentante == estadoSeleccionado)" type="checkbox" id="@($"check{item.Estados}")" />
+                                        <label class="nombreCheck" for="@($"check{item.Estados}")">@item.Estados</label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No se encontro estados</p>
+                            }
 
                         </div>
 
                     </div>
+                    @*
+                    <div class="espacioFiltro">
 
+                        <h5>Filtrar por organismos:</h5>
+
+                        <div class="contenedorChecks">
+                            
+                            @if (listaOrganismo != null)
+                            {
+                                @foreach (var item in listaOrganismo)
+                                {
+                                    <div class="contenCheck">
+                                        <input @onclick="@(()=> FiltroOrganismo(item.IdOrganismo))" checked="@(item.IdOrganismo == organismoSeleccionado)" type="checkbox" id="@($"check{item.NombreOIA}")" />
+                                        <label class="nombreCheck" for="@($"check{item.NombreOIA}")">@item.NombreOIA</label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No se encontro organismo</p>
+                            }
+                            
+                        </div>
+
+                    </div>
+                    *@
                 </div>
 
                 @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
@@ -114,11 +134,16 @@
 
             @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
+            @if (respuestaRepresentante?.Resultado != null)
+            {
+                @foreach (var item in respuestaRepresentante.Resultado)
+                {
+
             <div class="tarjeta">
 
                 <div class="perfil">
 
-                    <p>Rogelio Perez</p>
+                    <p>@item.Nombres</p>
 
                     <div class="estadoIcon color-Acreditado"><i class="bi bi-person-fill-exclamation"></i></div>
 
@@ -131,7 +156,7 @@
                             <i class="bi bi-building-fill"></i>
                         </div>
                         <div class="apartadoExtra">
-                            <p>ZT Ingenieros</p>
+                            <p>@item.Organismo?.NombreOIA</p>
                         </div>
                     </div>
 
@@ -140,7 +165,7 @@
                             <i class="bi bi-person-circle"></i>
                         </div>
                         <div class="apartadoExtra">
-                            <p>RogerDestres</p>
+                            <p>@item.Nickname</p>
                         </div>
                     </div>
 
@@ -149,7 +174,7 @@
                             <i class="bi bi-telephone-fill"></i>
                         </div>
                         <div class="apartadoExtra">
-                            <p>2234-5676</p>
+                            <p>@item.Celular</p>
                         </div>
                     </div>
 
@@ -158,7 +183,7 @@
                             <i class="bi bi-envelope-fill"></i>
                         </div>
                         <div class="apartadoExtra">
-                            <p class="correo">Herzmariohdez@gmail.com</p>
+                            <p class="correo">@item.Email</p>
                         </div>
                     </div>
 
@@ -167,7 +192,7 @@
                             <i class="bi bi-person-vcard-fill"></i>
                         </div>
                         <div class="apartadoExtra">
-                            <p>98438943-0</p>
+                            <p>@item.DUI</p>
                         </div>
                     </div>
 
@@ -176,7 +201,7 @@
                             <i class="bi bi-postcard-fill"></i>
                         </div>
                         <div class="apartadoExtra">
-                            <p>MNR-345465</p>
+                            <p>@item.ComprobanteOIA</p>
                         </div>
                     </div>
 
@@ -185,21 +210,27 @@
                             <i class="bi bi-person-fill-exclamation"></i>
                         </div>
                         <div class="apartadoExtra">
-                            <p>Vigente</p>
+                            <p>@item.EstadoRepresentante?.Estados</p>
                         </div>
                     </div>
 
                     <div class="textoExtra miniEspacio">
 
-                        <button class="edicion" @* @onclick="@(() => ShowModal(item.IdPersonal))" *@><i class="bi bi-pencil-square"></i> Editar</button>
+                        <button class="edicion"  @onclick="@(() => ShowModal(item.IdRepresentante))" ><i class="bi bi-pencil-square"></i> Editar</button>
 
-                        <button class="rechazo" @* @onclick="(() => ModalLookup(item.IdPersonal))" *@><i class="bi bi-x-circle"></i> Quitar</button>
+                                <button class="rechazo" @onclick="(() => ModalLookup(item.IdRepresentante))"><i class="bi bi-x-circle"></i> Quitar</button>
 
                     </div>
 
                 </div>
 
             </div>
+                }
+            }
+            else
+            {
+                <p>No se encontro resultados</p>
+            }
 
             @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -211,10 +242,10 @@
 
         <div class="paginacion">
 
-            @* <PaginadoPersonal PaginaActual="@paginaActual"
+             <PaginadoRepresentante PaginaActual="@paginaActual"
             TotalPaginas="@totalPaginas"
             OnPageChanged="HandlePageChanged">
-            </PaginadoPersonal> *@
+            </PaginadoRepresentante> 
 
         </div>
 
@@ -227,15 +258,27 @@
 
     // Objetos de modelos mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
-
+    private APIResponse<List<RepresentanteDTO>>? respuestaRepresentante;
+    private List<EstadoRepresentanteDTO>? listaEstado;
+    private List<OrganismoDTO>? listaOrganismo;
+    ParametrosPaginacion? pp;
 
     // Variables con valores cambiantes mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
-
+    private int estado = 0;
+    private int organismo = 0;
+    private string valorOrden = "Descendente";
+    private string valorBusqueda = "";
+    private string? ordenSeleccionada;
+    private int? estadoSeleccionado;
+    private int? organismoSeleccionado;
 
     // Variables para Paginacion mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
-
+    private int paginaActual = 1;
+    private int tamanoPagina = 6;
+    private int registrosActuales;
+    private int totalPaginas;
 
     // Modal mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
@@ -246,15 +289,118 @@
     protected override async Task OnInitializedAsync()
     {
         tituloService.AgregarTitulo("Administracion de Representantes");
+
+        ParametrosPaginacion parametros = new()
+            {
+                NumeroPagina = 1,
+                TamañoPagina = tamanoPagina,
+                Orden = "Ascendente",
+                Buscar = valorBusqueda,
+                ID1 = estado,
+                ID2 = organismo
+            };
+
+        await CargarPagina(paginaActual, 0, 0, "Descendente");
+        listaEstado = await estadoRepresentanteService.MostrarEstadoRepresentante();
+        var r = await organismoService.MostrarOrganismos(parametros);
     }
 
     // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
+    private async Task OrdenarRepresentante(string valor)
+    {
+        if (ordenSeleccionada == valor)
+        {
+            ordenSeleccionada = null;
+        }
+        else
+        {
+            ordenSeleccionada = valor;
+        }
 
+        await CargarPagina(paginaActual, estado, organismo, valor);
+        valorOrden = valor;
+    }
+
+    private async Task FiltroEstado(int valor)
+    {
+        if (estadoSeleccionado == valor)
+        {
+            estadoSeleccionado = null;
+            valor = 0;
+        }
+        else
+        {
+            estadoSeleccionado = valor;
+        }
+
+        await CargarPagina(paginaActual, valor, estado, valorOrden);
+        estado = valor;
+    }
+
+    private async Task FiltroOrganismo(int valor)
+    {
+        if (organismoSeleccionado == valor)
+        {
+            organismoSeleccionado = null;
+            valor = 0;
+        }
+        else
+        {
+            organismoSeleccionado = valor;
+        }
+
+        await CargarPagina(paginaActual, organismo, valor, valorOrden);
+        organismo = valor;
+    }
+
+    private async Task CargarPagina(int numeroPagina, int idEstado, int idOrganismo, string orden)
+    {
+        ParametrosPaginacion parametros = new()
+            {
+                NumeroPagina = numeroPagina,
+                TamañoPagina = tamanoPagina,
+                Orden = orden,
+                Buscar = valorBusqueda,
+                ID1 = idEstado,
+                ID2 = idOrganismo
+            };
+
+        respuestaRepresentante = await representanteService.MostrarRepresentante(parametros);
+        registrosActuales = respuestaRepresentante.TotalRegistros;
+        totalPaginas = (int)Math.Ceiling((double)registrosActuales / tamanoPagina);
+        paginaActual = numeroPagina;
+    }
+
+    private async Task CargarRepresentanteBuscado(ChangeEventArgs e)
+    {
+        try
+        {
+            valorBusqueda = e.Value.ToString();
+
+            if (valorBusqueda != "")
+            {
+                await CargarPagina(paginaActual, 0, 0, valorOrden);
+            }
+            else
+            {
+                await CargarPagina(paginaActual, estado, organismo, valorOrden);
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Error al realizar la solicitud: {ex.Message}");
+            throw;
+        }
+    }
 
     // Handlers mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
-
+    private async Task HandlePageChanged(int newPage)
+    {
+        paginaActual = newPage;
+        await CargarPagina(newPage, estado, organismo, valorOrden);
+    }
 
     // Modals mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
@@ -268,16 +414,62 @@
 
         var parametros = new ModalParameters().Add(nameof(ModalRepresentante.idRepresentanteEditar), ID);
 
-        var modal = Modal.Show<ModalRepresentante>("Gestion Representante", parametros, options);
+        var modal = Modal.Show<ModalRepresentante>("Gestion de Representante", parametros, options);
         var resultado = await modal.Result;
 
-        // if (resultado.Confirmed)
-        // {
-        //     if (resultado.Data.ToString() == "Ejecucion Correcta")
-        //     {
-        //         await CargarPagina(paginaActual, rango, estado, valorOrden);
-        //     }
-        // }
+        if (resultado.Confirmed)
+        {
+            if (resultado.Data.ToString() == "Ejecucion Correcta")
+            {
+                await CargarPagina(paginaActual, estado, organismo, valorOrden);
+            }
+        }
 
     }
+
+    private async Task ModalLookup(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                Size = ModalSize.Medium,
+                Position = ModalPosition.Middle
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalLookupRepresentante.idRepresentantekey), ID);
+
+        var modal = Modal.Show<ModalLookupRepresentante>("Cambiar estado Representante", parametros, options);
+        var resultado = await modal.Result;
+
+        if (resultado.Confirmed)
+        {
+            if (resultado.Data.ToString() == "Ejecucion Correcta")
+            {
+                await CargarPagina(paginaActual, estado, organismo, valorOrden);
+            }
+        }
+
+    }
+
+    private async Task Eliminar(int id)
+    {
+        var respuesta = await Sweet.FireAsync(new SweetAlertOptions
+            {
+                Title = "Eliminar Representante",
+                Text = "Deseas Eliminar el Representante?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true
+            });
+
+        if (respuesta.IsConfirmed)
+        {
+            var eliminado = await representanteService.EliminarRepresentante(id);
+
+            if (eliminado == "Ejecucion Correcta")
+            {
+                await CargarPagina(paginaActual, 0, 0, "Descendente");
+            }
+        }
+    }
+
+    
 }

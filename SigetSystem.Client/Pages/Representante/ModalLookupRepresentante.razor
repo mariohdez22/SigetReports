@@ -1,5 +1,100 @@
-﻿<h3>ModalLookupRepresentante</h3>
+﻿@page "/modalLookupRepresentante"
+@inject IRepresentanteService representanteService;
+
+<div class="contenedor">
+
+    <div class="centrado">
+        <h4 class="TituloModal">Elige el estado a cambiar</h4>
+    </div>
+
+    <div class="encajeBotones">
+
+        @if (representante.IdEstadoRepresentante == 1)
+        {
+            <button @onclick="@(() => AusentarRepresentante())" class="btnEstados"><i class="bi bi-x-circle"></i>&nbsp;&nbsp;Ausentar</button>            
+        }
+        else if (representante.IdEstadoRepresentante == 2)
+        {
+            <button @onclick="@(() => HabilitarRepresentante())" class="btnEstados"><i class="bi bi-check-circle"></i>&nbsp;&nbsp;Habilitar</button>           
+        }
+
+    </div>
+
+</div>
 
 @code {
+    [Parameter]
+    public int idRepresentantekey { get; set; } = 0;
 
+    //----------------------------------------------------------------------------------
+
+    RepresentanteDTO representante = new RepresentanteDTO();
+
+    RepresentanteDTO? representanteNew;
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    //----------------------------------------------------------------------------------
+
+    protected override async Task OnInitializedAsync()
+    {
+        representante = await representanteService.BuscarRepresentante(idRepresentantekey);
+    }
+
+    //----------------------------------------------------------------------------------
+
+    private RepresentanteDTO ObjetoRepresentante(int ID)
+    {
+        representanteNew = new()
+            {
+                IdRepresentante = representante.IdRepresentante,
+                Nombres = representante.Nombres,
+                Celular = representante.Celular,
+                Email = representante.Email,
+                DUI = representante.DUI,
+                ComprobanteOIA = representante.ComprobanteOIA,
+                Nickname = representante.Nickname,
+                Contrasena = representante.Contrasena,
+                IdOrganismo = representante.IdOrganismo,
+                IdEstadoRepresentante = ID
+            };
+
+        return representanteNew;
+    }
+
+    private async Task HabilitarRepresentante()
+    {
+        // representante.IdEstadoRepresentante = 1;
+
+        string ValorDevuelto;
+
+        ValorDevuelto = await representanteService.EditarRepresentante(ObjetoRepresentante(1), idRepresentantekey);
+
+        if (ValorDevuelto == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ValorDevuelto));
+        }
+        else
+        {
+            Console.WriteLine("No se Ejecuto Correctamente");
+        }
+    }
+
+    private async Task AusentarRepresentante()
+    {
+        // personal.IdEstadoPersonal = 2;
+
+        string ValorDevuelto;
+
+        ValorDevuelto = await representanteService.EditarRepresentante(ObjetoRepresentante(2), idRepresentantekey);
+
+        if (ValorDevuelto == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ValorDevuelto));
+        }
+        else
+        {
+            Console.WriteLine("No se Ejecuto Correctamente");
+        }
+    }
 }
