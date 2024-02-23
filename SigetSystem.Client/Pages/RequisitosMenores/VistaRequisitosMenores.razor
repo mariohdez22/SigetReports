@@ -75,7 +75,7 @@
 
                         <div class="contenedorChecks">
 
-                            @* apartado checks 2 
+                            @* apartado checks 2    
 
                             <div class="contenCheck">
                                 <input checked="" type="checkbox" id="" />
@@ -164,77 +164,77 @@
                                 <div class="iconoCheck">
                                     <i class="bi bi-check-circle-fill"></i>
                                 </div>
-                                <input class="mtp" checked="" type="checkbox" id="" />
+                                        <input class="mtp" checked="@item.Factibilidad" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-clipboard2-check-fill"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                        <input checked="@item.TotalFormularios" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-person-vcard-fill"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                        <input checked="@item.CopiaDuiPropietario" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-person-vcard"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                        <input checked="@item.CopiaDuiRetiro" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-credit-card-2-front-fill"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                        <input checked="@item.CopiaTarjetaIvaEmpresa" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-person-vcard"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                        <input checked="@item.CopiaDuiElectricista" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-card-heading"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                        <input checked="@item.CopiaCarnetElectricista" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-clipboard-plus-fill"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                        <input checked="@item.CuadroDeCarga" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                <input checked="@item.CroquisDeUbicacion" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-file-earmark-image-fill"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                        <input checked="@item.EsquemaDeInstalacionElectrica" type="checkbox" id="" readonly />
                             </div>
 
                             <div class="checks">
                                 <div class="iconoCheck">
                                     <i class="bi bi-pass-fill"></i>
                                 </div>
-                                <input checked="" type="checkbox" id="" />
+                                        <input checked="@item.ComprobanteDepago" type="checkbox" id="" readonly />
                             </div>
 
                         </div>
@@ -344,7 +344,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        tituloService.AgregarTitulo("Administracion de Requisitos Mayores");
+        tituloService.AgregarTitulo("Administracion de Requisitos Menores");
 
         ParametrosPaginacion parametros = new()
             {
