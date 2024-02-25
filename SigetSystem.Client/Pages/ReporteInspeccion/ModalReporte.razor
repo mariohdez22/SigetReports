@@ -1,4 +1,10 @@
-﻿
+﻿@inject IReporteInspeccionService reporteService;
+@inject IOrganismoService organismoService;
+@inject IRepresentanteService representanteService;
+@inject IDepartamentoInstalacionService departamentoService;
+@inject IMunicipioInstalacionService municipioService;
+@inject IComentarioInconformidadService comentarioService;
+
 <h5 class="tituloModalAgregar">Detalles del Reporte</h5>
 <br />
 
@@ -12,28 +18,58 @@
                 <div class="iconoTexto">
                     <i class="bi bi-building-fill"></i>
                 </div>
-                <p>Hola como estas</p>
+
+                @if(reporte != null && reporte.Organismo != null)
+                {
+                    <p>@reporte.Organismo.NombreOIA</p>
+                }
+                else
+                {
+                    <p>Vacio</p>
+                }
+
             </div>
 
             <div class="texto">
                 <div class="iconoTexto">
                     <i class="bi bi-person-circle"></i>
                 </div>
-                <p>Ennove la roche posai</p>
+                @if (reporte != null && reporte.Representante != null)
+                {
+                    <p>@reporte.Representante.Nombres</p>
+                }
+                else
+                {
+                    <p>Vacio</p>
+                }
             </div>
 
             <div class="texto">
                 <div class="iconoTexto">
                     <i class="bi bi-person-circle"></i>
                 </div>
-                <p>Ennove la roche posai</p>
+                @if (reporte != null && reporte.DepartamentoInstalacion != null)
+                {
+                    <p>@reporte.DepartamentoInstalacion.Departamentos</p>
+                }
+                else
+                {
+                    <p>Vacio</p>
+                }
             </div>
 
             <div class="texto">
                 <div class="iconoTexto">
                     <i class="bi bi-person-circle"></i>
                 </div>
-                <p>Ennove la roche posai</p>
+                @if (reporte != null && reporte.MunicipioInstalacion != null)
+                {
+                    <p>@reporte.MunicipioInstalacion.Municipios</p>
+                }
+                else
+                {
+                    <p>Vacio</p>
+                }
             </div>
 
        </div>
@@ -44,7 +80,14 @@
                 <div class="iconoComent">
                     <i class="bi bi-chat-dots-fill"></i> Comentario de Inconformidad
                 </div>
-                <p>No hay comentarios sobre el informe...</p>
+                @if (reporte != null && reporte.ComentariosInconformidad != null)
+                {
+                    <p>@reporte.ComentariosInconformidad.ComentarioInconformidad</p>
+                }
+                else
+                {
+                    <p>No hay comentarios sobre el informe...</p>
+                }
             </div>
 
        </div>
@@ -61,9 +104,65 @@
     string titulo = string.Empty;
     string btnTexto = string.Empty;
 
+    ReporteInspeccionDTO reporte = new ReporteInspeccionDTO();
+
+    List<OrganismoDTO> organismos = new List<OrganismoDTO>();
+    List<RepresentanteDTO> representantes = new List<RepresentanteDTO>();
+    List<DepartamentoInstalacionDTO> departamentos = new List<DepartamentoInstalacionDTO>();
+    List<MunicipioInstalacionDTO> municipios = new List<MunicipioInstalacionDTO>();
+    List<ComentariosInconformidadDTO> comentarios = new List<ComentariosInconformidadDTO>();
+
     //----------------------------------------------------------------------------------
 
     [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
     //----------------------------------------------------------------------------------
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(idReporte != 0)
+        {
+            reporte = await reporteService.BuscarReporte(idReporte);
+            organismos = await organismoService.MostrarOrganismos();
+            representantes = await representanteService.MostrarRepresentante();
+            departamentos = await departamentoService.MostrarDepartamentos();
+            municipios = await municipioService.MostrarMunicipio();
+            comentarios = await comentarioService.MostrarComentarioInconformidad();
+
+            organismos = organismos.Where(o => o.IdOrganismo == reporte.IdOrganismo).ToList();
+            representantes = representantes.Where(r => r.IdRepresentante == reporte.IdRepresentante).ToList();
+            departamentos = departamentos.Where(d => d.IdDepartamentoInstalacion == reporte.IdDepartamentoInstalacion).ToList();
+            municipios = municipios.Where(m => m.IdMunicipioInstalacion == reporte.IdMunicipioInstalacion).ToList();
+            comentarios = comentarios.Where(c => c.IdComentarioInconformidad == reporte.IdComentariosInconformidad).ToList();
+
+            if(organismos.Count != 0)
+            {
+                reporte.Organismo = organismos[0];
+            }
+
+            if(representantes.Count != 0)
+            {
+                reporte.Representante = representantes[0];
+            }
+
+            if(departamentos.Count != 0)
+            {
+                reporte.DepartamentoInstalacion = departamentos[0];
+            }
+
+            if(municipios.Count != 0)
+            {
+                reporte.MunicipioInstalacion = municipios[0];
+            }
+
+            if(comentarios.Count != 0)
+            {
+                reporte.ComentariosInconformidad = comentarios[0];
+            }
+        }
+        else
+        {
+            reporte = null;
+        }
+    }
 }

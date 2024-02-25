@@ -7,6 +7,8 @@ namespace SigetSystem.Client.Services.Interfaces
     {
         Task<APIResponse<List<RequisitoMenorDTO>>> MostrarRequisitoMenor(ParametrosPaginacion pp);
 
+        Task<List<RequisitoMenorDTO>> MostrarRequisitoMenor();
+
         Task<RequisitoMenorDTO> BuscarRequisitoMenor(int id);
 
         Task<string> CrearRequisitoMenor(RequisitoMenorDTO dto);

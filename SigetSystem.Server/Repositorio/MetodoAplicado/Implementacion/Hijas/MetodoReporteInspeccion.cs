@@ -47,9 +47,29 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             IQueryable<ReporteInspeccion> lista = await _repoGenerico.Consulta();
 
-            if (pp.ID1 != 0)
+            if (pp.ReporteFiltro?.IdDepartamentoInstalacion != 0)
             {
-                lista = lista.Where(p => p.IdEstadoReporte == pp.ID1);
+                lista = lista.Where(p => p.IdDepartamentoInstalacion == pp.ReporteFiltro.IdDepartamentoInstalacion);
+            }
+
+            if (pp.ReporteFiltro?.IdMunicipioInstalacion != 0)
+            {
+                lista = lista.Where(p => p.IdMunicipioInstalacion == pp.ReporteFiltro.IdMunicipioInstalacion);
+            }
+
+            if (pp.ReporteFiltro?.IdCodigoConformidad != 0)
+            {
+                lista = lista.Where(p => p.IdCodigoConformidad == pp.ReporteFiltro.IdCodigoConformidad);
+            }
+
+            if (pp.ReporteFiltro?.IdCodigoSiget != 0)
+            {
+                lista = lista.Where(p => p.IdCodigoSiget == pp.ReporteFiltro.IdCodigoSiget);
+            }
+
+            if (pp.ReporteFiltro?.IdEstadoReporte != 0)
+            {
+                lista = lista.Where(p => p.IdEstadoReporte == pp.ReporteFiltro.IdEstadoReporte);
             }
 
             if (!String.IsNullOrEmpty(pp.Buscar))
@@ -64,10 +84,10 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
                     r.EspecificacionesCertificado!.Contains(pp.Buscar) ||
                     r.NombreSolicitante!.Contains(pp.Buscar) ||
                     r.NumeroCreditoFiscal!.Contains(pp.Buscar) ||
-                    r.FechaDepagoSolicitante.ToString() == pp.Buscar ||
-                    r.FechaEntregaConformidad.ToString() == pp.Buscar ||
-                    r.FechaPrimeraInspeccion.ToString() == pp.Buscar ||
-                    r.FechaUltimaInspeccion.ToString() == pp.Buscar
+                    r.FechaDepagoSolicitante.ToString().Contains(pp.Buscar) ||
+                    r.FechaEntregaConformidad.ToString().Contains(pp.Buscar) ||
+                    r.FechaPrimeraInspeccion.ToString().Contains(pp.Buscar) ||
+                    r.FechaUltimaInspeccion.ToString().Contains(pp.Buscar)
                 );
             }
 

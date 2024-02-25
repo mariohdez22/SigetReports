@@ -60,24 +60,24 @@ namespace SigetSystem.Shared.DTOs.Hijas
         public int? IdEstadoReporte { get; set; }
 
 
-        public virtual OrganismoDTO? Organismo { get; set; }
+        public virtual OrganismoDTO? Organismo { get; set; } //hija
 
-        public virtual RepresentanteDTO? Representante { get; set; }
+        public virtual RepresentanteDTO? Representante { get; set; } //hija
 
-        public virtual DepartamentoInstalacionDTO? DepartamentoInstalacion { get; set; }
+        public virtual DepartamentoInstalacionDTO? DepartamentoInstalacion { get; set; } //padre
 
-        public virtual MunicipioInstalacionDTO? MunicipioInstalacion { get; set; }
+        public virtual MunicipioInstalacionDTO? MunicipioInstalacion { get; set; } //padre
 
-        public virtual CodigoConformidadDTO? CodigoConformidad { get; set; }
+        public virtual CodigoConformidadDTO? CodigoConformidad { get; set; } //padre
 
-        public virtual ComentariosInconformidadDTO? ComentariosInconformidad { get; set; }
+        public virtual ComentariosInconformidadDTO? ComentariosInconformidad { get; set; } //hija
 
-        public virtual CodigoSigetDTO? CodigoSiget { get; set; }
+        public virtual CodigoSigetDTO? CodigoSiget { get; set; } //padre
 
-        public virtual RequisitoMenorDTO? RequisitoMenor { get; set; }
+        public virtual RequisitoMenorDTO? RequisitoMenor { get; set; } //hija
 
-        public virtual RequisitoMayorDTO? RequisitoMayor { get; set; }
+        public virtual RequisitoMayorDTO? RequisitoMayor { get; set; } //hija
 
-        public virtual EstadoReporteDTO? EstadoReporte { get; set; }
+        public virtual EstadoReporteDTO? EstadoReporte { get; set; } //padre 
     }
 }

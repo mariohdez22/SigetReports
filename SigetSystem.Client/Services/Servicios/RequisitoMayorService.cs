@@ -37,6 +37,37 @@ namespace SigetSystem.Client.Services.Servicios
             }
         }
 
+        public async Task<List<RequisitoMayorDTO>> MostrarRequisitoMayor()
+        {
+            ParametrosPaginacion pp = new ParametrosPaginacion()
+            {
+                NumeroPagina = 1,
+                TamañoPagina = sizeof(int),
+                Orden = "Descendente",
+                Buscar = "",
+                ID1 = 0,
+                ID2 = 0,
+            };
+
+            string url = $"api/RequisitosMayores/Consulta?NumeroPagina={pp.NumeroPagina}&TamañoPagina={pp.TamañoPagina}&Orden={pp.Orden}&ID1={pp.ID1}&ID2={pp.ID2}";
+
+            if (!string.IsNullOrEmpty(pp.Buscar))
+            {
+                url += $"&Buscar={Uri.EscapeDataString(pp.Buscar)}";
+            }
+
+            var resultado = await _http.GetFromJsonAsync<APIResponse<List<RequisitoMayorDTO>>>(url);
+
+            if (resultado!.EsExitoso == true)
+            {
+                return resultado.Resultado;
+            }
+            else
+            {
+                throw new Exception(resultado.MensajeError);
+            }
+        }
+
         public async Task<RequisitoMayorDTO> BuscarRequisitoMayor(int id)
         {
             var resultado = await _http.GetFromJsonAsync<APIResponse<RequisitoMayorDTO>>($"api/RequisitosMayores/Obtener/{id}");

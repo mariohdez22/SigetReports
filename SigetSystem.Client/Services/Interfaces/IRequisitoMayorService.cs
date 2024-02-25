@@ -7,6 +7,8 @@ namespace SigetSystem.Client.Services.Interfaces
     {
         Task<APIResponse<List<RequisitoMayorDTO>>> MostrarRequisitoMayor(ParametrosPaginacion pp);
 
+        Task<List<RequisitoMayorDTO>> MostrarRequisitoMayor();
+
         Task<RequisitoMayorDTO> BuscarRequisitoMayor(int id);
 
         Task<string> CrearRequisitoMAyor(RequisitoMayorDTO dto);

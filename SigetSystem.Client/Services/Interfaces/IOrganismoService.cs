@@ -7,6 +7,8 @@ namespace SigetSystem.Client.Services.Interfaces
     {
         Task<APIResponse<List<OrganismoDTO>>> MostrarOrganismos(ParametrosPaginacion pp);
 
+        Task<List<OrganismoDTO>> MostrarOrganismos();
+
         Task<OrganismoDTO> BuscarOrganismo(int id);
 
         Task<string> AgregarOrganismo(OrganismoDTO dto);
