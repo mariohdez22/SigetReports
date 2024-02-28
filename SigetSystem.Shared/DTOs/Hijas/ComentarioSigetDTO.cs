@@ -18,13 +18,13 @@ namespace SigetSystem.Shared.DTOs.Hijas
         public string Comentario { get; set; } = string.Empty;
 
         [Required]
-        public int IdTipoConformidad { get; set; }
+        public int IdTipoConformidad { get; set; }      
 
-        public int? IdReporteInspeccion { get; set; }
+        public int? IdReporteInspeccion { get; set; }   
 
-        public int? IdRepresentante { get; set; }
+        public int? IdRepresentante { get; set; }       
 
-        public int? IdPersonal { get; set; }
+        public int? IdPersonal { get; set; }            
 
         public DateTime FechaComentario { get; set; }
 

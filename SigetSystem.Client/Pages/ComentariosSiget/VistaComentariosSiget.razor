@@ -1,5 +1,461 @@
-﻿<h3>VistaComentariosSiget</h3>
+﻿@page "/vistaComentariosSiget"
+@inject SweetAlertService Sweet;
+@inject TituloService tituloService;
 
-@code {
+<section class="ContenedorGeneral">
 
+    <h5 class="indice">Inicio > Apartado Comentario</h5>
+
+    <section class="ContenidoPrincipal">
+
+        <div class="barra">
+
+            <div class="opciones">
+
+                @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+                <div class="tituloOpciones">
+                    <p>Agregar Comentario</p>
+                </div>
+
+                <div class="botonesOpciones">
+
+                    <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
+
+                </div>
+
+                <div class="tituloOpciones">
+                    <p>Buscador</p>
+                </div>
+
+                <input type="text" class="buscador" placeholder="Buscar Registro" />
+
+                @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+            </div>
+
+            <div class="filtro">
+
+                @* Apartado de Filtros mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+                <div class="tituloFiltro">
+                    <p>Filtros para los comentarios</p>
+                </div>
+
+                <div class="contenidoFiltro">
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por orden:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 2 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="checkOrden1" name="checkOrden1" />
+                                <label class="nombreCheck" for="checkOrden1">Ascendente</label>
+                            </div>
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="checkOrden2" name="checkOrden2" />
+                                <label class="nombreCheck" for="checkOrden2">Descendente</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por tipo:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 2 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="" />
+                                <label class="nombreCheck" for="">Tipado 1</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por estado:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 1 *@
+
+                            <div class="contenCheck">
+                                <input checked="" type="checkbox" id="" />
+                                <label class="nombreCheck" for="">Estado 1</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+            </div>
+
+        </div>
+
+        <div class="contenido">
+
+            @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+            <div class="tarjeta">
+
+                <div class="encabezadoComentario">
+
+                    <div class="tituloComentario">
+
+                        <div class="texto">
+                            <p>Quejas sobre el ingreso de valores</p>
+                        </div>
+
+                    </div>
+
+                    <div class="generalesComentario">
+
+                        <div class="general">
+                            <div class="iconoGeneral">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>Aprobado con Observaciones</p>
+                        </div>
+
+                        <div class="general">
+                            <div class="iconoGeneral">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>@DateTime.Now</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="contenidoComentario">
+
+                    <div class="informacionComentario">
+
+                        <div class="textoInfo">
+                            <h5>Remitente</h5>
+                            <p>Mario Oscar Hernandez </p>
+                        </div>
+
+                        <div class="textoInfo">
+                            <h5>Destinatario</h5>
+                            <p>John Crasinsky</p>
+                        </div>
+
+                        <div class="textoInfo">
+                            <h5>Reporte Inspeccion</h5>
+                            <p>N1:08</p>
+                        </div>
+
+                    </div>
+
+                    <div class="textoComentario">
+
+                        <div class="seccionComentario">
+
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="tarjeta">
+
+                <div class="encabezadoComentario">
+
+                    <div class="tituloComentario">
+
+                        <div class="texto">
+                            <p>Quejas sobre el ingreso de valores</p>
+                        </div>
+
+                    </div>
+
+                    <div class="generalesComentario">
+
+                        <div class="general">
+                            <div class="iconoGeneral">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>Aprobado con Observaciones</p>
+                        </div>
+
+                        <div class="general">
+                            <div class="iconoGeneral">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>@DateTime.Now</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="contenidoComentario">
+
+                    <div class="informacionComentario">
+
+                        <div class="textoInfo">
+                            <h5>Remitente</h5>
+                            <p>Mario Oscar Hernandez </p>
+                        </div>
+
+                        <div class="textoInfo">
+                            <h5>Destinatario</h5>
+                            <p>John Crasinsky</p>
+                        </div>
+
+                        <div class="textoInfo">
+                            <h5>Reporte Inspeccion</h5>
+                            <p>N1:08</p>
+                        </div>
+
+                    </div>
+
+                    <div class="textoComentario">
+
+                        <div class="seccionComentario">
+
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="tarjeta">
+
+                <div class="encabezadoComentario">
+
+                    <div class="tituloComentario">
+
+                        <div class="texto">
+                            <p>Quejas sobre el ingreso de valores</p>
+                        </div>
+
+                    </div>
+
+                    <div class="generalesComentario">
+
+                        <div class="general">
+                            <div class="iconoGeneral">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>Aprobado con Observaciones</p>
+                        </div>
+
+                        <div class="general">
+                            <div class="iconoGeneral">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>@DateTime.Now</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="contenidoComentario">
+
+                    <div class="informacionComentario">
+
+                        <div class="textoInfo">
+                            <h5>Remitente</h5>
+                            <p>Mario Oscar Hernandez </p>
+                        </div>
+
+                        <div class="textoInfo">
+                            <h5>Destinatario</h5>
+                            <p>John Crasinsky</p>
+                        </div>
+
+                        <div class="textoInfo">
+                            <h5>Reporte Inspeccion</h5>
+                            <p>N1:08</p>
+                        </div>
+
+                    </div>
+
+                    <div class="textoComentario">
+
+                        <div class="seccionComentario">
+
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="tarjeta">
+
+                <div class="encabezadoComentario">
+
+                    <div class="tituloComentario">
+
+                        <div class="texto">
+                            <p>Quejas sobre el ingreso de valores</p>
+                        </div>
+
+                    </div>
+
+                    <div class="generalesComentario">
+
+                        <div class="general">
+                            <div class="iconoGeneral">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>Aprobado con Observaciones</p>
+                        </div>
+
+                        <div class="general">
+                            <div class="iconoGeneral">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <p>@DateTime.Now</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="contenidoComentario">
+
+                    <div class="informacionComentario">
+
+                        <div class="textoInfo">
+                            <h5>Remitente</h5>
+                            <p>Mario Oscar Hernandez </p>
+                        </div>
+
+                        <div class="textoInfo">
+                            <h5>Destinatario</h5>
+                            <p>John Crasinsky</p>
+                        </div>
+
+                        <div class="textoInfo">
+                            <h5>Reporte Inspeccion</h5>
+                            <p>N1:08</p>
+                        </div>
+
+                    </div>
+
+                    <div class="textoComentario">
+
+                        <div class="seccionComentario">
+
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
+
+        </div>
+
+    </section>
+
+    <section class="footer">
+
+        <div class="paginacion">
+            @*
+            <PaginadoOrganismo PaginaActual="@paginaActual"
+            TotalPaginas="@totalPaginas"
+            OnPageChanged="HandlePageChanged">
+            </PaginadoOrganismo> *@
+
+        </div>
+
+    </section>
+
+</section>
+
+@code
+{
+    // Objetos de modelos mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Variables con valores cambiantes mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Variables para Paginacion mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Modal mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    // MetodoInicializador mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    protected override async Task OnInitializedAsync()
+    {
+        tituloService.AgregarTitulo("Apartado Comentarios");
+    }
+
+    // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Handlers mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+
+
+    // Modals mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private async Task ShowModal(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                Size = ModalSize.Medium,
+                Position = ModalPosition.Middle
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalComentariosSiget.idComentario), ID);
+
+        var modal = Modal.Show<ModalComentariosSiget>("Comentario Siget", parametros, options);
+        var resultado = await modal.Result;
+
+        // if (resultado.Confirmed)
+        // {
+        //     if (resultado.Data.ToString() == "Ejecucion Correcta")
+        //     {
+        //         await CargarPagina(paginaActual, rango, estado, valorOrden);
+        //     }
+        // }
+
+    }
 }

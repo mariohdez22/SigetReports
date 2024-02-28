@@ -1,5 +1,45 @@
-﻿<h3>ModalComentariosSiget</h3>
+﻿@inject IComentarioSigetService comentariosSigetService;
+@inject ITipoConformidadService tipoConformidadService;
+@inject IReporteInspeccionService reporteInspeccionService;
+@inject IRepresentanteService representanteService;
+@inject IPersonalService personalService;
 
-@code {
+<style>
+    :root
+    {
+        --color-inputs: #afafe7;
+    }
+</style>
 
+<h5 class="tituloModalAgregar">Agregar Comentario</h5>
+<br />
+
+@code 
+{
+    [Parameter]
+    public int idComentario { get; set; } = 0;
+
+    string titulo = string.Empty;
+    string btnTexto = string.Empty;
+
+    //----------------------------------------------------------------------------------
+
+    ComentarioSigetDTO comentario = new ComentarioSigetDTO();
+
+    List<TipoConformidadDTO> listaTipoComentario = new List<TipoConformidadDTO>();
+
+    List<ReporteInspeccionDTO> listaReporteInspeccion = new List<ReporteInspeccionDTO>();
+
+    List<RepresentanteDTO> listaRepresentante = new List<RepresentanteDTO>();
+
+    List<PersonalDTO> listaPersonal = new List<PersonalDTO>();
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    //----------------------------------------------------------------------------------
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
 }
