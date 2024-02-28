@@ -40,7 +40,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 
             if(pp.ID2 != 0)
             {
-                lista = lista.Where(p=>p.IdOrganismo != pp.ID2);
+                lista = lista.Where(p=>p.IdOrganismo == pp.ID2);
             }
 
             if (!String.IsNullOrEmpty(pp.Buscar))

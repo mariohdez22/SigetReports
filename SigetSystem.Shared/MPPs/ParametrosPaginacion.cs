@@ -21,5 +21,7 @@ namespace SigetSystem.Shared.MPPs
         public int ID1 { get; set; }
 
         public int ID2 { get; set; }
+
+        public ReporteFiltro? ReporteFiltro { get; set;}
     }
 }

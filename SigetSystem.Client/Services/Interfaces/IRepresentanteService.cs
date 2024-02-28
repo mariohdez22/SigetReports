@@ -7,6 +7,8 @@ namespace SigetSystem.Client.Services.Interfaces
     {
         Task<APIResponse<List<RepresentanteDTO>>> MostrarRepresentante(ParametrosPaginacion pp);
 
+        Task<List<RepresentanteDTO>> MostrarRepresentante();
+
         Task<RepresentanteDTO> BuscarRepresentante(int id);
 
         Task<string> CrearRepresentante(RepresentanteDTO representante);

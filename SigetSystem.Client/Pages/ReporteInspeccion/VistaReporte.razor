@@ -1,6 +1,17 @@
 ﻿@page "/vistaReporte"
 @inject SweetAlertService Sweet;
 @inject TituloService tituloService;
+@inject IReporteInspeccionService reporteService;
+@inject IOrganismoService organismoService;
+@inject IRepresentanteService representanteService;
+@inject IDepartamentoInstalacionService depaService;
+@inject IMunicipioInstalacionService muniService;
+@inject ICodigoConformidadService codConformidadService;
+@inject IComentarioInconformidadService inconformidadService;
+@inject ICodigoSigetService codSigetService;
+@inject IRequisitoMenorService reqMenorService;
+@inject IRequisitoMayorService reqMayorService;
+@inject IEstadoReporteService estadoReporteService;
 
 <section class="ContenedorGeneral">
 
@@ -28,17 +39,7 @@
                     <p>Buscador</p>
                 </div>
 
-                <input type="text" class="buscador" placeholder="Buscar Registro" />
-
-                <div class="botonesFilter">
-
-                    <button><i class="bi bi-exclamation-circle"></i></button>
-
-                    <button><i class="bi bi-check-circle"></i></button>
-
-                    <button><i class="bi bi-x-circle"></i></button>
-
-                </div>
+                <input type="text" @bind-value="valorBusqueda" @oninput="BuscarReporte" class="buscador" placeholder="Buscar Registro" />
 
                 @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -63,12 +64,12 @@
                             @* apartado checks 2 *@
 
                             <div class="contenCheck">
-                                <input checked="" type="checkbox" id="checkOrden1" name="checkOrden1" />
+                                <input @onclick="@(() => OrdenarReportes("Ascendente"))" checked="@("Ascendente" == ordenSeleccionada)" type="checkbox" id="checkOrden1" name="checkOrden1" />
                                 <label class="nombreCheck" for="checkOrden1">Ascendente</label>
                             </div>
 
                             <div class="contenCheck">
-                                <input checked="" type="checkbox" id="checkOrden2" name="checkOrden2" />
+                                <input @onclick="@(() => OrdenarReportes("Descendente"))" checked="@("Descendente" == ordenSeleccionada)" type="checkbox" id="checkOrden2" name="checkOrden2" />
                                 <label class="nombreCheck" for="checkOrden2">Descendente</label>
                             </div>
 
@@ -78,16 +79,25 @@
 
                     <div class="espacioFiltro">
 
-                        <h5>Filtrar por tipo:</h5>
+                        <h5>Filtrar por departamento:</h5>
 
                         <div class="contenedorChecks">
 
                             @* apartado checks 2 *@
-
-                            <div class="contenCheck">
-                                <input checked="" type="checkbox" id="" />
-                                <label class="nombreCheck" for="">Tipado 1</label>
-                            </div>
+                            @if(listaDepartamento != null)
+                            {
+                                @foreach(var item in listaDepartamento)
+                                {
+                                    <div class="contenCheck">
+                                        <input @onclick="@(() => FiltrarDepartamento(item.IdDepartamentoInstalacion))" checked="@(item.IdDepartamentoInstalacion == departamentoSeleccionado)" type="checkbox" id="@($"check{item.Departamentos}")" />
+                                        <label class="nombreCheck" for="@($"check{item.Departamentos}")">@item.Departamentos</label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No se encontraron departamentos</p>
+                            }
 
                         </div>
 
@@ -95,16 +105,94 @@
 
                     <div class="espacioFiltro">
 
-                        <h5>Filtrar por estado:</h5>
+                        <h5>Filtrar por municipio:</h5>
+
+                        <div class="contenedorChecks">
+
+                            @* apartado checks 1 *@
+                            @if (listaMunicipio!= null)
+                            {
+                                @foreach (var item in listaMunicipio)
+                                {
+                                    <div class="contenCheck">
+                                        <input @onclick="@(() => FiltrarMunicipio(item.IdMunicipioInstalacion))" checked="@(item.IdMunicipioInstalacion == municipioSeleccionado)" type="checkbox" id="@($"check{item.Municipios}")" />
+                                        <label class="nombreCheck" for="@($"check{item.Municipios}")">@item.Municipios</label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No se encontraron municipios de instalacion</p>
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por codigo conformidad:</h5>
+
+                        @if (listaCodigoConformidad != null)
+                        {
+                            @foreach (var item in listaCodigoConformidad)
+                            {
+                                <div class="contenCheck">
+                                    <input @onclick="@(() => FiltrarCodigoConformidad(item.IdCodigoConformidad))" checked="@(item.IdCodigoConformidad == codigoConformidadSeleccionado)" type="checkbox" id="@($"check{item.Codigos}")" />
+                                    <label class="nombreCheck" for="@($"check{item.Codigos}")">@item.Codigos</label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No se encontraron codigos de conformidad</p>
+                        }
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por codigo siget</h5>
+
+                        @if (listaCodigoSiget != null)
+                        {
+                            @foreach (var item in listaCodigoSiget)
+                            {
+                                <div class="contenCheck">
+                                    <input @onclick="@(() => FiltrarCodigoSiget(item.IdCodigoSiget))" checked="@(item.IdCodigoSiget == codigoSigetSeleccionado)" type="checkbox" id="@($"check{item.Codigos}")" />
+                                    <label class="nombreCheck" for="@($"check{item.Codigos}")">@item.Codigos</label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No se encontraron codigos del siget</p>
+                        }
+
+                    </div>
+
+                    <div class="espacioFiltro">
+
+                        <h5>Filtrar por estado reporte</h5>
 
                         <div class="contenedorChecks">
 
                             @* apartado checks 1 *@
 
-                            <div class="contenCheck">
-                                <input checked="" type="checkbox" id="" />
-                                <label class="nombreCheck" for="">Estado 1</label>
-                            </div>
+                            @if (listaEstadoReporte != null)
+                            {
+                                @foreach (var item in listaEstadoReporte)
+                                {
+                                    <div class="contenCheck">
+                                        <input @onclick="@(() => FiltrarEstadoReporte(item.IdEstadoReporte))" checked="@(item.IdEstadoReporte == estadoReporteSeleccionado)" type="checkbox" id="@($"check{item.IdEstadoReporte}")" />
+                                        <label class="nombreCheck" for="@($"check{item.Estados}")">@item.Estados</label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No se encontraron estados </p>
+                            }
 
                         </div>
 
@@ -122,174 +210,185 @@
 
             @* Apartado de Contenido mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-            <div class="tarjeta">
+            @if(resReportes?.Resultado != null)
+            {
+                @foreach(var item in resReportes.Resultado)
+                {
+                    <div class="tarjeta">
 
-                <div class="tarjetaTitulos">
+                        <div class="tarjetaTitulos">
 
-                    <div class="tituloA">
-                        <p>RMN-103224</p>
+                            <div class="tituloA">
+                                <p>@item.CodigoInspeccion</p>
+                            </div>
+
+                            <div class="tituloB">
+                                <button class="estadoIcon botonDetalles" @onclick="@(()=> ShowModal(item.IdReporteInspeccion))"><i class="bi bi-card-text"></i> Detalles</button>
+                            </div>
+
+                        </div>
+
+                        <div class="tarjetaContenido">
+
+                            <div class="perfil">
+
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-building-fill"></i>
+                                    </div>
+                                    <p>@item.NombreSolicitante</p>
+                                </div>
+
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-person-circle"></i>
+                                    </div>
+                                    <p>@item.CodigoDepartamentalInstElectrica</p>
+                                </div>
+
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-person-circle"></i>
+                                    </div>
+                                    <p>@item.CodigoMunicipioInstalacion</p>
+                                </div>
+
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-person-circle"></i>
+                                    </div>
+                                    <p>@item.ColoniaInstalacion</p>
+                                </div>
+
+                                <div class="tituloChecks">
+                                    <p>@item.DireccionInstalacion</p>
+                                </div>
+
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-building-fill"></i>
+                                    </div>
+                                    <p>@item.FechaDepagoSolicitante</p>
+                                </div>
+
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-person-circle"></i>
+                                    </div>
+                                    <p>@item.FechaPrimeraInspeccion</p>
+                                </div>
+
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-person-circle"></i>
+                                    </div>
+                                    <p>@item.FechaUltimaInspeccion</p>
+                                </div>
+
+                                <div class="texto">
+                                    <div class="iconoTexto">
+                                        <i class="bi bi-person-circle"></i>
+                                    </div>
+                                    <p>@item.FechaEntregaConformidad</p>
+                                </div>
+
+                            </div>
+
+                            <div class="extras">
+
+                                <div class="textoExtra">
+                                    <div class="iconoExtra">
+                                        <i class="bi bi-person-vcard-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p>DuiPropietario.pdf</p>
+                                    </div>
+                                </div>
+
+                                <div class="textoExtra">
+                                    <div class="iconoExtra">
+                                        <i class="bi bi-person-vcard"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p>DuiRetiro.pdf</p>
+                                    </div>
+                                </div>
+
+                                <div class="textoExtra">
+                                    <div class="iconoExtra">
+                                        <i class="bi bi-person-vcard"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p>DuiElectricista.pdf</p>
+                                    </div>
+                                </div>
+
+                                <div class="textoExtra">
+                                    <div class="iconoExtra">
+                                        <i class="bi bi-card-heading"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p>CarnetElectricista.pdf</p>
+                                    </div>
+                                </div>
+
+                                <div class="textoExtra">
+                                    <div class="iconoExtra">
+                                        <i class="bi bi-map-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p>PlanosDiseñoMinimo.pdf</p>
+                                    </div>
+                                </div>
+
+                                <div class="textoExtra">
+                                    <div class="iconoExtra">
+                                        <i class="bi bi-map"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p>PlanosConstruccion.pdf</p>
+                                    </div>
+                                </div>
+
+                                <div class="textoExtra">
+                                    <div class="iconoExtra">
+                                        <i class="bi bi-pass-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p>FacturaDeMateriales.pdf</p>
+                                    </div>
+                                </div>
+
+                                <div class="textoExtra">
+                                    <div class="iconoExtra">
+                                        <i class="bi bi-patch-check-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p>Transformador.pdf</p>
+                                    </div>
+                                </div>
+
+                                <div class="textoExtra">
+                                    <div class="iconoExtra">
+                                        <i class="bi bi-map-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p>PlanosDiseñoMinimo.pdf</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <div class="tituloB">
-                        <button class="estadoIcon botonDetalles" @onclick="@(()=> ShowModal(0))"><i class="bi bi-card-text"></i> Detalles</button>
-                    </div>
-
-                </div>
-
-                <div class="tarjetaContenido">
-
-                    <div class="perfil">
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-building-fill"></i>
-                            </div>
-                            <p>Hola como estas</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>Ennove la roche posai</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>Celular pro max 12</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>Requisitos Minimos Extras</p>
-                        </div>
-
-                        <div class="tituloChecks">
-                            <p>Apartado Fechas</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-building-fill"></i>
-                            </div>
-                            <p>@DateTime.Now</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>@DateTime.Now</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>@DateTime.Now</p>
-                        </div>
-
-                        <div class="texto">
-                            <div class="iconoTexto">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <p>@DateTime.Now</p>
-                        </div>
-
-                    </div>
-
-                    <div class="extras">
-
-                        <div class="textoExtra">
-                            <div class="iconoExtra">
-                                <i class="bi bi-person-vcard-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p>DuiPropietario.pdf</p>
-                            </div>
-                        </div>
-
-                        <div class="textoExtra">
-                            <div class="iconoExtra">
-                                <i class="bi bi-person-vcard"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p>DuiRetiro.pdf</p>
-                            </div>
-                        </div>
-
-                        <div class="textoExtra">
-                            <div class="iconoExtra">
-                                <i class="bi bi-person-vcard"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p>DuiElectricista.pdf</p>
-                            </div>
-                        </div>
-
-                        <div class="textoExtra">
-                            <div class="iconoExtra">
-                                <i class="bi bi-card-heading"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p>CarnetElectricista.pdf</p>
-                            </div>
-                        </div>
-
-                        <div class="textoExtra">
-                            <div class="iconoExtra">
-                                <i class="bi bi-map-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p>PlanosDiseñoMinimo.pdf</p>
-                            </div>
-                        </div>
-
-                        <div class="textoExtra">
-                            <div class="iconoExtra">
-                                <i class="bi bi-map"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p>PlanosConstruccion.pdf</p>
-                            </div>
-                        </div>
-
-                        <div class="textoExtra">
-                            <div class="iconoExtra">
-                                <i class="bi bi-pass-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p>FacturaDeMateriales.pdf</p>
-                            </div>
-                        </div>
-
-                        <div class="textoExtra">
-                            <div class="iconoExtra">
-                                <i class="bi bi-patch-check-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p>Transformador.pdf</p>
-                            </div>
-                        </div>
-
-                        <div class="textoExtra">
-                            <div class="iconoExtra">
-                                <i class="bi bi-map-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p>PlanosDiseñoMinimo.pdf</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
+                }
+            }
+            else
+            {
+                <p>No se encontro resultados</p>
+            }
 
             @* mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
@@ -300,11 +399,11 @@
     <section class="footer">
 
         <div class="paginacion">
-            @*
+            
             <PaginadoOrganismo PaginaActual="@paginaActual"
             TotalPaginas="@totalPaginas"
             OnPageChanged="HandlePageChanged">
-            </PaginadoOrganismo> *@
+            </PaginadoOrganismo>
 
         </div>
 
@@ -316,15 +415,42 @@
 {
     // Objetos de modelos mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
+    APIResponse<List<ReporteInspeccionDTO>> resReportes = new APIResponse<List<ReporteInspeccionDTO>>();
 
+    //hijas
+    // List<OrganismoDTO> listaOrganismos = new List<OrganismoDTO>();
+    // List<RepresentanteDTO> listaRepresentante = new List<RepresentanteDTO>();
+    // List<RequisitoMenorDTO> listaRequisitoMenor = new List<RequisitoMenorDTO>();
+    // List<RequisitoMayorDTO> listaRequisistoMayor = new List<RequisitoMayorDTO>();
+    // List<ComentariosInconformidadDTO> listaComentarioI = new List<ComentariosInconformidadDTO>();
+
+    //padres
+    List<DepartamentoInstalacionDTO> listaDepartamento = new List<DepartamentoInstalacionDTO>();
+    List<MunicipioInstalacionDTO> listaMunicipio = new List<MunicipioInstalacionDTO>();
+    List<CodigoConformidadDTO> listaCodigoConformidad = new List<CodigoConformidadDTO>();
+    List<CodigoSigetDTO> listaCodigoSiget = new List<CodigoSigetDTO>();
+    List<EstadoReporteDTO> listaEstadoReporte = new List<EstadoReporteDTO>();
 
     // Variables con valores cambiantes mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
+    ReporteFiltro filtro = new ReporteFiltro();
+    private string valorOrden = "Descendente";
+    private string valorBusqueda = "";
+    private string? ordenSeleccionada;
+    private int? estadoSeleccionado;
 
+    private int? departamentoSeleccionado;
+    private int? municipioSeleccionado;
+    private int? codigoConformidadSeleccionado;
+    private int? codigoSigetSeleccionado;
+    private int? estadoReporteSeleccionado;
 
     // Variables para Paginacion mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
-
+    private int paginaActual = 1;
+    private int tamanoPagina = 6;
+    private int registrosActuales;
+    private int totalPaginas;
 
     // Modal mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
@@ -335,15 +461,170 @@
     protected override async Task OnInitializedAsync()
     {
         tituloService.AgregarTitulo("Administracion de Reportes");
+
+        await CargarPagina(paginaActual, filtro, "Descendente");
+
+        //hijas
+        // listaOrganismos = await organismoService.MostrarOrganismos();
+        // listaRepresentante = await representanteService.MostrarRepresentante();
+        // listaRequisitoMenor = await reqMenorService.MostrarRequisitoMenor();
+        // listaRequisistoMayor = await reqMayorService.MostrarRequisitoMayor();
+        // listaComentarioI = await inconformidadService.MostrarComentarioInconformidad();
+
+
+        //padres
+        listaDepartamento = await depaService.MostrarDepartamentos();
+        listaMunicipio = await muniService.MostrarMunicipio();
+        listaCodigoConformidad = await codConformidadService.MostrarCodigoConformidad();
+        listaCodigoSiget = await codSigetService.MostrarCodigoSiget();
+        listaEstadoReporte = await estadoReporteService.MostrarReporte();
     }
 
     // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
+    private async Task OrdenarReportes(string valor)
+    {
+        if (ordenSeleccionada == valor)
+        {
+            ordenSeleccionada = null;
+        }
+        else
+        {
+            ordenSeleccionada = valor;
+        }
+
+        await CargarPagina(paginaActual, filtro, valor);
+        valorOrden = valor;
+    }
+
+    private async Task FiltrarDepartamento(int valor)
+    {
+        if (departamentoSeleccionado == valor)
+        {
+            departamentoSeleccionado = null;
+            valor = 0;
+        }
+        else
+        {
+            departamentoSeleccionado = valor;
+        }
+
+        filtro.IdDepartamentoInstalacion = valor;
+        await CargarPagina(paginaActual, filtro, valorOrden);
+        //filtro.ReiniciarFiltro();
+    }
+
+    private async Task FiltrarMunicipio(int valor)
+    {
+        if (filtro.IdMunicipioInstalacion == valor)
+        {
+            municipioSeleccionado = null;
+            valor = 0;
+        }
+        else
+        {
+            municipioSeleccionado = valor;
+        }
+
+        filtro.IdMunicipioInstalacion = valor;
+        await CargarPagina(paginaActual, filtro, valorOrden);
+        //filtro.ReiniciarFiltro();
+
+    }
+
+    private async Task FiltrarCodigoConformidad(int valor)
+    {
+        if (filtro.IdCodigoConformidad == valor)
+        {
+            codigoConformidadSeleccionado = null;
+            valor = 0;
+        }
+        else
+        {
+            codigoConformidadSeleccionado = valor;
+        }
+
+        filtro.IdCodigoConformidad = valor;
+        await CargarPagina(paginaActual, filtro, valorOrden);
+        //filtro.ReiniciarFiltro();
+
+    }
+
+    private async Task FiltrarCodigoSiget(int valor)
+    {
+        if (filtro.IdCodigoSiget == valor)
+        {
+            codigoSigetSeleccionado = null;
+            valor = 0;
+        }
+        else
+        {
+            codigoSigetSeleccionado = valor;
+        }
+
+        filtro.IdCodigoSiget = valor;
+        await CargarPagina(paginaActual, filtro, valorOrden);
+        //filtro.ReiniciarFiltro();
+    }
+
+    private async Task FiltrarEstadoReporte(int valor)
+    {
+        if (filtro.IdEstadoReporte == valor)
+        {
+            estadoReporteSeleccionado = null;
+            valor = 0;
+        }
+        else
+        {
+            estadoReporteSeleccionado = valor;
+        }
+
+        filtro.IdEstadoReporte = valor;
+        await CargarPagina(paginaActual, filtro, valorOrden);
+        //filtro.ReiniciarFiltro();
+    }
+
+    private async Task CargarPagina(int numeroPagina, ReporteFiltro filtro, string orden)
+    {
+        ParametrosPaginacion parametros = new()
+            {
+                NumeroPagina = numeroPagina,
+                TamañoPagina = tamanoPagina,
+                Orden = orden,
+                Buscar = valorBusqueda,
+                ReporteFiltro = filtro
+            };
+
+        resReportes = await reporteService.MostrarReporte(parametros);
+        registrosActuales = resReportes.TotalRegistros;
+        totalPaginas = (int)Math.Ceiling((double)registrosActuales / tamanoPagina);
+        paginaActual = numeroPagina;
+
+    }
+
+    private async Task BuscarReporte(ChangeEventArgs e)
+    {
+        try
+        {
+            valorBusqueda = e.Value.ToString();
+
+            await CargarPagina(paginaActual, filtro, valorOrden);
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Error al realizar la solicitud: {ex.Message}");
+            throw;
+        }
+    }
 
 
     // Handlers mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
-
+    private async Task HandlePageChanged(int newPage)
+    {
+        paginaActual = newPage;
+        await CargarPagina(newPage, filtro, valorOrden);
+    }
 
     // Modals mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
@@ -364,7 +645,7 @@
         // {
         //     if (resultado.Data.ToString() == "Ejecucion Correcta")
         //     {
-        //         await CargarPagina(paginaActual, rango, estado, valorOrden);
+        //         await CargarPagina(paginaActual, filtro, valorOrden);
         //     }
         // }
 
