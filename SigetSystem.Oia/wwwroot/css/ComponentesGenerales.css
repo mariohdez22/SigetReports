@@ -10,15 +10,6 @@
     background-color:aquamarine;
 }
 
-.barra {
-    width: 18vw;
-    height: 70vh;
-    display: flex;
-    flex-direction: column;
-    gap: 35px;
-    /*    background-color: aquamarine;*/
-}
-
 /*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
 /* Contenido componente */
 
