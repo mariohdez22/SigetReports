@@ -1,5 +1,31 @@
+.offcanvas {
+    width: 20vw !important;
+}
+
+    .offcanvas .offcanvas-header {
+        padding-left: 35px;
+    }
+
+        .offcanvas .offcanvas-header h5 {
+            color: white;
+        }
+
+.offcanvas-title {
+    font-weight: 500;
+    font-size: 30px;
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(99deg, #3B2AFF 10.54%, rgba(137, 44, 255, 0.58) 97.36%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.menuLateral {
+    background-color: white !important;
+}
+
 .navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgb(0, 0, 0, 0.10);
 }
 
 .top-row {
@@ -40,14 +66,24 @@
         line-height: 3rem;
     }
 
-.nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.25);
-    color: white;
+        .nav-item ::deep a.active {
+            background-color: #e0daff;
+            color: #ff3c3c;
+        }
+
+        .nav-item ::deep a:hover {
+            background-color: #e0daff;
+            color: #ff3c3c;
+        }
+
+.nav-link span {
+    margin-left: 20px !important;
+    color: #5944b4;
 }
 
-.nav-item ::deep a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
+.titulomenu {
+    font-weight: 400;
+    font-family: 'Raleway', sans-serif;
 }
 
 @media (min-width: 641px) {
@@ -59,7 +95,7 @@
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
-    
+
     .nav-scrollable {
         /* Allow sidebar to scroll for tall menus */
         height: calc(100vh - 3.5rem);

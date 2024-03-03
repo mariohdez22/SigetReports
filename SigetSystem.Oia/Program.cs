@@ -1,3 +1,5 @@
+using Blazored.Modal;
+using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using SigetSystem.Oia;
@@ -14,5 +16,10 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7284") });
 
 builder.Services.AddScoped<ICodigoConformidadService, CodigoConformidadService>();
+
+builder.Services.AddScoped<TituloService>();
+
+builder.Services.AddSweetAlert2();
+builder.Services.AddBlazoredModal();
 
 await builder.Build().RunAsync();

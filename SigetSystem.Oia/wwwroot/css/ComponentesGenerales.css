@@ -1,0 +1,49 @@
+﻿body {
+}
+
+.ContenedorGeneral {
+    width: 100vw;
+    height: 92vh;
+    background-color: #F1E8FF;
+    margin-left: -32px;
+    padding: 15px;
+    background-color:aquamarine;
+}
+
+.barra {
+    width: 18vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    /*    background-color: aquamarine;*/
+}
+
+/*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+/* Contenido componente */
+
+.contenido::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.contenido::-webkit-scrollbar:vertical {
+    width: 8px;
+}
+
+.contenido::-webkit-scrollbar-button:increment, #scroll::-webkit-scrollbar-button {
+    display: none;
+}
+
+.contenido::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.contenido::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #D4D4D4;
+}
+
+.contenido::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
