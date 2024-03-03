@@ -14,5 +14,9 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas
         Task<Personal> EditarPersonal (Personal entidad);
 
         Task BorrarPersonal (Personal entidad);
+
+        //--------------------------------------------------------------------------------------------------
+
+        Task<List<Personal>> ConsultaPersonalSimple();
     }
 }

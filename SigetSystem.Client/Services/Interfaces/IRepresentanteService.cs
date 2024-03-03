@@ -16,5 +16,9 @@ namespace SigetSystem.Client.Services.Interfaces
         Task<string> EditarRepresentante(RepresentanteDTO representante, int id);
 
         Task<string> EliminarRepresentante(int id);
+
+        //----------------------------------------------------------------------------------------
+
+        Task<List<RepresentanteDTO>> MostrarRepresentanteSimple();
     }
 }

@@ -28,12 +28,12 @@ namespace SigetSystem.Shared.DTOs.Hijas
 
         public DateTime FechaComentario { get; set; }
 
-        public virtual TipoConformidadDTO? TipoConformidad { get; set; }
+        public virtual TipoConformidadDTO? TipoConformidad { get; set; } 
 
-        public virtual ReporteInspeccionDTO? ReporteInspeccion { get; set; }
+        public virtual ReporteInspeccionDTO? ReporteInspeccion { get; set; } 
 
-        public virtual RepresentanteDTO? Representante { get; set; }
+        public virtual RepresentanteDTO? Representante { get; set; } 
 
-        public virtual PersonalDTO? Personal { get; set; }
+        public virtual PersonalDTO? Personal { get; set; } 
     }
 }

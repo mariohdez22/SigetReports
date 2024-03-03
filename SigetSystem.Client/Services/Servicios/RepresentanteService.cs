@@ -132,7 +132,20 @@ namespace SigetSystem.Client.Services.Servicios
             }
         }
 
+        public async Task<List<RepresentanteDTO>> MostrarRepresentanteSimple()
+        {
+            var resultado = await _httpClient.GetFromJsonAsync<APIResponse<List<RepresentanteDTO>>>("api/Representante/ConsultaSimple");
 
+            if (resultado!.EsExitoso == true)
+            {
+                List<RepresentanteDTO> lista = resultado.Resultado;
+                return lista;
+            }
+            else
+            {
+                throw new Exception(resultado.MensajeError);
+            }
+        }
     }
 }
 

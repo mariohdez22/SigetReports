@@ -113,5 +113,16 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
                 throw;
             }
         }
+
+        public async Task<List<Personal>> ConsultaPersonalSimple()
+        {
+            IQueryable<Personal> lista = await _repositorio.Consulta();
+
+            var listaPersonal = await lista.Include(t => t.RangoPersonal)
+                                           .Include(e => e.EstadoPersonal)
+                                           .ToListAsync();
+
+            return listaPersonal;
+        }
     }
 }

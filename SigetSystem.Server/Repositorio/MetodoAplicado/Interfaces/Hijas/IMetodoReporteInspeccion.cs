@@ -16,5 +16,9 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas
         Task BorrarReporte(ReporteInspeccion reporte);
 
         Task<(int id, string tokenJob)> GenerarEdicionPrograma(int idReporte);
+
+        //--------------------------------------------------------------------------------------------------
+
+        Task<List<ReporteInspeccion>> ConsultaReporteSimple();
     }
 }

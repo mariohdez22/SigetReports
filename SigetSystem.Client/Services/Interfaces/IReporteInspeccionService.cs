@@ -17,5 +17,9 @@ namespace SigetSystem.Client.Services.Interfaces
 
         Task<string> EliminarReporte(int id);
 
+        //----------------------------------------------------------------------------------------
+
+        Task<List<ReporteInspeccionDTO>> MostrarReporteSimple();
+
     }
 }

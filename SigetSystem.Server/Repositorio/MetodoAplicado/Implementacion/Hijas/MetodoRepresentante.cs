@@ -114,6 +114,17 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             }
         }
 
-        
+        //--------------------------------------------------------------------------------------------------
+
+        public async Task<List<Representante>> ConsultaRepresentanteSimple()
+        {
+            IQueryable<Representante> lista = await _repositorio.Consulta();
+
+            var listaRepresentante = await lista.Include(t => t.EstadoRepresentante)
+                                          .Include(e => e.Organismo)
+                                          .ToListAsync();
+
+            return listaRepresentante;
+        }
     }
 }

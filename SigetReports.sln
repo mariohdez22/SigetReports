@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigetSystem.Shared", "Siget
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigetSystem.Client", "SigetSystem.Client\SigetSystem.Client.csproj", "{C6C9CE29-5A80-4CCA-BB2C-843A9FE89BE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigetSystem.Oia", "SigetSystem.Oia\SigetSystem.Oia.csproj", "{B0087852-6B28-461F-8BAB-1E778184DA2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C6C9CE29-5A80-4CCA-BB2C-843A9FE89BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6C9CE29-5A80-4CCA-BB2C-843A9FE89BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6C9CE29-5A80-4CCA-BB2C-843A9FE89BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0087852-6B28-461F-8BAB-1E778184DA2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0087852-6B28-461F-8BAB-1E778184DA2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0087852-6B28-461F-8BAB-1E778184DA2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0087852-6B28-461F-8BAB-1E778184DA2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

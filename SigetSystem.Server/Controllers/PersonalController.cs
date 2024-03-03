@@ -216,5 +216,34 @@ namespace SigetSystem.Server.Controllers
 
             return BadRequest(_apiResponse);
         }
+
+        //----------------------------------------------------------------------------------------------------
+
+        [HttpGet("ConsultaSimple")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> ConsultaPersonalSimple()
+        {
+            var _apiResponse = new APIResponse<List<PersonalDTO>>();
+
+            try
+            {
+                _logger.LogInformation("Obteniendo el personal");
+
+                var lista = await _repositorio.ConsultaPersonalSimple();
+
+                _apiResponse.Resultado = _mapper.Map<List<PersonalDTO>>(lista);
+                _apiResponse.EsExitoso = true;
+                _apiResponse.CodigoEstado = HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                _apiResponse.EsExitoso = false;
+                _apiResponse.MensajeError = ex.Message;
+                _apiResponse.MensajesError = new List<string>() { ex.Message };
+            }
+
+            return Ok(_apiResponse);
+        }
+
     }
 }

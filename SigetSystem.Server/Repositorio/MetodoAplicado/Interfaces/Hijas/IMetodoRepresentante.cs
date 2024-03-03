@@ -14,5 +14,9 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas
         Task<Representante> EditarRepresentante(Representante representante);
 
         Task BorrarRepresentante(Representante representante);
+
+        //--------------------------------------------------------------------------------------------------
+
+        Task<List<Representante>> ConsultaRepresentanteSimple();
     }
 }

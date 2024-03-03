@@ -1,7 +1,9 @@
 ﻿using SigetSystem.Client.Services.Interfaces;
 using SigetSystem.Shared.DTOs.Hijas;
+using SigetSystem.Shared.DTOs.Padres;
 using SigetSystem.Shared.MPPs;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace SigetSystem.Client.Services.Servicios
@@ -131,6 +133,23 @@ namespace SigetSystem.Client.Services.Servicios
             else
             {
                 throw new Exception(respuesta.MensajeError);
+            }
+        }
+
+        //----------------------------------------------------------------------------------------
+
+        public async Task<List<ReporteInspeccionDTO>> MostrarReporteSimple()
+        {
+            var resultado = await _http.GetFromJsonAsync<APIResponse<List<ReporteInspeccionDTO>>>("api/ReporteInspeccion/ConsultaSimple");
+
+            if (resultado!.EsExitoso == true)
+            {
+                List<ReporteInspeccionDTO> lista = resultado.Resultado;
+                return lista;
+            }
+            else
+            {
+                throw new Exception(resultado.MensajeError);
             }
         }
     }

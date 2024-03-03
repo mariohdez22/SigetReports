@@ -3,6 +3,7 @@ using SigetSystem.Shared.DTOs.Hijas;
 using SigetSystem.Shared.MPPs;
 using System.Net;
 using System.Net.Http.Json;
+using static System.Net.WebRequestMethods;
 
 namespace SigetSystem.Client.Services.Servicios
 {
@@ -97,5 +98,21 @@ namespace SigetSystem.Client.Services.Servicios
             }
         }
 
+        //----------------------------------------------------------------------------------------
+
+        public async Task<List<PersonalDTO>> MostrarPersonalSimple()
+        {
+            var resultado = await _httpClient.GetFromJsonAsync<APIResponse<List<PersonalDTO>>>("api/Personal/ConsultaSimple");
+
+            if (resultado!.EsExitoso == true)
+            {
+                List<PersonalDTO> lista = resultado.Resultado;
+                return lista;
+            }
+            else
+            {
+                throw new Exception(resultado.MensajeError);
+            }
+        }
     }
 }

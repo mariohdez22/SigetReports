@@ -14,5 +14,9 @@ namespace SigetSystem.Client.Services.Interfaces
         Task<string> EditarPersonal(PersonalDTO personal, int id);
 
         Task<string> EliminarPersonal(int id);
+
+        //----------------------------------------------------------------------------------------
+
+        Task<List<PersonalDTO>> MostrarPersonalSimple();
     }
 }

@@ -6,6 +6,7 @@ using SigetSystem.Server.Models.Entidades.Hijas;
 using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
 using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
 using SigetSystem.Shared.MPPs;
+using System.Collections.Generic;
 
 namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 {
@@ -196,6 +197,26 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 throw;
             }
+        }
+
+        //--------------------------------------------------------------------------------------------------
+
+        public async Task<List<ReporteInspeccion>> ConsultaReporteSimple()
+        {
+            IQueryable<ReporteInspeccion> lista = await _repoGenerico.Consulta();
+
+            var listaReporte = await lista.Include(o => o.Organismo)
+                                          .Include(r => r.Representante)
+                                          .Include(dp => dp.DepartamentoInstalacion)
+                                          .Include(m => m.MunicipioInstalacion)
+                                          .Include(c => c.CodigoConformidad)
+                                          .Include(s => s.CodigoSiget)
+                                          .Include(rqmr => rqmr.RequisitoMenor)
+                                          .Include(rqmy => rqmy.RequisitoMayor)
+                                          .Include(e => e.EstadoReporte)
+                                          .ToListAsync();
+
+            return listaReporte;
         }
     }
 }
