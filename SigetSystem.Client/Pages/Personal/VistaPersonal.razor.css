@@ -79,6 +79,7 @@
     font-size: 14px;
 }
 
+
 /*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
 /* Filtro sub-componentes */
 
@@ -428,6 +429,17 @@
 
 .iconoExtra
 {
+    width: 40px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    font-size: 20px;
+    padding-top: 1.5px;
+    padding-left: 6.5px;
+    color: #909090;
+}
+
+.iconoInput {
     width: 40px;
     height: 100%;
     background: rgba(0, 0, 0, 0.06);
