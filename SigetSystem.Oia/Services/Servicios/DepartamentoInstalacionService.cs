@@ -1,6 +1,8 @@
-﻿namespace SigetSystem.Oia.Services.Servicios
+﻿using SigetSystem.Oia.Services.Interfaces;
+
+namespace SigetSystem.Oia.Services.Servicios
 {
-    public class DepartamentoInstalacionService
+    public class DepartamentoInstalacionService : IDepartamentoInstalacion
     {
     }
 }

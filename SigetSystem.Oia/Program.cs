@@ -16,6 +16,17 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7284") });
 
 builder.Services.AddScoped<ICodigoConformidadService, CodigoConformidadService>();
+builder.Services.AddScoped<ICodigoInconformidadService, CodigoInconformidadService>();
+builder.Services.AddScoped<ICodigoSigetService, CodigoSigetService>();
+builder.Services.AddScoped<IComentariosOIAService, ComentariosOIAService>();
+builder.Services.AddScoped<IDepartamentoInstalacion, DepartamentoInstalacionService>();
+builder.Services.AddScoped<IEstadoRepresentanteService, EstadoRepresentanteService>();
+builder.Services.AddScoped<IGestionReporteInspeccionService, GestionReporteInspeccionService>();
+builder.Services.AddScoped<IMunicipioInstalacionService, MunicipioInstalacionService>();
+builder.Services.AddScoped<IOrganismoService, OrganismoService>();
+builder.Services.AddScoped<IRepresentanteService, RepresentanteService>();
+builder.Services.AddScoped<IRequisitoMayorService, RequisitoMayorService>();
+builder.Services.AddScoped<IRequisitoMenorService, RequisitoMenorService>();
 
 builder.Services.AddScoped<TituloService>();
 

@@ -2,7 +2,7 @@
 
 namespace SigetSystem.Oia.Services.Servicios
 {
-    public class MunicipioInstalacionService : IMunicipioInstalacionService
+    public class CodigoInconformidadService : ICodigoInconformidadService
     {
     }
 }
