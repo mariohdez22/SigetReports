@@ -15,6 +15,17 @@
     border-radius: 5px;
 }
 
+/*---------------------------------------------------------*/
+
+.apartadoExtra {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.06);
+    /*    background-color: aquamarine;*/
+    border-radius: 10px;
+    padding-top: 6px;
+    padding-left: 7px;
+}
 
 /*---------------------------------------------------------*/
 
@@ -22,16 +33,17 @@
 
     width: 100%;
     height: 95%;
-    background-color: antiquewhite;
     display: flex;
     flex-direction: row;
-    gap: 30px
+    gap: 15px
 }
 
 .stack-h-options{
+    background-color: #bababa;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     width: 100%;
     height: auto;
-    background-color: antiquewhite;
     display: flex;
     flex-direction: row;
     gap: 15px;
@@ -45,7 +57,6 @@
 .stack-v{
 
     width: 100%;
-    background-color: chartreuse;
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -55,50 +66,101 @@
 
 .stack-v-nogap {
     width: 100%;
-    background-color: chartreuse;
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 25px;
-    padding-left: 0px;
-}
-
-.targeta{
-
-    width: 100%;
-    height: 100%;
-    background-color:crimson;
-
+    border-radius: 15px;
 }
 
 .column{
 
     width: 100%;
     height: 100%;
-    background-color: blue;
     display: flex;
     flex-direction:column;
     gap: 12px;
 }
 
+.fila {
+    background-color: #7b4f8ff2;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/*---------------------------------------------------------*/
+
+.targeta {
+    width: 100%;
+    height: 100%;
+    background-color: crimson;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: scroll;
+    padding: 10px;
+    padding-right: 15px;
+}
+
+.targeta::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+    .targeta::-webkit-scrollbar:vertical {
+        width: 8px;
+    }
+
+.targeta::-webkit-scrollbar-button:increment, #scroll::-webkit-scrollbar-button {
+    display: none;
+}
+
+.targeta::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.targeta::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #D4D4D4;
+}
+
+.targeta::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
 
 /*---------------background: rgba(64, 50, 155, 0.10);------------------------------------------*/
 
 .title-md{
     width: 100%;
-    height: 40px;
-    background-color: darkorange;
+    height:52px;
     border-radius: 10px;
     padding: 5px;
+    padding-top: 10px;
     display: flex;
     font-size: 20px;
+    text-decoration: solid;
+}
+
+.title-md-fila {
+    width: 25%;
+    height: 45px;
+    border-radius: 10px;
+    padding: 5px;
+    padding-top: 10px;
+    display: flex;
+    font-size: 17px;
     text-decoration: solid;
 }
 
 .subtitle-md {
     width: 100%;
     height: 30px;
-    background-color: darkorange;
     border-radius: 10px;
     padding-top: 2.5px;
     padding-left: 5px;
@@ -110,7 +172,6 @@
 .subtitle-sh {
     width: 65%;
     height: 30px;
-    background-color: darkorange;
     border-radius: 10px;
     padding-top: 5px;
     padding-left: 2.5px;
@@ -125,7 +186,6 @@
 .texto {
     width: 100%;
     height: 30px;
-    background-color: darkorange;
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -156,7 +216,6 @@
 .texto-md-left {
     width: 25%;
     height: 30px;
-    background-color: darkorange;
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -185,23 +244,22 @@
 .texto-sh-left {
     width: 100%;
     height: 30px;
-    background-color: darkorange;
     border-radius: 10px;
-    padding: 5px;
     display: flex;
-    gap: 5px;
+    gap: 2.5px;
 }
 
 .iconoTexto-sh-left {
     background-color: white;
     border-radius: 5px;
     height: 100%;
-    width: 20px;
+    width: 35px;
     margin-right: 5px;
     color: rgba(64, 50, 155, 0.40);
     display: flex;
     justify-content: center;
-    font-size: 12px;
+    align-items: center;
+    font-size: 15px;
 }
 
 .texto-sh-left p {
@@ -211,19 +269,157 @@
 
 /*---------------------------------------------------------*/
 
+.comentario-opcion {
+    width: 100%;
+    height: 82px;
+    display: flex;
+    justify-content: end;
+}
+
+.comentario-btn {
+    width: 40px;
+    height: 100%;
+    display:flex;
+    align-items: center;
+}
+
+.comentario-btn button{
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 5.5px;
+}
+
+/*---------------------------------------------------------*/
+
+.seccionComentario {
+    background-color: #f1f1f1;
+    width: 100%;
+    height: 180px;
+    border-radius: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    padding-left: 12px;
+    padding-right: 14px;
+    font-weight: 400;
+    text-align: justify;
+}
+
+.bodyComentario {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+
+.bodyComentario::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.bodyComentario::-webkit-scrollbar:vertical {
+    width: 8px;
+}
+
+.bodyComentario::-webkit-scrollbar-button:increment, #scroll::-webkit-scrollbar-button {
+    display: none;
+}
+
+.bodyComentario::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.bodyComentario::-webkit-scrollbar-thumb {
+    background-color: #454545d9;
+    border-radius: 20px;
+    border: 1px solid #D4D4D4;
+}
+
+.bodyComentario::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+
+/*---------------------------------------------------------*/
+
+.btn-fin{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.btn-fin button{
+    width: 30px;
+    border: none;
+    border-radius: 2.5px;
+}
+
+.btn-inicio {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+/*---------------------------------------------------------*/
+
 .space-sh {
     width: 100%;
-    height: 6px;
+    height: 19px;
 
 }
 
-.space-sm {
+.space-sm-40 {
     width: 100%;
-    height: 45px;
+    height: 40px;
 }
 
-.space-md {
-    width: 100%;
-    height: 75px;
 
+.space-sm-30 {
+    width: 100%;
+    height: 30px;
+
+}
+
+.space-bg-72 {
+    width: 100%;
+    height: 72px;
+}
+
+
+.fake-text {
+    width: 100%;
+    height: 30px;
+}
+
+.padding-15{
+    padding: 15px;
+}
+
+.padding-10{
+    padding: 10px;
+}
+
+.br-15{
+    border-radius: 15px;
+}
+
+gap-0{
+    gap: 0px;
+}
+
+.gap-10{
+    gap: 10px;
+}
+
+.aceptado {
+    border-right: 15px solid #50c434;
+}
+
+.rechazado {
+    border-right: 15px solid #d10808;
 }
