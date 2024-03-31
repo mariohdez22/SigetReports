@@ -619,9 +619,9 @@
                 UseCustomLayout = true
             };
 
-        var parametros = new ModalParameters().Add(nameof(ModalReqMayor.idReqMayor), 0);
+        var parametros = new ModalParameters().Add(nameof(ModalRepo.idReporte), 0);
 
-        var modal = Modal.Show<ModalReqMayor>("titulo", parametros, options);
+        var modal = Modal.Show<ModalRepo>("titulo", parametros, options);
         var resultado = await modal.Result;
 
         // if (resultado.Confirmed)

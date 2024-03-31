@@ -41,7 +41,7 @@
     border-width: 2px;
 }
 
-.alInicio p{
+.alInicio p {
     height: 100%;
     display: flex;
     align-items: center;
@@ -61,7 +61,7 @@
     border-width: 2px;
 }
 
-.alFinal i{
+.alFinal i {
     width: 40px;
     height: 100%;
     background-color: #f0f0f0;
@@ -76,7 +76,7 @@
     text-decoration: solid;
 }
 
-.alFinal i:hover{
+.alFinal i:hover {
     cursor: pointer;
     background-color: #979797a5;
     transition: .3s .1s;
@@ -84,7 +84,7 @@
 
 /*---------------------------------------------------------*/
 
-.cuerpo{
+.cuerpo {
     width: 100%;
     height: 83%;
     display: flex;
@@ -102,7 +102,7 @@
     padding-left: 5px;
 }
 
-.pie button{
+.pie button {
     width: 200px;
     height: 30px;
     border: none;
@@ -111,14 +111,14 @@
     color: white;
 }
 
-.pie button:hover{
+.pie button:hover {
     background-color: #38b503c7;
     transition: .3s .1s;
 }
 
 /*---------------------------------------------------------*/
 
-.divisor{
+.divisor {
     border-radius: 3px;
     width: 6px;
     height: 100%;
@@ -141,27 +141,16 @@
 }
 
 /*---------------------------------------------------------*/
-
-.contenedorChecks {
-    height: 400px;
-    width: 100%;
-    padding-right: 15px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 35px;
-    gap: 25px;
-}
-
 .contenedorTextos {
-    height: 100%;
+    height: 450px;
     width: 100%;
     padding-left: 15px;
     padding-right: 10px;
     padding-bottom: 5px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    overflow-x: hidden;
     gap: 15px;
 }
 
@@ -202,9 +191,10 @@
     flex-direction: row;
     padding: 10px;
     border-radius: 10px;
+    gap: 25px;
 }
 
-.itemColumna{
+.itemColumna {
     height: 100%;
     width: 100%;
     display: flex;
@@ -225,33 +215,5 @@
 .itemFalso {
     width: 100%;
     height: 100%;
-    gap: 15px;
 }
 
-.itemCheck {
-    background-color: #b6b6b655;
-    width: 100%;
-    height: 100%;
-    border-radius: 7.5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 15px;
-}
-
-.itemCheck input[type=checkbox]{
-    width: 50px;
-}
-
-.itemCheck i{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 40px;
-}
-
-/*---------------------------------------------------------*/
-
-.gap5{
-    gap: 5px !important;
-}

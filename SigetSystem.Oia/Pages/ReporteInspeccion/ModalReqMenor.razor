@@ -1,5 +1,196 @@
-﻿<h3>ModalReqMenor</h3>
+﻿@inject IRequisitoMenorService requisitoMenorServicio;
+
+<style>
+    :root {
+        --color-inputs: #afafe7;
+    }
+</style>
+
+<EditForm Model="requisitoMenor" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="my-modal fade show d-block" tabindex="-1" role="dialog">
+        <div class="modal-backdrop fade show" @onclick="Cancel"></div>
+        <div class="modal-dialog" style="z-index: 1050">
+            <!-- Pop it above the backdrop -->
+            <div class="modal-content">
+                <div class="contenedor">
+                    <div class="encabezado">
+                        <div class="alInicio">
+                            <p>Titulo</p>
+                        </div>
+                        <div class="alFinal">
+                            <i class="bi bi-x" @onclick="Cancel"></i>
+                        </div>
+                    </div>
+                    <div class="cuerpo">
+                        <div class="contenedorChecks">
+                            <div class="fila">
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+
+                                <div class="divisor-item"></div>
+
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+
+                                <div class="divisor-item"></div>
+
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+
+                                <div class="divisor-item"></div>
+
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+                            </div>
+
+                            <div class="fila">
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+
+                                <div class="divisor-item"></div>
+
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+
+                                <div class="divisor-item"></div>
+
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+
+                                <div class="divisor-item"></div>
+
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+                            </div>
+
+                            <div class="fila">
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+
+                                <div class="divisor-item"></div>
+
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+
+                                <div class="divisor-item"></div>
+
+                                <div class="itemCheck">
+                                    <i class="bi bi-clipboard2-fill"></i>
+                                    <input type="checkbox" />
+                                </div>
+
+                                <div class="divisor-falso"></div>
+                                <div class="itemFalso"></div>
+                            </div>
+                        </div>
+
+                        <div class="divisor"></div>
+
+
+                        <div class="contenedorTextos">
+                            <div class="fila gap5">
+                                <div class="itemColumna">
+                                    <div class="itemTitulo">esto es un titulo</div>
+                                    <input type="text" placeholder="Agregar texto" style="border: 1px solid var(--color-inputs);" class="form-control valid" />
+                                </div>
+                                <div class="itemColumna">
+                                    <div class="itemTitulo">esto es un titulo</div>
+                                    <input type="text" placeholder="Agregar texto" style="border: 1px solid var(--color-inputs);" class="form-control valid" />
+                                </div>
+                            </div>
+                            <div class="fila gap5">
+                                <div class="itemColumna">
+                                    <div class="itemTitulo">esto es un titulo</div>
+                                    <input type="text" placeholder="Agregar texto" style="border: 1px solid var(--color-inputs);" class="form-control valid" />
+                                </div>
+                                <div class="itemColumna">
+                                    <div class="itemTitulo">esto es un titulo</div>
+                                    <input type="text" placeholder="Agregar texto" style="border: 1px solid var(--color-inputs);" class="form-control valid" />
+                                </div>
+                            </div>
+                            <div class="fila gap5">
+                                <div class="itemColumna">
+                                    <div class="itemTitulo">esto es un titulo</div>
+                                    <input type="text" placeholder="Agregar texto" style="border: 1px solid var(--color-inputs);" class="form-control valid" />
+                                </div>
+                                <div class="itemColumna">
+                                    <div class="itemTitulo">esto es un titulo</div>
+                                    <input type="text" placeholder="Agregar texto" style="border: 1px solid var(--color-inputs);" class="form-control valid" />
+                                </div>
+                            </div>
+                            <div class="fila gap5">
+                                <div class="itemColumna">
+                                    <div class="itemTitulo">esto es un titulo</div>
+                                    <input type="text" placeholder="Agregar texto" style="border: 1px solid var(--color-inputs);" class="form-control valid" />
+                                </div>
+                                <div class="itemColumna">
+                                    <div class="itemTitulo">esto es un titulo</div>
+                                    <input type="text" placeholder="Agregar texto" style="border: 1px solid var(--color-inputs);" class="form-control valid" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="pie">
+                        <button>boton</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
 
 @code {
+    RequisitoMenorDTO requisitoMenor = new RequisitoMenorDTO();
 
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public int idReqMenor { get; set; } = 0;
+
+    private async Task OnValidSubmit()
+    {
+        string ssres = string.Empty;
+
+        if (idReqMenor == 0)
+        {
+            // ssres = await organismoService.AgregarOrganismo(organismo);
+        }
+        else
+        {
+            // ssres = await organismoService.EditarOrganismo(organismo, idOrganismoEditar);
+        }
+
+        if (ssres == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ssres));
+        }
+    }
+
+
+    private async Task Close() => await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+    private async Task Cancel() => await BlazoredModal.CancelAsync();
 }
