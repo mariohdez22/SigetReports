@@ -1,11 +1,12 @@
 ﻿@page "/vistaReporteInspeccion"
 
+
 <section class="ContenedorGeneral">
 
     <div class="opciones">
 
         <div class="btnOpcionesInicio">
-            <button>B</button>
+            <button @onclick="@(()=> ShowModal(0))">B</button>
         </div>
         <div class="btnOpcionesFinal">
             <button>boton</button>
@@ -609,5 +610,28 @@
 
 
 @code {
+    [CascadingParameter] public IModalService Modal { get; set; } = default;
+
+    private async Task ShowModal(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                UseCustomLayout = true
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalReqMayor.idReqMayor), 0);
+
+        var modal = Modal.Show<ModalReqMayor>("titulo", parametros, options);
+        var resultado = await modal.Result;
+
+        // if (resultado.Confirmed)
+        // {
+        //     if (resultado.Data.ToString() == "Ejecucion Correcta")
+        //     {
+        //         await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+        //     }
+        // }
+
+    }
 
 }
