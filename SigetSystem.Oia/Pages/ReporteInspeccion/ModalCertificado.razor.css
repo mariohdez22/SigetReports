@@ -1,6 +1,6 @@
 ﻿.my-modal {
     --bs-modal-zindex: 1055;
-    --bs-modal-width: 400px;
+    --bs-modal-width: 690px;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -15,13 +15,13 @@
 
 .nuevoMargenModal {
     margin-left: 1em !important;
-    margin-top: 23.1em !important;
+    margin-top: 25.1em !important;
 }
 
 /*---------------------------------------------------------*/
 
 .contenedor {
-    height: 350px;
+    height: 450px;
     background-color: #ffffff;
     border-radius: 10px;
     padding: 10px;
@@ -90,60 +90,111 @@
 
 .cuerpo {
     width: 100%;
-    height: 225px;
+    height: 325px;
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding-top: 5px;
+    flex-direction: row;
 }
 
 /*---------------------------------------------------------*/
 
 .pie {
     width: 100%;
-    height: 35px;
+    height: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 5px;
-    padding-top: 15px;
+    margin-top: 10px;
 }
 
 .pie button {
-    width: 150px;
+    width: 200px;
     height: 30px;
     border: none;
     border-radius: 5px;
-    background-color: #bbb700aa;
+    background-color: #38bb00aa;
     color: white;
 }
 
 .pie button:hover {
-    background-color: #b5b103c7;
+    background-color: #38b503c7;
     transition: .3s .1s;
 }
 
 /*---------------------------------------------------------*/
-
-.contenedorFechas {
+.contenedorComentarios {
+    height: 450px;
     width: 100%;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    background-color: #f1f1f1;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    padding: 5px;
+    margin-top: 10px;
 }
 
-.contenedorFechas h5{
-    font-family: 'Raleway', sans-serif;
-    font-weight: 700;
+/*---------------------------------------------------------*/
+
+.targeta {
+    background-color: #e4e4e4bf;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/*---------------------------------------------------------*/
+
+.encabezadoTargeta{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.encabezadoInicio {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+}
+
+.encabezadoInicio p{
+    width: 200px;
+    height: 30px;
     background: rgba(64, 50, 155, 0.10);
-    padding: 2px;
-    padding-left: 5px;
-    padding-right: 5px;
-    border-radius: 5px;
-    color: #3c3c3c;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: solid;
+    font-weight: 600;
+}
+
+/*---------------------------------------------------------*/
+
+.cuerpoTargeta{
+    width: 100%;
+    height: 230px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.apartadoComentario{
+    width: 100%;
+    height: 100%;
+}
+
+.comentario {
+    background-color: #fafafadd;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    padding: 10px;
+    padding-left: 12px;
+    padding-right: 14px;
+    font-weight: 400;
+    text-align: justify;
 }
