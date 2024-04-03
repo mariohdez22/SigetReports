@@ -1,0 +1,123 @@
+﻿.my-modal {
+    --bs-modal-zindex: 1055;
+    --bs-modal-width: 700px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: var(--bs-modal-zindex);
+    display: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+}
+
+.nuevoMargenModal {
+    margin-left: 44.4em !important;
+    margin-top: 3.3em !important;
+}
+
+/*---------------------------------------------------------*/
+
+.contenedor {
+    height: 700px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/*---------------------------------------------------------*/
+
+.encabezado {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+.alInicio {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5px;
+    border-bottom: solid;
+    border-width: 2px;
+}
+
+    .alInicio p {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 45px;
+        font-weight: 700;
+        font-family: 'Raleway', sans-serif;
+        text-decoration: solid;
+    }
+
+.alFinal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding-bottom: 5px;
+    justify-content: end;
+    border-bottom: solid;
+    border-width: 2px;
+}
+
+    .alFinal i {
+        width: 40px;
+        height: 100%;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        font-weight: 700;
+        font-family: 'Raleway', sans-serif;
+        text-decoration: solid;
+    }
+
+        .alFinal i:hover {
+            cursor: pointer;
+            background-color: #979797a5;
+            transition: .3s .1s;
+        }
+
+/*---------------------------------------------------------*/
+
+.cuerpo {
+    width: 100%;
+    height: 83%;
+    display: flex;
+    flex-direction: row;
+}
+
+/*---------------------------------------------------------*/
+
+.pie {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 5px;
+}
+
+    .pie button {
+        width: 200px;
+        height: 30px;
+        border: none;
+        border-radius: 5px;
+        background-color: #38bb00aa;
+        color: white;
+    }
+
+        .pie button:hover {
+            background-color: #38b503c7;
+            transition: .3s .1s;
+        }
+
+/*---------------------------------------------------------*/

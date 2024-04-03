@@ -1,0 +1,68 @@
+﻿@inject IGestionReporteInspeccionService reporteService;
+
+<style>
+    :root {
+        --color-inputs: #afafe7;
+    }
+</style>
+
+<EditForm Model="reporteInspeccion" OnValidSubmit="OnValidSubmit">
+
+    <div class="my-modal fade show d-block" tabindex="-1" role="dialog">
+        <div class="modal-backdrop fade show" @onclick="Cancel"></div>
+        <div class="modal-dialog nuevoMargenModal" style="z-index: 1050">
+            <!-- Pop it above the backdrop -->
+            <div class="modal-content">
+
+                <div class="contenedor">
+                    <div class="encabezado">
+                        <div class="alInicio">
+                            <p>Titulo</p>
+                        </div>
+                        <div class="alFinal">
+                            <i class="bi bi-x" @onclick="Cancel"></i>
+                        </div>
+                    </div>
+                    <div class="cuerpo">
+                    </div>
+                    <div class="pie">
+                        <button>boton</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+    ReporteInspeccionDTO reporteInspeccion = new ReporteInspeccionDTO();
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public int idReporte { get; set; } = 0;
+
+    private async Task OnValidSubmit()
+    {
+        string ssres = string.Empty;
+
+        if (idReporte == 0)
+        {
+            // ssres = await organismoService.AgregarOrganismo(organismo);
+        }
+        else
+        {
+            // ssres = await organismoService.EditarOrganismo(organismo, idOrganismoEditar);
+        }
+
+        if (ssres == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ssres));
+        }
+    }
+
+
+    private async Task Close() => await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+    private async Task Cancel() => await BlazoredModal.CancelAsync();
+}
