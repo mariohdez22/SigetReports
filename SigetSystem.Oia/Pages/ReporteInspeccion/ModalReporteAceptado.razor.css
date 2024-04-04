@@ -211,8 +211,32 @@
     width: 100%;
     height: 250px;
     margin-bottom: 7.5px;
+    padding-left: 10px;
+    padding-right: 10px;
     border-radius: 10px;
     background-color: #00810b58;
+}
+
+.targetaEncabezado{
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #000000;
+}
+
+.targetaEncabezado p {
+    height: 100%;
+    font-size: 18.5px;
+    font-weight: 700;
+    text-decoration: solid;
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.targetaCuerpo{
+    width: 100%;
+    height: 80%;
+    padding-top: 10px;
 }
 
 /*---------------------------------------------------------*/
@@ -247,3 +271,35 @@
     border-bottom-right-radius: 25px;
     margin-bottom: 5px;
 }
+
+/*---------------------------------------------------------*/
+
+.itemInfo{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.itemInfo h5{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    background: rgb(219, 219, 219, 0.64);
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    color: #3c3c3c;
+}
+
+.itemInfo p{
+    height: 25px;
+    width: 100%;
+    background-color: #eeeeeeb9;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
