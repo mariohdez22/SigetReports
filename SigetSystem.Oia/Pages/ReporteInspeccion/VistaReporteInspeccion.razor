@@ -619,9 +619,9 @@
                 UseCustomLayout = true
             };
 
-        var parametros = new ModalParameters().Add(nameof(ModalReporteAceptado.idReporte), 0);
+        var parametros = new ModalParameters().Add(nameof(ModalReporteRechazado.idReporte), 0);
 
-        var modal = Modal.Show<ModalReporteAceptado>("titulo", parametros, options);
+        var modal = Modal.Show<ModalReporteRechazado>("titulo", parametros, options);
         var resultado = await modal.Result;
 
         // if (resultado.Confirmed)
