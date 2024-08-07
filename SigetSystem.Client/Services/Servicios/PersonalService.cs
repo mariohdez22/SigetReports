@@ -11,9 +11,9 @@ namespace SigetSystem.Client.Services.Servicios
     {
         private readonly HttpClient _httpClient;
 
-        public PersonalService(HttpClient httpClient)
+        public PersonalService(IHttpClientFactory httpFactory)
         {
-            _httpClient = httpClient;
+            _httpClient = httpFactory.CreateClient("ApiSiget");
         }
 
         public async Task<APIResponse<List<PersonalDTO>>> MostrarPersonal(ParametrosPaginacion pp)
@@ -55,17 +55,28 @@ namespace SigetSystem.Client.Services.Servicios
 
         public async Task<string> CrearPersonal(PersonalDTO personal)
         {
-            var resultado = await _httpClient.PostAsJsonAsync("api/Personal/Agregar", personal);
-            var respuesta = await resultado.Content.ReadFromJsonAsync<APIResponse<string>>();
+            try
+            {
+                var resultado = await _httpClient.PostAsJsonAsync("api/Personal/Agregar", personal);
+                var respuesta = await resultado.Content.ReadFromJsonAsync<APIResponse<string>>();
 
-            if (respuesta!.CodigoEstado == HttpStatusCode.Created && respuesta!.EsExitoso == true)
-            {
-                return respuesta.Resultado;
+                if (respuesta!.CodigoEstado == HttpStatusCode.Created && respuesta!.EsExitoso == true)
+                {
+                    return respuesta.Resultado;
+                }
+                else
+                {
+                    Console.WriteLine(respuesta.MensajeError);
+                    throw new Exception(respuesta.MensajeError);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception(respuesta.MensajeError);
-            }
+                // Log de la excepción interna
+                await Console.Out.WriteLineAsync("--------------------------------------------------------");
+                Console.WriteLine(ex.InnerException?.Message ?? ex.Message);
+                throw new Exception("An error occurred while saving the entity changes. See the inner exception for details.", ex);
+            }           
         }
 
         public async Task<string> EditarPersonal(PersonalDTO personal, int id)

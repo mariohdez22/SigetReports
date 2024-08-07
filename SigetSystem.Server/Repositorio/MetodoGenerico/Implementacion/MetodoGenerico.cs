@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SigetSystem.Server.Models.Contexto;
 using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
+using System.Linq.Expressions;
 
 namespace SigetSystem.Server.Repositorio.MetodoGenerico.Implementacion
 {
@@ -29,6 +30,29 @@ namespace SigetSystem.Server.Repositorio.MetodoGenerico.Implementacion
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public async Task<TEntity> BuscarPorCondicion(Expression<Func<TEntity, bool>> condicion,
+        params Expression<Func<TEntity, object>>[] includes)
+        {
+            try
+            {
+                IQueryable<TEntity> query = _baseDatos.Set<TEntity>();
+
+                if (includes != null)
+                {
+                    foreach (var include in includes)
+                    {
+                        query = query.Include(include);
+                    }
+                }
+
+                return await query.Where(condicion).FirstOrDefaultAsync();
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

@@ -5,7 +5,9 @@
 
 .user
 {
-    transform: translate(-40%, 0%);
+    transform: translate(-10%, 0%);
+    display: flex;
+    align-items: center;
 }
 
 .page
@@ -33,10 +35,10 @@ main
 .sombreado1
 {
     position: absolute;
-    width: 30vw;
+    width: 40vw;
     height: 3.5rem;
     background-color: #46337E;
-    transform: translate(230%, 0);
+    transform: translate(160%, 0);
     z-index: 1;
 }
 
@@ -46,19 +48,35 @@ main
     width: 25vw;
     height: 3.5rem;
     background-color: #57409A;
-    transform: translate(300%, 0);
+    transform: translate(275%, 0);
     z-index: 2;
 }
 
 .sombreado3
 {
     position: absolute;
-    width: 20vw;
+    width: 30vw;
     height: 3.5rem;
     background-color: #6A4EBC;
-    transform: translate(405%, 0);
+    transform: translate(245%, 0);
     z-index: 2;
 }
+
+/*------------------------------------------------------------------*/
+
+.spanRange
+{
+    background-color: white;
+    padding: 1px;
+    padding-left: 8px;
+    padding-right: 9px;
+    color: #6A4EBC;
+    border-radius: 50px;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+/*------------------------------------------------------------------*/
 
 .top-row ::deep a, .top-row ::deep .btn-link
 {

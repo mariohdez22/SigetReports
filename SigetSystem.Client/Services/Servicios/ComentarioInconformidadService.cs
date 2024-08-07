@@ -13,9 +13,9 @@ namespace SigetSystem.Client.Services.Servicios
     {
         private readonly HttpClient _http;
 
-        public ComentarioInconformidadService(HttpClient http)
+        public ComentarioInconformidadService(IHttpClientFactory httpFactory)
         {
-            _http = http;
+            _http = httpFactory.CreateClient("ApiSiget");
         }
 
         public async Task<APIResponse<List<ComentariosInconformidadDTO>>> MostrarComentarioInconformidad(ParametrosPaginacion pp)

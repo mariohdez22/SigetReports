@@ -1,5 +1,9 @@
 ﻿@inject TituloService tituloService
+@inject ILocalStorageService _localStorageService
+@inject AuthenticationStateProvider _authStateProvider;
+@inject NavigationManager _navigationManager
 @page "/"
+@attribute [Authorize]
 
 <PageTitle>Index</PageTitle>
 
@@ -9,10 +13,56 @@ Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
+<AuthorizeView>
+    <Authorized>
+        <p>Este contenido solo es visible para usuarios autenticados.</p>
+        <span>@UserDisplayName(context.User.Claims.ToList())</span>
+        <br />
+
+        <button class="btn btn-primary" @onclick="@(()=> LogoutAsync())">Cerrar Sesion</button>
+
+    </Authorized>
+    <NotAuthorized>
+        <p>Debes iniciar sesión para ver este contenido.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Gerente">
+    <Authorized>
+        <p>Efectivamente Eres gerente</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>No tienes el rango suficiente</p>
+    </NotAuthorized>
+</AuthorizeView>
+
 @code
 {
     protected override async Task OnInitializedAsync()
     {
         tituloService.AgregarTitulo("Inicio Siget");
     }
+
+    private string UserDisplayName(List<Claim> claims)
+    {
+        var nickname = claims.Where(c => c.Type == "Nickname").Select(c => c.Value).FirstOrDefault();
+        var nombre = claims.Where(c => c.Type == "Nombre").Select(c => c.Value).FirstOrDefault();
+        var Rango = claims.Where(c => c.Type == "Rango").Select(c => c.Value).FirstOrDefault();
+
+        if (!string.IsNullOrEmpty(nickname) || !string.IsNullOrEmpty(nombre))
+        {
+            return $"{nickname} - {nombre} - {Rango}";
+        }
+
+        return "No se encontraron los datos";
+    }
+
+    private async Task LogoutAsync()
+    {
+        await _localStorageService.RemoveItemAsync("jwt-access-token");
+
+        (_authStateProvider as CustomAuthProvider).NotifyAuthState();
+        _navigationManager.NavigateTo("/vistaLogin");
+    }
+
 }

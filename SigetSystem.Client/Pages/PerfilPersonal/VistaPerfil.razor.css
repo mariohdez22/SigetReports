@@ -1,0 +1,130 @@
+﻿
+/*
+font-family: 'Open Sans', sans-serif;
+font-family: 'Raleway', sans-serif;
+*/
+
+.encajadorPerfil
+{
+    /*background-color: aquamarine;*/
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+
+    display: flex;
+    gap: 30px;
+}
+
+.apartadoPerfil
+{
+    /*background-color: darkorchid;*/
+    width: 100%;
+    height: 100%;
+}
+
+.apartadoBitacora
+{
+/*    background-color: cornflowerblue;*/
+    width: 100%;
+    height: 100%;
+}
+
+.tarjetaPerfil
+{
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+}
+
+.cajaImagen
+{
+/*    background-color: #ff6a00;*/
+    width: 100%;
+    height: 40%;
+
+    display: flex;
+    padding: 15px;
+    gap: 15px;
+}
+
+.circuloFoto
+{
+    background: linear-gradient(25deg, #b200ff, #ff006e);
+    width: 235px;
+    height: 100%;
+    border-radius: 100px;
+}
+
+.contenidoNombre
+{
+/*    background-color: aliceblue;*/
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 15px;
+}
+
+.contenidoNombre h1
+{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+
+.contenidoNombre h3
+{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    color: #ffa900;
+}
+
+.cajaDatos
+{
+    background-color: aquamarine;
+    width: 100%;
+    height: 50%;
+
+    display: flex;
+    padding: 15px;
+    gap: 15px;
+}
+
+.parteA
+{
+    background-color: aliceblue;
+    width: 100%;
+    height: 100%;
+}
+
+.parteB
+{
+    background-color: aliceblue;
+    width: 100%;
+    height: 100%;
+}
+
+.cajaBotones
+{
+    background-color: crimson;
+    width: 100%;
+    height: 10%;
+}
+
+.tarjetaBitacora
+{
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 100%;
+    height: 50%;
+    border-radius: 10px;
+    display: flex;
+}

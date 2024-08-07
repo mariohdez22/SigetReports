@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Padres;
@@ -23,6 +24,7 @@ namespace SigetSystem.Server.Controllers
 
 
         [HttpGet("Consulta")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> ConsultaEstadoAcreditacion()
         {

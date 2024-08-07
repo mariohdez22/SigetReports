@@ -237,29 +237,20 @@
 }
 
 /* Apartado Colores Cambiantes xxxxxxxxxxxxx*/
-/* x */
-.color-Acreditado /* x */
-{ /* x */
-    background-color: #86d294; /* x */
+                                       /* x */
+.color-Vigente                         /* x */
+{                                      /* x */
+    background-color: #86d294;         /* x */
 }
-/* x */
-/* x */
+                                       /* x */
+                                       /* x */
 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
-/* x */
-.color-Suspendido /* x */
-{ /* x */
-    background-color: #d2be86; /* x */
-}
-/* x */
-/* x */
-/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
-/* x */
-.color-Cancelado /* x */
-{ /* x */
-    background-color: #d28686; /* x */
-}
-/* x */
-/* x */
+                                       /* x */
+.color-Ausente                         /* x */
+{                                      /* x */
+    background-color: #d2be86;         /* x */
+}                                      /* x */
+                                       /* x */
 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 
 

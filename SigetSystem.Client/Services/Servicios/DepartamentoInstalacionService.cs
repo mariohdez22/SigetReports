@@ -9,9 +9,9 @@ namespace SigetSystem.Client.Services.Servicios
     {
         private readonly HttpClient _http;
 
-        public DepartamentoInstalacionService(HttpClient http)
+        public DepartamentoInstalacionService(IHttpClientFactory httpFactory)
         {
-            _http = http;
+            _http = httpFactory.CreateClient("ApiSiget");
         }
 
         public async Task<List<DepartamentoInstalacionDTO>> MostrarDepartamentos()

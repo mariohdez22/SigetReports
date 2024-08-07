@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SigetSystem.Server.Models.Entidades.Padres;
@@ -25,6 +26,7 @@ namespace SigetSystem.Server.Controllers
         }
 
         [HttpGet("Consulta")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> ConsultaDepartamentoInstalacion()
         {

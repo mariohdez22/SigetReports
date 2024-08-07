@@ -4,6 +4,12 @@
 @inject IPersonalService personalService;
 @inject IEstadoPersonalService estadoPersonalService;
 @inject IRangoPersonalService rangoPersonalService;
+@implements IAsyncDisposable;
+@inject IHubRegistroService hubRegistroService;
+@inject IHubActualizacionService hubActualizacionService;
+@inject TooltipService tooltipService
+@inject NotificationService NotificationService
+@attribute [Authorize(Roles = "Administrador,Gerente")]
 
 
 <section class="ContenedorGeneral">
@@ -18,17 +24,28 @@
 
                 @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-                <div class="tituloOpciones">
-                    <p>Opciones del personal</p>
-                </div>
+                <AuthorizeView Roles="Administrador">
+                    <Authorized>
 
-                <div class="botonesOpciones">
+                        <div class="tituloOpciones">
+                            <p>Opciones del personal</p>
+                        </div>
 
-                    <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
+                        <div class="botonesOpciones">
 
-                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+                            <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
 
-                </div>
+                            <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+
+                        </div>
+
+                    </Authorized>
+                    <NotAuthorized>
+
+                        @* no se mostrara nada *@
+
+                    </NotAuthorized>
+                </AuthorizeView>
 
                 <div class="tituloOpciones">
                     <p>Buscador</p>
@@ -149,7 +166,7 @@
 
                                     <div class="estado @($"background-{item.EstadoPersonal.Estados}")">
 
-                                        <div class="icono">
+                                        <div class="icono" @ref="@(elementRefs[$"{item.IdPersonal}-tooltip0"])" @onmouseenter="@(() => ShowTooltip("Estado Personal", $"{item.IdPersonal}-tooltip0"))">
                                             <i class="bi bi-person-fill-exclamation icos @($"color-{item.EstadoPersonal.Estados}")"></i>
                                         </div>
 
@@ -166,14 +183,14 @@
                             <div class="apartadoB">
 
                                 <div class="texto">
-                                    <div class="iconoTexto">
+                                    <div class="iconoTexto" @ref="@(elementRefs[$"{item.IdPersonal}-tooltip1"])" @onmouseenter="@(() => ShowTooltip("Nickname", $"{item.IdPersonal}-tooltip1"))">
                                         <i class="bi bi-person-circle"></i>
                                     </div>
                                     <p>@item.Nickname</p>
                                 </div>
 
                                 <div class="texto">
-                                    <div class="iconoTexto">
+                                    <div class="iconoTexto" @ref="@(elementRefs[$"{item.IdPersonal}-tooltip2"])" @onmouseenter="@(() => ShowTooltip("Rango Personal", $"{item.IdPersonal}-tooltip2"))">
                                         <i class="bi bi-person-fill-gear"></i>
                                     </div>
                                     <p>@item.RangoPersonal!.Rangos</p>
@@ -183,9 +200,28 @@
 
                             <div class="apartadoC">
 
-                                <button class="edicion" @onclick="@(() => ShowModal(item.IdPersonal))"><i class="bi bi-pencil-square"></i> Editar</button>
+                                <AuthorizeView Roles="Administrador">
+                                    <Authorized>
 
-                                <button class="rechazo" @onclick="(() => ModalLookup(item.IdPersonal))"><i class="bi bi-x-circle"></i> Quitar</button>
+                                        <button class="edicion" @onclick="@(() => ShowModal(item.IdPersonal))"><i class="bi bi-pencil-square"></i> Editar</button>
+
+                                    </Authorized>
+                                    <NotAuthorized>
+
+                                        @* No se va mostrar nada *@
+
+                                    </NotAuthorized>
+                                </AuthorizeView>
+
+
+                                @if (item.IdEstadoPersonal == 1)
+                                {
+                                    <button class="rechazo" @onclick="(() => ModalLookup(item.IdPersonal))"><i class="bi bi-x-circle"></i> Quitar</button>
+                                }
+                                else
+                                {
+                                    <button class="rechazo" @onclick="(() => ModalLookup(item.IdPersonal))"><i class="bi bi-check-circle"></i> Habilitar</button>
+                                }                        
 
                             </div>
 
@@ -194,7 +230,7 @@
                         <div class="extras">
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdPersonal}-tooltip3"])" @onmouseenter="@(() => ShowTooltip("Nombres", $"{item.IdPersonal}-tooltip3"))">
                                     <i class="bi bi-person-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -203,7 +239,7 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdPersonal}-tooltip4"])" @onmouseenter="@(() => ShowTooltip("DUI", $"{item.IdPersonal}-tooltip4"))">
                                     <i class="bi bi-person-vcard-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -212,7 +248,7 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdPersonal}-tooltip5"])" @onmouseenter="@(() => ShowTooltip("Email", $"{item.IdPersonal}-tooltip5"))">
                                     <i class="bi bi-envelope-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -221,7 +257,7 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdPersonal}-tooltip6"])" @onmouseenter="@(() => ShowTooltip("Celular", $"{item.IdPersonal}-tooltip6"))">
                                     <i class="bi bi-telephone-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -230,7 +266,7 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdPersonal}-tooltip7"])" @onmouseenter="@(() => ShowTooltip("Fecha Nacimiento", $"{item.IdPersonal}-tooltip7"))">
                                     <i class="bi bi-calendar2-week-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -239,7 +275,7 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdPersonal}-tooltip8"])" @onmouseenter="@(() => ShowTooltip("Estado Personal", $"{item.IdPersonal}-tooltip8"))">
                                     <i class="bi bi-person-fill-exclamation"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -308,6 +344,24 @@
 
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
+    // Apartado Tooltips mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private Dictionary<string, ElementReference> elementRefs = new();
+
+    void ShowTooltip(string content, string itemId)
+    {
+        if (elementRefs.ContainsKey(itemId))
+        {
+            var elementRef = elementRefs[itemId];
+            var options = new TooltipOptions() 
+            { 
+                Style = "background: var(--rz-secondary-light); color: var(--rz-white)", 
+                Position = TooltipPosition.Left 
+            };
+            tooltipService.Open(elementRef, content, options);
+        }
+    }
+
     // MetodoInicializador mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
     protected override async Task OnInitializedAsync()
@@ -317,6 +371,12 @@
         await CargarPagina(paginaActual, 0, 0, "Descendente");
         listaRango = await rangoPersonalService.MostrarRangoPersonal();
         listaEstado = await estadoPersonalService.MostrarEstadoPersonal();
+
+        //--------------------------------------------------------------
+
+        await StartRegistro();
+
+        await StartEdicion();
     }
 
     // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
@@ -467,12 +527,12 @@
     private async Task Eliminar(int id)
     {
         var respuesta = await Sweet.FireAsync(new SweetAlertOptions
-            {
-                Title = "Eliminar Personal",
-                Text = "Deseas Eliminar el Trabajador?",
-                Icon = SweetAlertIcon.Question,
-                ShowCancelButton = true
-            });
+        {
+            Title = "Eliminar Personal",
+            Text = "Deseas Eliminar el Trabajador?",
+            Icon = SweetAlertIcon.Question,
+            ShowCancelButton = true
+        });
 
         if (respuesta.IsConfirmed)
         {
@@ -485,7 +545,106 @@
         }
     }
 
+    // Metodos Notificaciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    void ShowNotification(NotificationMessage message)
+    {
+        NotificationService.Notify(message);
+    }
+
+    //-----------------------------------------------------------|
+
+    public async Task ShowRegistro(string message)
+    {
+        Console.WriteLine(message);
+
+        await CargarPagina(paginaActual, rango, estado, valorOrden);
+
+        await InvokeAsync(StateHasChanged);
+
+        ShowNotification(new NotificationMessage 
+            { 
+                Severity = NotificationSeverity.Info, 
+                Summary = "Registro Exitoso", 
+                Detail = "Datos agregados correctamente", 
+                Duration = 4000, 
+                CloseOnClick = true, 
+                Payload = DateTime.Now 
+            });
+    }
+
+    public async Task StartRegistro()
+    {
+        hubRegistroService.OnRegisterReceived += ShowRegistro;
+        await hubRegistroService.ConnectAsync();
+    }
+
+    //-----------------------------------------------------------|
+
+    public async Task ShowEdicion(string message)
+    {
+        Console.WriteLine(message);
+
+        await CargarPagina(paginaActual, rango, estado, valorOrden);
+
+        await InvokeAsync(StateHasChanged);
+
+        ShowNotification(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Warning,
+                Summary = "Registro Actualizado",
+                Detail = "Datos editados correctamente",
+                Duration = 4000,
+                CloseOnClick = true,
+                Payload = DateTime.Now
+            });
+    }
+
+    public async Task StartEdicion()
+    {
+        hubActualizacionService.OnRegisterEdited += ShowEdicion;
+        await hubActualizacionService.ConnectAsync();
+    }
+
+    //-----------------------------------------------------------|
+
+    public async ValueTask DisposeAsync()
+    {
+        hubRegistroService.OnRegisterReceived -= ShowRegistro;
+        await hubRegistroService.DisconnectAsync();
+
+        hubActualizacionService.OnRegisterEdited -= ShowEdicion;
+        await hubActualizacionService.DisconnectAsync();
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

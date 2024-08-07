@@ -31,6 +31,14 @@ font-family: 'Raleway', sans-serif;
     height: auto;
 }
 
+.parteRelacionales
+{
+    width: 100%;
+    height: auto;
+    display: flex;
+    gap: 15px;
+}
+
 .parteInputsB
 {
     /*background-color: purple;*/
@@ -50,4 +58,23 @@ font-family: 'Raleway', sans-serif;
     background-color: #91afe5;
     border-radius: 10px;
     border: 0px;
+}
+
+/*-----------------------------------------------------------*/
+
+.apartadoInput
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.agrupacionInput
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.errorInput
+{
+    margin-left: 40px;
 }

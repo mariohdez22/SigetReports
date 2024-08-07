@@ -1,0 +1,63 @@
+﻿@page "/vistaLogin"
+@inject ILoginService loginService;
+@inject NavigationManager navigation;
+@inject NotificationService NotificationService
+@layout LoginLayout
+
+<section class="contenedorLogin">
+
+    <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+
+        <div class="contenedorTarjeta">
+
+            <h3>Siget</h3>
+
+            <p>Utiliza tu cuenta para acceder</p>
+
+            <input required class="inputLogin" type="email" @bind="loginModel.Email" placeholder="Correo" />
+
+            <input required class="inputLogin" type="password" @bind="loginModel.Contrasena" placeholder="Contraseña" />
+
+            <button class="botonLogin" type="submit">Iniciar Sesion</button>
+
+        </div> 
+
+    </EditForm>
+
+</section>
+
+
+@code 
+{
+    private LoginDTO loginModel = new LoginDTO();
+
+    private async Task HandleLogin()
+    {
+        var success = await loginService.LogeoPersonal(loginModel);
+
+        if (success == "Logeo Exitoso")
+        {
+            // Navigate to home or dashboard page
+            navigation.NavigateTo("/");
+        }
+        else
+        {
+            Console.WriteLine(success);
+
+            ShowNotification(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Warning,
+                    Summary = "Error de Credenciales",
+                    Detail = success,
+                    Duration = 4000,
+                    CloseOnClick = true,
+                    Payload = DateTime.Now
+                });
+        }
+    }
+
+    void ShowNotification(NotificationMessage message)
+    {
+        NotificationService.Notify(message);
+    }
+}

@@ -1,0 +1,70 @@
+﻿@page "/vistaPerfil"
+@inject AuthenticationStateProvider _authStateProvider;
+@inject TituloService tituloService
+@attribute [Authorize]
+
+<section class="ContenedorGeneral">
+
+    <div class="encajadorPerfil">
+
+        <div class="apartadoPerfil">
+
+            <div class="tarjetaPerfil">
+
+                <div class="cajaImagen">
+
+                    <div class="circuloFoto"></div>
+
+                    <div class="contenidoNombre">
+
+                        <h1>AleCalles95</h1>
+
+                        <h3>Administrador</h3>
+
+                    </div>
+
+                </div>
+
+                <div class="cajaDatos">
+
+                    <div class="parteA">
+
+                        
+
+                    </div>
+
+                    <div class="parteB">
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="cajaBotones"></div>
+
+            </div>
+
+        </div>
+
+        <div class="apartadoBitacora">
+
+            <div class="tarjetaBitacora">
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+@code 
+{
+    protected override async Task OnInitializedAsync()
+    {
+        tituloService.AgregarTitulo("Perfil Personal");
+    }
+}

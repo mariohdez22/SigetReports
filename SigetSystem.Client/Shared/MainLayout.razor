@@ -1,7 +1,9 @@
-﻿@inject TituloService tituloService
+﻿@inject AuthenticationStateProvider _authStateProvider;
+@inject TituloService tituloService
 @inherits LayoutComponentBase
 
 <div class="page">
+
     <div class="">
         <NavMenu />
     </div>
@@ -14,7 +16,7 @@
                 <h3>@tituloService.Titulo</h3>
             </div>
 
-            <a class="user" style="text-decoration:none; color:white; z-index: 5;" href="#" target="_blank">TheMarioHerz</a>
+            <a class="user" style="text-decoration:none; color:white; z-index: 5;" href="vistaPerfil">@nickname<span class="spanRange">@rango</span></a>
 
             <div class="sombreado1"></div>
             <div class="sombreado2"></div>
@@ -28,15 +30,49 @@
     </main>
 </div>
 
+<RadzenComponents />
+
 @code
 {
-    protected override void OnInitialized()
+    private string nickname;
+    private string rango;
+
+    protected override async Task OnInitializedAsync()
     {
         tituloService.OnTitleChanged += StateHasChanged;
+
+        await DatosAutenticados();
     }
 
     public void Dispose()
     {
         tituloService.OnTitleChanged -= StateHasChanged;
+    }
+
+    private async Task DatosAutenticados()
+    {
+        var authState = await _authStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var nicknameClaim = user.Claims.FirstOrDefault(c => c.Type == "Nickname");
+            var RangoClaim = user.Claims.FirstOrDefault(c => c.Type == "Rango");
+
+            if (nicknameClaim != null && RangoClaim != null)
+            {
+                nickname = nicknameClaim.Value;
+                rango = RangoClaim.Value;
+            }
+            else
+            {
+                nickname = "Unknown User";
+                rango = "Unknown Range";
+            }
+        }
+        else
+        {
+            nickname = "Not authenticated";
+        }
     }
 }

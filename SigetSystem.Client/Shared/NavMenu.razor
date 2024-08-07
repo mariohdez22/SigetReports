@@ -1,4 +1,7 @@
-﻿
+﻿@inject ILocalStorageService _localStorageService
+@inject AuthenticationStateProvider _authStateProvider;
+@inject NavigationManager _navigationManager
+
 <div class="offcanvas offcanvas-start menuLateral" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"><strong>Siget System</strong></h5>
@@ -6,46 +9,75 @@
     <div class="offcanvas-body">
 
         <nav class="flex-column">
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" style="color: #222222 !important;" href="" Match="NavLinkMatch.All">
-                    <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-house-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Home</strong>
-                </NavLink>
+
+            <div class="cajaLoginA">
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" style="color: #222222 !important;" href="" Match="NavLinkMatch.All">
+                        <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-house-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Home</strong>
+                    </NavLink>
+                </div>
+
+                <AuthorizeView Roles="Administrador,Gerente">
+                    <Authorized>
+
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" style="color: #222222 !important;" href="vistaPersonal">
+                                <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-people-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Personal</strong>
+                            </NavLink>
+                        </div>
+
+                    </Authorized>
+                    <NotAuthorized>
+
+                        @* No se mostrara nada *@
+
+                    </NotAuthorized>
+                </AuthorizeView>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" style="color: #222222 !important;" href="vistaOrganismo">
+                        <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-building-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Organismos</strong>
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" style="color: #222222 !important;" href="vistaRepresentante">
+                        <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-person-badge-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Representante</strong>
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" style="color: #222222 !important;" href="vistaRequisitosMenores">
+                        <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-clipboard2-minus-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Requisitos Minimos</strong>
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" style="color: #222222 !important;" href="vistaRequisitosMayores">
+                        <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-clipboard-plus-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Requisitos Mayores</strong>
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" style="color: #222222 !important;" href="vistaReporte">
+                        <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-file-earmark-check-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Reporte Inspeccion</strong>
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" style="color: #222222 !important;" href="vistaComentariosSiget">
+                        <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-chat-left-text-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Comentarios Siget</strong>
+                    </NavLink>
+                </div>
+
             </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" style="color: #222222 !important;" href="vistaPersonal">
-                    <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-people-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Personal</strong>
-                </NavLink>
+
+            <div class="cajaLoginB">
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" style="color: #222222 !important; cursor: pointer;" @onclick="@(()=> LogoutAsync())">
+                        <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-escape"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Cerrar Sesion</strong>
+                    </NavLink>
+                </div>
+
             </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" style="color: #222222 !important;" href="vistaOrganismo">
-                    <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-building-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Organismos</strong>
-                </NavLink>
-            </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" style="color: #222222 !important;" href="vistaRepresentante">
-                    <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-person-badge-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Representante</strong>
-                </NavLink>
-            </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" style="color: #222222 !important;" href="vistaRequisitosMenores">
-                    <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-clipboard2-minus-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Requisitos Minimos</strong>
-                </NavLink>
-            </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" style="color: #222222 !important;" href="vistaRequisitosMayores">
-                    <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-clipboard-plus-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Requisitos Mayores</strong>
-                </NavLink>
-            </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" style="color: #222222 !important;" href="vistaReporte">
-                    <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-file-earmark-check-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Reporte Inspeccion</strong>
-                </NavLink>
-            </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" style="color: #222222 !important;" href="vistaComentariosSiget">
-                    <span style="font-size: 20px;" aria-hidden="true"><i class="bi bi-chat-left-text-fill"></i></span>&nbsp;&nbsp;&nbsp;<strong class="titulomenu">Comentarios Siget</strong>
-                </NavLink>
-            </div>
+
         </nav>
 
     </div>
@@ -53,12 +85,11 @@
 
 @code 
 {
-    // private bool collapseNavMenu = true;
+    private async Task LogoutAsync()
+    {
+        await _localStorageService.RemoveItemAsync("jwt-access-token");
 
-    // private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    // private void ToggleNavMenu()
-    // {
-    //     collapseNavMenu = !collapseNavMenu;
-    // }
+        (_authStateProvider as CustomAuthProvider).NotifyAuthState();
+        _navigationManager.NavigateTo("/vistaLogin");
+    }
 }

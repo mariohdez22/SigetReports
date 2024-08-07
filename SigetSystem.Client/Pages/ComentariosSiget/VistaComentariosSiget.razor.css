@@ -278,7 +278,7 @@
 
 .generalesComentario
 {
-    width: 55vw;
+    width: 65vw;
     height: 100%;
     display: flex;
     justify-content: right;
@@ -316,8 +316,17 @@
     color: #666666;
 }
 
-/*---------------------------------------------------------*/
+.botonEdicion
+{
+    border: 1px solid rgba(64, 50, 155, 0.20);
+    border-radius: 50px;
+    background: rgba(64, 50, 155, 0.10);
+    padding-left: 7px;
+    padding-right: 7px;
+    color: #666666;
+}
 
+/*---------------------------------------------------------*/
 .contenidoComentario
 {
     width: 100%;

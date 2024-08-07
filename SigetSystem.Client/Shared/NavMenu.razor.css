@@ -3,6 +3,27 @@ font-family: 'Open Sans', sans-serif;
 font-family: 'Raleway', sans-serif;
 */
 
+.flex-column
+{
+    /*background-color: aquamarine;*/
+    display: flex;
+    flex-direction: column;
+    justify-content:  space-between;
+    height: 100%;
+}
+
+.cajaLoginA
+{
+    /*background-color: burlywood;*/
+}
+
+.cajaLoginB
+{
+    /*background-color: cadetblue;*/
+}
+
+/*-----------------------------------------------------------------*/
+
 .offcanvas
 {
     width: 20vw !important;

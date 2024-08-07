@@ -9,9 +9,9 @@ namespace SigetSystem.Client.Services.Servicios
     {
         private readonly HttpClient _httpClient;
 
-        public TipoConformidadService(HttpClient httpClient)
+        public TipoConformidadService(IHttpClientFactory httpFactory)
         {
-            _httpClient = httpClient;   
+            _httpClient = httpFactory.CreateClient("ApiSiget");
         }
 
         public async Task<List<TipoConformidadDTO>> MostrarTipoConformidad()

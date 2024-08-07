@@ -13,9 +13,9 @@ namespace SigetSystem.Client.Services.Servicios
     {
         private readonly HttpClient _http;
 
-        public ReporteInspeccionService(HttpClient http)
+        public ReporteInspeccionService(IHttpClientFactory httpFactory)
         {
-            _http = http;
+            _http = httpFactory.CreateClient("ApiSiget");
         }
 
         public async Task<APIResponse<List<ReporteInspeccionDTO>>> MostrarReporte(ParametrosPaginacion pp)

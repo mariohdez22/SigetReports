@@ -11,9 +11,9 @@ namespace SigetSystem.Client.Services.Servicios
     {
         private readonly HttpClient _http;
 
-        public RequisitoMayorService(HttpClient http)
+        public RequisitoMayorService(IHttpClientFactory httpFactory)
         {
-            _http = http;
+            _http = httpFactory.CreateClient("ApiSiget");
         }
 
         public async Task<APIResponse<List<RequisitoMayorDTO>>> MostrarRequisitoMayor(ParametrosPaginacion pp)
