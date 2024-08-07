@@ -1,0 +1,41 @@
+﻿.body{
+
+}
+
+.ContenedorGeneral {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F1E8FF;
+    margin-left: -32px;
+    padding: 15px;
+    padding-bottom: 80px;
+}
+
+/*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+/* Contenido componente */
+
+.contenido::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.contenido::-webkit-scrollbar:vertical {
+    width: 8px;
+}
+
+.contenido::-webkit-scrollbar-button:increment, #scroll::-webkit-scrollbar-button {
+    display: none;
+}
+
+.contenido::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.contenido::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #D4D4D4;
+}
+
+.contenido::-webkit-scrollbar-track {
+    border-radius: 10px;
+}

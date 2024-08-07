@@ -1,0 +1,140 @@
+﻿@inject IComentariosOIAService comentariosOiaService;
+
+<EditForm Model="comentariosSiget" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="my-modal fade show d-block" tabindex="-1" role="dialog">
+        <div class="modal-backdrop fade show" @onclick="Cancel"></div>
+        <div class="modal-dialog" style="z-index: 1050">
+            <!-- Pop it above the backdrop -->
+            <div class="modal-content">
+                <div class="contenedor">
+                    <div class="encabezado">
+                        <div class="alInicio">
+                            <p>Titulo</p>
+                        </div>
+                        <div class="alFinal">
+                            <i class="bi bi-x" @onclick="Cancel"></i>
+                        </div>
+                    </div>
+                    <div class="cuerpo">
+                        <div class="contenedorComentarios">
+                            <div class="targeta">
+                                <div class="encabezadoTargeta">
+                                    <div class="encabezadoInicio">
+                                        <p>Esto es un texto</p>
+                                    </div>
+                                    <div class="encabezadoFin">
+                                        <p>Esto es un texto</p>
+                                    </div>
+                                </div>
+                                <div class="cuerpoTargeta">
+                                    <div class="apartadoInfo">
+                                        <div class="itemInfo">
+                                            <h5>soy un titulo</h5>
+                                            <p class="texto">soy un texto</p>
+                                        </div>
+                                        <div class="itemInfo">
+                                            <h5>soy un titulo</h5>
+                                            <p class="texto">soy un texto</p>
+                                        </div>
+                                        <div class="itemInfo">
+                                            <h5>soy un titulo</h5>
+                                            <p class="texto">soy un texto</p>
+                                        </div>
+                                    </div>
+                                    <div class="apartadoComentario">
+                                        <div class="comentario">
+                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem 
+                                                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa 
+                                                quae ab illo inventore veritatis et quasi architecto beatae 
+                                                vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia 
+                                                voluptas sit aspernatur aut odit aut fugit, sed quia 
+                                                consequuntur magni dolores eos qui ratione voluptatem sequi 
+                                                nesciunt.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="targeta">
+                                <div class="encabezadoTargeta">
+                                    <div class="encabezadoInicio">
+                                        <p>Esto es un texto</p>
+                                    </div>
+                                    <div class="encabezadoFin">
+                                        <p>Esto es un texto</p>
+                                    </div>
+                                </div>
+                                <div class="cuerpoTargeta">
+                                    <div class="apartadoInfo">
+                                        <div class="itemInfo">
+                                            <h5>soy un titulo</h5>
+                                            <p class="texto">soy un texto</p>
+                                        </div>
+                                        <div class="itemInfo">
+                                            <h5>soy un titulo</h5>
+                                            <p class="texto">soy un texto</p>
+                                        </div>
+                                        <div class="itemInfo">
+                                            <h5>soy un titulo</h5>
+                                            <p class="texto">soy un texto</p>
+                                        </div>
+                                    </div>
+                                    <div class="apartadoComentario">
+                                        <div class="comentario">
+                                            <p>
+                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                                                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+                                                quae ab illo inventore veritatis et quasi architecto beatae
+                                                vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+                                                voluptas sit aspernatur aut odit aut fugit, sed quia
+                                                consequuntur magni dolores eos qui ratione voluptatem sequi
+                                                nesciunt.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pie">
+                        <button>boton</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+
+@code {
+    ComentarioSigetDTO comentariosSiget = new ComentarioSigetDTO();
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public int idReporte { get; set; } = 0;
+
+    private async Task OnValidSubmit()
+    {
+        string ssres = string.Empty;
+
+        if (idReporte == 0)
+        {
+            // ssres = await organismoService.AgregarOrganismo(organismo);
+        }
+        else
+        {
+            // ssres = await organismoService.EditarOrganismo(organismo, idOrganismoEditar);
+        }
+
+        if (ssres == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(ssres));
+        }
+    }
+
+
+    private async Task Close() => await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+    private async Task Cancel() => await BlazoredModal.CancelAsync();
+}
