@@ -37,34 +37,43 @@ namespace SigetSystem.Server.Models.Entidades.Hijas
 
         public string? NumeroCreditoFiscal { get; set; }
 
-
+        [Required]
         [ForeignKey(nameof(Organismo))]
         public int? IdOrganismo { get; set; }
 
+        [Required]
         [ForeignKey(nameof(Representante))]
         public int? IdRepresentante { get; set; }
 
+        [Required]
         [ForeignKey(nameof(DepartamentoInstalacion))]
         public int? IdDepartamentoInstalacion { get; set; }
 
+        [Required]
         [ForeignKey(nameof(MunicipioInstalacion))]
         public int? IdMunicipioInstalacion { get; set; }
 
+        [Required]
         [ForeignKey(nameof(CodigoConformidad))]
         public int? IdCodigoConformidad { get; set; }
 
+        [Required]
         [ForeignKey(nameof(ComentariosInconformidad))]
         public int? IdComentariosInconformidad { get; set; }
 
+        [Required]
         [ForeignKey(nameof(CodigoSiget))]
         public int? IdCodigoSiget { get; set; }
 
+        [Required]
         [ForeignKey(nameof(RequisitoMenor))]
         public int? IdRequisitoMenor { get; set; }
 
+        [Required]
         [ForeignKey(nameof(RequisitoMayor))]
         public int? IdRequisitoMayor { get; set; }
 
+        [Required]
         [ForeignKey(nameof(EstadoReporte))]
         public int? IdEstadoReporte { get; set; }
 

@@ -56,7 +56,6 @@
 }
 
 .alFinal {
-    width: 100%;
     height: 100%;
     display: flex;
     padding-bottom: 5px;
@@ -156,7 +155,6 @@
 }
 
 .encabezadoInicio p{
-    width: 200px;
     height: 30px;
     background: rgba(64, 50, 155, 0.10);
     border-radius: 10px;

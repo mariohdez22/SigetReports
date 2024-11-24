@@ -11,8 +11,10 @@ namespace SigetSystem.Shared.DTOs.Padres
     {
         public int IdComentarioInconformidad { get; set; }
 
+        [Required]
         public string? ComentarioInconformidad { get; set; } = string.Empty;
 
+        [Required]
         public DateTime FechaComentario { get; set; }
     }
 }

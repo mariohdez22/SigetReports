@@ -1,12 +1,17 @@
 ﻿@page "/vistaReporteInspeccion"
-
+@inject TituloService tituloService
+@inject IEstadoReporteService estadoReporteServices
+@inject IRepresentanteService representanteServices
+@inject IGestionReporteInspeccionService reporteServices
+@inject IDepartamentoInstalacion departamentoService
+@inject ICodigoInconformidadService ComentariosInconformidadService
 
 <section class="ContenedorGeneral">
 
     <div class="opciones">
 
         <div class="btnOpcionesInicio">
-            <button @onclick="@(()=> ShowModal(0))">B</button>
+            <button>B</button>
         </div>
         <div class="btnOpcionesFinal">
             <button>boton</button>
@@ -16,588 +21,446 @@
 
     <div class="stack-h">
 
-        <div class="stack-v-nogap">
+        @if (reporteInspeccionPendiente == null)
+        {
+            <div class="stack-v-nogap gap-10 padding-25">
 
-            <div class="stack-h gap-10 padding-10">
-                <div class="column">
-
-                    <div class="title-md">
-                        <p>Hola soy un titulo</p>
-                    </div>
-
-
-                    <div class="space-sh"></div>
-
-
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-
-                    <div class="space-sm-30"></div>
-
-                    <div class="subtitle-sh">
-                        <p>Hola soy un subtitulo</p>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
+                <div class="title-md">
+                    <p>Reporte pendiente</p>
                 </div>
-                
-                <div class="column">
 
-                    <div class="space-sm-40"></div>
-
-                    <div class="subtitle-sh">
-                        <p>Hola soy un subtitulo</p>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="fake-text"></div>
-
-                    <div class="subtitle-sh">
-                        <p>Hola soy un subtitulo</p>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
+                <div class="reporteVacio">
+                    <p>No hay reportes de inspeccion pendientes  
+                        <span class="iconoPulgarArriba">
+                            <i class="bi bi-hand-thumbs-up"></i>
+                        </span>
+                    </p>
                 </div>
-                
-                <div class="column">
 
-                    <div class="comentario-opcion">
-                        <div class="comentario-btn">
-                            <button>B</button>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="space-bg-72"></div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="texto-sh-left">
-                        <div class="iconoTexto-sh-left">
-                            <i class="bi bi-person-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>hola soy un texto</p>
-                        </div>
-                    </div>
-
-                    <div class="seccionComentario">
-                        <div class="bodyComentario">
-                            <p>
-                                Sed ut perspiciatis unde omnis iste natus error sit 
-                                voluptatem accusantium doloremque laudantium,
-                                totam rem aperiam, eaque ipsa quae ab illo inventore 
-                                veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
-                                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
-                                sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
             </div>
+        }
+        else
+        {
+            <div class="stack-v-nogap">
 
-            <div class="stack-h-options">
-                <div class="btn-inicio">
-                    <button>boton</button>
-                    <button>boton</button>
+                <div class="stack-h gap-10 padding-10">
+                    <div class="column">
+
+                        <div class="title-md">
+                            <p>Informacion</p>
+                        </div>
+
+
+                        <div class="space-sh"></div>
+
+
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.Organismo.NombreOIA</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.Representante.Nombres</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.NombreSolicitante</p>
+                            </div>
+                        </div>
+
+
+                        <div class="space-sm-30"></div>
+
+                        <div class="subtitle-sh">
+                            <p>Codigos</p>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.CodigoSiget.Codigos</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.CodigoConformidad.Codigos</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.NumeroCreditoFiscal</p>
+                            </div>
+                        </div>
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.MontoSolicitante</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="column">
+
+                        <div class="space-sm-40"></div>
+
+                        <div class="subtitle-sh">
+                            <p>Fechas</p>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.FechaDepagoSolicitante</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.FechaPrimeraInspeccion</p>
+                            </div>
+                        </div>
+
+                        <div class="fake-text"></div>
+
+                        <div class="subtitle-sh">
+                            <p>Direccion</p>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.CodigoDepartamentalInstElectrica</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.DepartamentoInstalacion.Departamentos</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.CodigoMunicipioInstalacion</p>
+                            </div>
+                        </div>
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.MunicipioInstalacion.Municipios</p>
+                            </div>
+                        </div>
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.ColoniaInstalacion</p>
+                            </div>
+                        </div>
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.DireccionInstalacion</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="column">
+
+                        <div class="comentario-opcion">
+                            <div class="comentario-btn">
+                                <button @onclick="@(()=> ShowModalComentarios(reporteInspeccionPendiente.IdReporteInspeccion))">B</button>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.FechaUltimaInspeccion.Date</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.FechaEntregaConformidad.Date</p>
+                            </div>
+                        </div>
+
+                        <div class="space-bg-72"></div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.EstadoReporte.Estados</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="apartadoExtra">
+                                <p>@reporteInspeccionPendiente.EspecificacionesCertificado</p>
+                            </div>
+                        </div>
+
+                        <div class="texto-sh-left">
+                            <div class="iconoTexto-sh-left">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            @if(reporteInspeccionPendiente.RequisitoMayor != null){
+                                <div class="apartadoExtra">
+                                    <p>@reporteInspeccionPendiente.RequisitoMayor.CodigoRequisito</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="apartadoExtra">
+                                    <p>@reporteInspeccionPendiente.RequisitoMenor.CodigoRequisito</p>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="seccionComentario">
+                            <div class="bodyComentario">
+
+                                @if (reporteInspeccionPendiente.ComentariosInconformidad != null)
+                                {
+                                    <p>
+                                        @reporteInspeccionPendiente.ComentariosInconformidad.ComentarioInconformidad
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p>
+                                        No hay comentarios de inconformidad
+                                    </p>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="btn-fin">
-                    <button>B</button>
+
+                <div class="stack-h-options">
+                    <div class="btn-inicio">
+
+                        @if(reporteInspeccionPendiente.IdComentariosInconformidad != 0)
+                        {
+                            <button @onclick="(() => ShowModalFechas(reporteInspeccionPendiente.IdReporteInspeccion))">Cambiar Fechas</button>
+                            <button @onclick="(() => ShowModalCertificado(reporteInspeccionPendiente.CodigoConformidad.IdCodigoConformidad))">Certificado</button>
+                        }
+
+                    </div>
+                    <div class="btn-fin">
+                        <button>B</button>
+                    </div>
                 </div>
+
             </div>
+        }
 
-        </div>
+
 
         <div class="stack-v padding-15">
 
             <div class="targeta">
 
-                <div class="targeta-body">
-
-                    <div class="title-md-fila">
-                        <p>Hola soy un titulo</p>
-                    </div>
-
-                    <div class="fila aceptado">
-                        <div class="btn-fila">
-                            <button>BOTON</button>
+                @if (listaReportesAprovados == null)
+                {
+                    <div class="targeta-body centrarVertical">
+                        <div class="title-md-fila">
+                            <p>Reportes Aprovados</p>
                         </div>
 
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
+                        <div class="aprovadosVacio">
+                            <p>
+                                No hay reportes aprovados
+                                <span class="iconoSignoPregunta">
+                                    <i class="bi bi-patch-question"></i>
+                                </span>
+                            </p>
                         </div>
 
                     </div>
 
-                    <div class="fila aceptado">
-                        <div class="btn-fila">
-                            <button>BOTON</button>
+                }
+                else
+                {
+                    <div class="targeta-body">
+
+                        <div class="title-md-fila">
+                            <p>Reportes Aprovados</p>
                         </div>
 
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
+                        @foreach (var r in listaReportesAprovados)
+                        {
+                            <div class="fila aceptado">
+                                <div class="btn-fila">
+                                    <button @onclick="(() => ShowModalReporteAceptado(r.IdReporteInspeccion))">INSPECCIONAR</button>
+                                </div>
 
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
+                                <div class="texto-sh-left">
+                                    <div class="iconoTexto-sh-blanco">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p class="texto-blanco texto-fila">@r.Representante?.Nombres</p>
+                                    </div>
+                                </div>
 
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
+                                <div class="texto-sh-left">
+                                    <div class="iconoTexto-sh-blanco">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p class="texto-blanco texto-fila">@r.Representante?.DUI</p>
+                                    </div>
+                                </div>
+
+                                <div class="texto-sh-left">
+                                    <div class="iconoTexto-sh-blanco">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p class="texto-blanco texto-fila">@r.CodigoInspeccion</p>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
+                        }
 
                     </div>
 
-                    <div class="fila aceptado">
-                        <div class="btn-fila">
-                            <button>BOTON</button>
-                        </div>
 
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="fila aceptado">
-                        <div class="btn-fila">
-                            <button>BOTON</button>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="fila aceptado">
-                        <div class="btn-fila">
-                            <button>BOTON</button>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
+                }
 
             </div>
 
             <div class="targeta">
 
-                <div class="targeta-body">
+                @if (listaReportesRechazados == null)
+                {
+                    <div class="targeta-body centrarVertical">
 
-                    <div class="title-md-fila">
-                        <p>Hola soy un titulo</p>
-                    </div>
-
-                    <div class="fila rechazado">
-                        <div class="btn-fila">
-                            <button>BOTON</button>
+                        <div class="title-md-fila">
+                            <p>Reportes Rechazados</p>
                         </div>
 
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
+                        <div class="rechazadosVacio">
+                            <p>
+                                No hay reportes rechazados
+                                <span class="iconoEmojiGafas">
+                                    <i class="bi bi-emoji-sunglasses"></i>
+                                </span>
+                            </p>
                         </div>
 
                     </div>
 
-                    <div class="fila rechazado">
-                        <div class="btn-fila">
-                            <button>BOTON</button>
+
+                }
+                else
+                {
+                    <div class="targeta-body">
+
+                        <div class="title-md-fila">
+                            <p>Reportes Rechazados</p>
                         </div>
 
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
+                        @foreach (var r in listaReportesRechazados)
+                        {
+                            <div class="fila rechazado">
+                                <div class="btn-fila">
+                                    <button @onclick="(() => ShowModalReporteRechazado(r.IdReporteInspeccion))">INSPECCIONAR</button>
+                                </div>
 
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
+                                <div class="texto-sh-left">
+                                    <div class="iconoTexto-sh-blanco">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p class="texto-blanco texto-fila">@r.Representante?.Nombres</p>
+                                    </div>
+                                </div>
 
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
+                                <div class="texto-sh-left">
+                                    <div class="iconoTexto-sh-blanco">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p class="texto-blanco texto-fila">@r.Representante?.DUI</p>
+                                    </div>
+                                </div>
+
+                                <div class="texto-sh-left">
+                                    <div class="iconoTexto-sh-blanco">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <div class="apartadoExtra">
+                                        <p class="texto-blanco texto-fila">@r.CodigoInspeccion</p>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
+                        }
 
                     </div>
 
-                    <div class="fila rechazado">
-                        <div class="btn-fila">
-                            <button>BOTON</button>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="fila rechazado">
-                        <div class="btn-fila">
-                            <button>BOTON</button>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                        <div class="texto-sh-left">
-                            <div class="iconoTexto-sh-blanco">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="apartadoExtra">
-                                <p class="texto-blanco texto-fila">hola soy un texto</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
+                }
 
             </div>
 
@@ -605,6 +468,7 @@
 
 
     </div>
+
 </section>
 
 
@@ -612,16 +476,141 @@
 @code {
     [CascadingParameter] public IModalService Modal { get; set; } = default;
 
-    private async Task ShowModal(int ID)
+    List<ReporteInspeccionDTO> listaReportes = new List<ReporteInspeccionDTO>();
+    List<ReporteInspeccionDTO>? listaReportesAprovados;
+    List<ReporteInspeccionDTO>? listaReportesRechazados;
+
+    ReporteInspeccionDTO? reporteInspeccionPendiente;
+
+    //---------------------------------------------------------------------------------------- INICIALIZACION
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            tituloService.AgregarTitulo("Reporte inspeccion");
+
+            listaReportes = await reporteServices.obtenerReportes();
+
+            listaReportesAprovados = listaReportes.FindAll(r => r.IdEstadoReporte == 2);
+            listaReportesRechazados = listaReportes.FindAll(r => r.IdEstadoReporte == 3);
+
+            reporteInspeccionPendiente = listaReportes.Find(r => r.IdEstadoReporte == 1);
+
+            Console.WriteLine(reporteInspeccionPendiente.ComentariosInconformidad.ComentarioInconformidad);
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    //---------------------------------------------------------------------------------------- METODOS
+
+
+
+
+    //---------------------------------------------------------------------------------------- MODALS
+
+    private async Task ShowModalCertificado(int ID)
     {
         var options = new ModalOptions()
             {
                 UseCustomLayout = true
             };
 
-        var parametros = new ModalParameters().Add(nameof(ModalReporteRechazado.idReporte), 0);
+        var parametros = new ModalParameters().Add(nameof(ModalCertificado.idComentarioInconformidad), ID);
 
-        var modal = Modal.Show<ModalReporteRechazado>("titulo", parametros, options);
+        var modal = Modal.Show<ModalCertificado>("Comentario certificado", parametros, options);
+        var resultado = await modal.Result;
+
+        // if (resultado.Confirmed)
+        // {
+        //     if (resultado.Data.ToString() == "Ejecucion Correcta")
+        //     {
+        //         await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+        //     }
+        // }
+
+    }
+
+    private async Task ShowModalFechas(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                UseCustomLayout = true
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalFechas.idReporte), ID);
+
+        var modal = Modal.Show<ModalFechas>("Modificar Fechas", parametros, options);
+        var resultado = await modal.Result;
+
+        // if (resultado.Confirmed)
+        // {
+        //     if (resultado.Data.ToString() == "Ejecucion Correcta")
+        //     {
+        //         await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+        //     }
+        // }
+
+    }
+
+    private async Task ShowModalReporteRechazado(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                UseCustomLayout = true
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalReporteRechazado.idReporte), ID);
+
+        var modal = Modal.Show<ModalReporteRechazado>("Reporte Rechazado", parametros, options);
+        var resultado = await modal.Result;
+
+        // if (resultado.Confirmed)
+        // {
+        //     if (resultado.Data.ToString() == "Ejecucion Correcta")
+        //     {
+        //         await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+        //     }
+        // }
+
+    }
+
+    private async Task ShowModalReporteAceptado(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                UseCustomLayout = true
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalReporteAceptado.idReporte), ID);
+
+        var modal = Modal.Show<ModalReporteAceptado>("Reporte Aceptado", parametros, options);
+        var resultado = await modal.Result;
+
+        // if (resultado.Confirmed)
+        // {
+        //     if (resultado.Data.ToString() == "Ejecucion Correcta")
+        //     {
+        //         await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+        //     }
+        // }
+
+    }
+
+    private async Task ShowModalComentarios(int ID)
+    {
+        var options = new ModalOptions()
+            {
+                UseCustomLayout = true
+            };
+
+        var parametros = new ModalParameters().Add(nameof(ModalComentarios.idReporte), ID);
+
+        var modal = Modal.Show<ModalComentarios>("Comentarios Siget", parametros, options);
         var resultado = await modal.Result;
 
         // if (resultado.Confirmed)

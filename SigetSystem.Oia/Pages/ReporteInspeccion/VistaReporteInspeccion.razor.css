@@ -53,10 +53,17 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.06);
-    /*    background-color: aquamarine;*/
+/*        background-color: aquamarine;*/
     border-radius: 10px;
     padding-top: 6px;
     padding-left: 7px;
+}
+
+.apartadoExtra p{
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /*---------------------------------------------------------*/
@@ -183,32 +190,48 @@
 .title-md {
     width: 100%;
     height: 52px;
-    border-radius: 10px;
-    padding: 5px;
-    padding-top: 10px;
     display: flex;
+    justify-content: flex-start;
+}
+
+.title-md p{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
     font-size: 20px;
+    border-radius: 10px;
     text-decoration: solid;
     text-decoration: solid;
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
     background: rgba(64, 50, 155, 0.10);
+
 }
 
 .title-md-fila {
-    width: 25%;
+    width: auto;
     height: 45px;
-    border-radius: 10px;
-    padding: 5px;
-    padding-top: 10px;
-    padding-left: 10px;
-    color: white;
     display: flex;
+    justify-content: flex-start;
+}
+
+.title-md-fila p{
+    height: 100%;
+    padding: 5px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
     font-size: 15px;
     text-decoration: solid;
     text-decoration: solid;
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
+    border-radius: 10px;
     background: #2f017c7e;
 }
 
@@ -469,6 +492,92 @@
 }
 
 /*---------------------------------------------------------*/
+
+.reporteVacio {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background-color: #e5e5e5;
+    padding-top: 10px;
+    font-size: 20px;
+    text-decoration: solid;
+    font-weight: 600;
+}
+
+.reporteVacio p{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconoPulgarArriba {
+    font-size: 30px;
+    padding-left: 10px;
+    padding-bottom: 7.5px;
+}
+
+/*---------------------------------------------------------*/
+
+.aprovadosVacio {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background-color: #5c129f40;
+    padding-top: 10px;
+    font-size: 20px;
+    text-decoration: solid;
+    font-weight: 600;
+}
+
+.aprovadosVacio p {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconoSignoPregunta {
+    font-size: 30px;
+    padding-left: 10px;
+}
+
+/*---------------------------------------------------------*/
+
+.rechazadosVacio {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background-color: #5c129f40;
+    padding-top: 10px;
+    font-size: 20px;
+    text-decoration: solid;
+    font-weight: 600;
+}
+
+.rechazadosVacio p {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconoEmojiGafas {
+    font-size: 30px;
+    padding-left: 10px;
+}
+
+
+/*---------------------------------------------------------*/
 .texto-blanco {
     color: white !important;
     font-weight: 600 !important;
@@ -508,6 +617,10 @@
     height: 30px;
 }
 
+.padding-25 {
+    padding: 25px !important;
+}
+
 .padding-15{
     padding: 15px !important;
 }
@@ -534,4 +647,14 @@ gap-0{
 
 .rechazado {
     border-right: 15px solid #ff0f0f8f;
+}
+
+.centrarHorizontal{
+    display: flex !important;
+    align-items: center !important;
+}
+
+.centrarVertical {
+    display: flex !important;
+    justify-content: center !important;
 }

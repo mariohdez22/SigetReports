@@ -87,7 +87,7 @@ namespace SigetSystem.Client.Services.Servicios
 
         public async Task<ComentariosInconformidadDTO> BuscarComentarioInconformidad(int id)
         {
-            var resultado = await _http.GetFromJsonAsync<APIResponse<ComentariosInconformidadDTO>>($"api/ComentariosInconformidad/Obtener/{id}");
+            var resultado = await _http.GetFromJsonAsync<APIResponse<ComentariosInconformidadDTO>>($"api/ComentariosInconformidad/Buscar/{id}");
 
             if (resultado!.EsExitoso == true)
             {

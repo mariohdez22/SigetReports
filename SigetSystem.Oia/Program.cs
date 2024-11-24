@@ -21,6 +21,7 @@ builder.Services.AddScoped<ICodigoSigetService, CodigoSigetService>();
 builder.Services.AddScoped<IComentariosOIAService, ComentariosOIAService>();
 builder.Services.AddScoped<IDepartamentoInstalacion, DepartamentoInstalacionService>();
 builder.Services.AddScoped<IEstadoRepresentanteService, EstadoRepresentanteService>();
+builder.Services.AddScoped<IEstadoReporteService, EstadoReporteService>();
 builder.Services.AddScoped<IGestionReporteInspeccionService, GestionReporteInspeccionService>();
 builder.Services.AddScoped<IMunicipioInstalacionService, MunicipioInstalacionService>();
 builder.Services.AddScoped<IOrganismoService, OrganismoService>();

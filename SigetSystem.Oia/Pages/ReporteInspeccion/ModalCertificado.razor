@@ -1,4 +1,4 @@
-﻿@inject IComentariosOIAService comentarioInconformidadService;
+﻿@inject IComentariosOIAService ComentarioInconformidadService;
 
 <EditForm Model="comentarioInconformidad" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator></DataAnnotationsValidator>
@@ -12,7 +12,7 @@
 
                     <div class="encabezado">
                         <div class="alInicio">
-                            <p>Titulo</p>
+                            <p>Acerca del certificado</p>
                         </div>
                         <div class="alFinal">
                             <i class="bi bi-x" @onclick="Cancel"></i>
@@ -25,21 +25,25 @@
                             <div class="targeta">
                                 <div class="encabezadoTargeta">
                                     <div class="encabezadoInicio">
-                                        <p>Esto es un texto</p>
+                                        <p>Comentario de certificado</p>
                                     </div>
                                 </div>
                                 <div class="cuerpoTargeta">
                                     <div class="apartadoComentario">
                                         <div class="comentario">
-                                            <p>
-                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                                                quae ab illo inventore veritatis et quasi architecto beatae
-                                                vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-                                                voluptas sit aspernatur aut odit aut fugit, sed quia
-                                                consequuntur magni dolores eos qui ratione voluptatem sequi
-                                                nesciunt.
-                                            </p>
+
+                                            @if (comentarioInconformidad == null)
+                                            {
+                                                <p>
+                                                    No hay comentarios sobre el certificado de este reporte
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <p>
+                                                    @comentarioInconformidad.ComentarioInconformidad
+                                                </p>
+                                            } 
                                         </div>
                                     </div>
                                 </div>
@@ -51,7 +55,7 @@
                     </div>
 
                     <div class="pie">
-                        <button>boton</button>
+                        <button>ok</button>
                     </div>
 
                 </div>
@@ -67,6 +71,11 @@
     [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
     [Parameter] public int idComentarioInconformidad { get; set; } = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        comentarioInconformidad = await ComentarioInconformidadService.obtenerComentario(idComentarioInconformidad);
+    }
 
     private async Task OnValidSubmit()
     {

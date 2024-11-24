@@ -48,29 +48,37 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             IQueryable<ReporteInspeccion> lista = await _repoGenerico.Consulta();
 
-            if (pp.ReporteFiltro?.IdDepartamentoInstalacion != 0)
+            if (pp.ID1 != 0)
             {
-                lista = lista.Where(p => p.IdDepartamentoInstalacion == pp.ReporteFiltro.IdDepartamentoInstalacion);
+                lista = lista.Where(p => p.IdRepresentante == pp.ID1);
             }
 
-            if (pp.ReporteFiltro?.IdMunicipioInstalacion != 0)
+            if(pp.ReporteFiltro != null)
             {
-                lista = lista.Where(p => p.IdMunicipioInstalacion == pp.ReporteFiltro.IdMunicipioInstalacion);
-            }
+                if (pp.ReporteFiltro.IdDepartamentoInstalacion != 0)
+                {
+                    lista = lista.Where(p => p.IdDepartamentoInstalacion == pp.ReporteFiltro.IdDepartamentoInstalacion);
+                }
 
-            if (pp.ReporteFiltro?.IdCodigoConformidad != 0)
-            {
-                lista = lista.Where(p => p.IdCodigoConformidad == pp.ReporteFiltro.IdCodigoConformidad);
-            }
+                if (pp.ReporteFiltro.IdMunicipioInstalacion != 0)
+                {
+                    lista = lista.Where(p => p.IdMunicipioInstalacion == pp.ReporteFiltro.IdMunicipioInstalacion);
+                }
 
-            if (pp.ReporteFiltro?.IdCodigoSiget != 0)
-            {
-                lista = lista.Where(p => p.IdCodigoSiget == pp.ReporteFiltro.IdCodigoSiget);
-            }
+                if (pp.ReporteFiltro.IdCodigoConformidad != 0)
+                {
+                    lista = lista.Where(p => p.IdCodigoConformidad == pp.ReporteFiltro.IdCodigoConformidad);
+                }
 
-            if (pp.ReporteFiltro?.IdEstadoReporte != 0)
-            {
-                lista = lista.Where(p => p.IdEstadoReporte == pp.ReporteFiltro.IdEstadoReporte);
+                if (pp.ReporteFiltro.IdCodigoSiget != 0)
+                {
+                    lista = lista.Where(p => p.IdCodigoSiget == pp.ReporteFiltro.IdCodigoSiget);
+                }
+
+                if (pp.ReporteFiltro.IdEstadoReporte != 0)
+                {
+                    lista = lista.Where(p => p.IdEstadoReporte == pp.ReporteFiltro.IdEstadoReporte);
+                }
             }
 
             if (!String.IsNullOrEmpty(pp.Buscar))
