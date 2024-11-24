@@ -1,19 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using SigetSystem.Server.Hubs;
 using SigetSystem.Server.Models.Entidades.Hijas;
 using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
 using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
 using SigetSystem.Shared.MPPs;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
 
 namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 {
     public class MetodoPersonal : IMetodoPersonal
     {
         private readonly IMetodoGenerico<Personal> _repositorio;
+        private readonly IHubContext<HubRegistro> _hubRegistro;
 
-        public MetodoPersonal(IMetodoGenerico<Personal> repositorio)
+        public MetodoPersonal(IMetodoGenerico<Personal> repositorio,
+                              IHubContext<HubRegistro> hubRegistro)
         {
             _repositorio = repositorio;
+            _hubRegistro = hubRegistro;
         }
 
         public IQueryable<Personal> OrdenarPersonal(IQueryable<Personal> lista, Expression<Func<Personal, int>> criterioOrden, string FormatoOrden)
@@ -76,9 +82,13 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             try
             {
-                Personal articulo = await _repositorio.Crear(entidad);
+                entidad.Contrasena = HashPassword(entidad.Contrasena);
 
-                return articulo;
+                Personal personal = await _repositorio.Crear(entidad);
+
+                await _hubRegistro.Clients.All.SendAsync("ObtencionMensaje", "El registro se creo correctamente.");
+
+                return personal;
             }
             catch (Exception)
             {
@@ -91,6 +101,8 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             try
             {
                 Personal articulo = await _repositorio.Editar(entidad);
+
+                await _hubRegistro.Clients.All.SendAsync("RegistroEditado", "El registro se edito correctamente.");
 
                 return articulo;
             }
@@ -114,6 +126,8 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             }
         }
 
+        //---------------------------------------------------------------------------------------------------
+
         public async Task<List<Personal>> ConsultaPersonalSimple()
         {
             IQueryable<Personal> lista = await _repositorio.Consulta();
@@ -124,5 +138,26 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 
             return listaPersonal;
         }
+
+        //---------------------------------------------------------------------------------------------------
+
+        private string HashPassword(string plainPassword)
+        {
+            byte[] salt = new byte[16];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+
+            var rfcPassord = new Rfc2898DeriveBytes(plainPassword, salt, 1000, HashAlgorithmName.SHA1);
+            byte[] rfcPasswordHash = rfcPassord.GetBytes(20);
+
+            byte[] passwordHash = new byte[36];
+            Array.Copy(salt, 0, passwordHash, 0, 16);
+            Array.Copy(rfcPasswordHash, 0, passwordHash, 16, 20);
+
+            return Convert.ToBase64String(passwordHash);
+        }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using SigetSystem.Server.Hubs;
 using SigetSystem.Server.Models.Entidades.Hijas;
 using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
 using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
@@ -10,10 +12,13 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
     public class MetodoComentarioSiget : IMetodoComentarioSiget
     {
         private readonly IMetodoGenerico<ComentarioSiget> _repositorio;
+        private readonly IHubContext<HubRegistro> _hubRegistro;
 
-        public MetodoComentarioSiget(IMetodoGenerico<ComentarioSiget> repositorio)
+        public MetodoComentarioSiget(IMetodoGenerico<ComentarioSiget> repositorio, 
+                                     IHubContext<HubRegistro> hubRegistro)
         {
             _repositorio = repositorio;
+            _hubRegistro = hubRegistro;
         }
 
         public IQueryable<ComentarioSiget> OrdenarComentario(IQueryable<ComentarioSiget> lista, Expression<Func<ComentarioSiget, int>> criterioOrden, string FormatoOrden)
@@ -79,6 +84,8 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 ComentarioSiget articulo = await _repositorio.Crear(entidad);
 
+                await _hubRegistro.Clients.All.SendAsync("ObtencionMensaje", "El registro se creo correctamente.");
+
                 return articulo;
             }
             catch (Exception)
@@ -92,6 +99,8 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             try
             {
                 ComentarioSiget articulo = await _repositorio.Editar(entidad);
+
+                await _hubRegistro.Clients.All.SendAsync("RegistroEditado", "El registro se edito correctamente.");
 
                 return articulo;
             }

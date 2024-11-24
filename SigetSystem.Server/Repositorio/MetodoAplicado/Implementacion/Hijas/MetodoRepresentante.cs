@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using SigetSystem.Server.Hubs;
 using SigetSystem.Server.Models.Entidades.Hijas;
 using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
 using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
@@ -10,10 +12,13 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
     public class MetodoRepresentante : IMetodoRepresentante
     {
         private readonly IMetodoGenerico<Representante> _repositorio;
+        private readonly IHubContext<HubRegistro> _hubRegistro;
 
-        public MetodoRepresentante(IMetodoGenerico<Representante> repositorio)
+        public MetodoRepresentante(IMetodoGenerico<Representante> repositorio,
+                                   IHubContext<HubRegistro> hubRegistro)
         {
             _repositorio = repositorio;
+            _hubRegistro = hubRegistro;
         }
         
         public IQueryable<Representante> OrdenarRepresentante(IQueryable<Representante> lista, Expression<Func<Representante, int>> criterioOrden, string FormatoOrden)
@@ -35,12 +40,12 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 
             if(pp.ID1 != 0)
             {
-                lista = lista.Where(p => p.IdOrganismo == pp.ID1);
+                lista = lista.Where(p => p.IdEstadoRepresentante == pp.ID1);
             }
 
             if(pp.ID2 != 0)
             {
-                lista = lista.Where(p=>p.IdOrganismo == pp.ID2);
+                lista = lista.Where(p => p.IdOrganismo == pp.ID2);
             }
 
             if (!String.IsNullOrEmpty(pp.Buscar))
@@ -53,6 +58,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
                         b.ComprobanteOIA!.Contains(pp.Buscar) ||
                         b.Nickname!.Contains(pp.Buscar));
             }
+
             int totalRegistros = await lista.CountAsync();
 
             var listaOrdenada = OrdenarRepresentante(lista, p => p.IdRepresentante, pp.Orden);
@@ -77,6 +83,8 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 Representante representantes = await _repositorio.Crear(representante);
 
+                await _hubRegistro.Clients.All.SendAsync("ObtencionMensaje", "El registro se creo correctamente.");
+
                 return representantes;
             }
             catch (Exception)
@@ -91,6 +99,8 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             try
             {
                 Representante representantes = await _repositorio.Editar(representante);
+
+                await _hubRegistro.Clients.All.SendAsync("RegistroEditado", "El registro se edito correctamente.");
 
                 return representantes;
             }

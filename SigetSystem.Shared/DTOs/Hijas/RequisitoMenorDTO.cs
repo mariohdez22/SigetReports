@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace SigetSystem.Shared.DTOs.Hijas
     {
         public int IdMenores { get; set; }
 
+        [Required]
         public string? CodigoRequisito { get; set; }
 
         public bool? Factibilidad { get; set; }
@@ -43,10 +45,15 @@ namespace SigetSystem.Shared.DTOs.Hijas
 
         public string? ArchivoCopiaCarnetElectricista { get; set; }
 
+        [Required]
         public DateTime FechaRegistro { get; set; }
 
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "El Campo {0} es obligatorio.")]
         public int? IdOrganismo { get; set; }
 
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "El Campo {0} es obligatorio.")]
         public int? IdRepresentante { get; set; }
 
         public virtual OrganismoDTO? Organismo { get; set; }

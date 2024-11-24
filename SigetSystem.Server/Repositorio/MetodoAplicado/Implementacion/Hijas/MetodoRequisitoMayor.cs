@@ -1,5 +1,7 @@
 ﻿using System.Linq.Expressions;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using SigetSystem.Server.Hubs;
 using SigetSystem.Server.Models.Entidades.Hijas;
 using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
 using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
@@ -10,10 +12,13 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
     public class MetodoRequisitoMayor : IMetodoRequisitoMayor
     {
         private readonly IMetodoGenerico<RequisitoMayor> _repoGenerico;
+        private readonly IHubContext<HubRegistro> _hubRegistro;
 
-        public MetodoRequisitoMayor(IMetodoGenerico<RequisitoMayor> repoGenerico)
+        public MetodoRequisitoMayor(IMetodoGenerico<RequisitoMayor> repoGenerico, 
+                                    IHubContext<HubRegistro> hubRegistro)
         {
             _repoGenerico = repoGenerico;
+            _hubRegistro = hubRegistro;
         }
 
         public IQueryable<RequisitoMayor> OrdenarRequisitos
@@ -96,7 +101,11 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             try
             {
-                return await _repoGenerico.Crear(requisitoMayor);
+                RequisitoMayor requisitoMayores = await _repoGenerico.Crear(requisitoMayor);
+
+                await _hubRegistro.Clients.All.SendAsync("ObtencionMensaje", "El registro se creo correctamente.");
+
+                return requisitoMayores;
             }
             catch (Exception)
             {
@@ -108,7 +117,11 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             try
             {
-                return await _repoGenerico.Editar(requisitoMayor);
+                RequisitoMayor requisito = await _repoGenerico.Editar(requisitoMayor);
+
+                await _hubRegistro.Clients.All.SendAsync("RegistroEditado", "El registro se edito correctamente.");
+
+                return requisito;
             }
             catch (Exception)
             {

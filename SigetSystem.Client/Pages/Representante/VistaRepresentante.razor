@@ -4,6 +4,12 @@
 @inject IRepresentanteService representanteService;
 @inject IEstadoRepresentanteService estadoRepresentanteService;
 @inject IOrganismoService organismoService;
+@implements IAsyncDisposable;
+@inject IHubRegistroService hubRegistroService;
+@inject IHubActualizacionService hubActualizacionService;
+@inject TooltipService tooltipService
+@inject NotificationService NotificationService
+@attribute [Authorize]
 
 
 <section class="ContenedorGeneral">
@@ -18,17 +24,28 @@
 
                 @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-                <div class="tituloOpciones">
-                    <p>Opciones del representante</p>
-                </div>
+                <AuthorizeView Roles="Administrador">
+                    <Authorized>
 
-                <div class="botonesOpciones">
+                        <div class="tituloOpciones">
+                            <p>Opciones del representante</p>
+                        </div>
 
-                    <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
+                        <div class="botonesOpciones">
 
-                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+                            <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
 
-                </div>
+                            <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+
+                        </div>
+
+                    </Authorized>
+                    <NotAuthorized>
+
+                        @* no se mostrara nada *@
+
+                    </NotAuthorized>
+                </AuthorizeView>
 
                 <div class="tituloOpciones">
                     <p>Buscador</p>
@@ -139,92 +156,134 @@
                 @foreach (var item in respuestaRepresentante.Resultado)
                 {
 
-            <div class="tarjeta">
+                    <div class="tarjeta">
 
-                <div class="perfil">
+                        <div class="perfil">
 
-                    <p>@item.Nombres</p>
+                            <p>@item.Nombres</p>
 
-                    <div class="estadoIcon color-Acreditado"><i class="bi bi-person-fill-exclamation"></i></div>
+                            <div class="estadoIcon @($"color-{item.EstadoRepresentante?.Estados}")" @ref="@(elementRefs[$"{item.IdRepresentante}-tooltip0"])" @onmouseenter="@(() => ShowTooltip("Estado Representante", $"{item.IdRepresentante}-tooltip0"))">
+                                <i class="bi bi-person-fill-exclamation"></i>
+                            </div>
 
-                </div>
-
-                <div class="extras">
-
-                    <div class="textoExtra miniEspacio">
-                        <div class="iconoExtra">
-                            <i class="bi bi-building-fill"></i>
                         </div>
-                        <div class="apartadoExtra">
-                            <p>@item.Organismo?.NombreOIA</p>
+
+                        <div class="extras">
+
+                            <div class="textoExtra miniEspacio">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdRepresentante}-tooltip1"])" @onmouseenter="@(() => ShowTooltip("Nombre OIA", $"{item.IdRepresentante}-tooltip1"))">
+                                    <i class="bi bi-building-fill"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p>@item.Organismo?.NombreOIA</p>
+                                </div>
+                            </div>
+
+                            <div class="textoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdRepresentante}-tooltip2"])" @onmouseenter="@(() => ShowTooltip("Nickname", $"{item.IdRepresentante}-tooltip2"))">
+                                    <i class="bi bi-person-circle"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p>@item.Nickname</p>
+                                </div>
+                            </div>
+
+                            <div class="textoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdRepresentante}-tooltip3"])" @onmouseenter="@(() => ShowTooltip("Celular", $"{item.IdRepresentante}-tooltip3"))">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p>@item.Celular</p>
+                                </div>
+                            </div>
+
+                            <div class="textoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdRepresentante}-tooltip4"])" @onmouseenter="@(() => ShowTooltip("Email", $"{item.IdRepresentante}-tooltip4"))">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p class="correo">@item.Email</p>
+                                </div>
+                            </div>
+
+                            <div class="textoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdRepresentante}-tooltip5"])" @onmouseenter="@(() => ShowTooltip("DUI", $"{item.IdRepresentante}-tooltip5"))">
+                                    <i class="bi bi-person-vcard-fill"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p>@item.DUI</p>
+                                </div>
+                            </div>
+
+                            <div class="textoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdRepresentante}-tooltip6"])" @onmouseenter="@(() => ShowTooltip("Comprobante OIA", $"{item.IdRepresentante}-tooltip6"))">
+                                    <i class="bi bi-postcard-fill"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p>@item.ComprobanteOIA</p>
+                                </div>
+                            </div>
+
+                            <div class="textoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdRepresentante}-tooltip7"])" @onmouseenter="@(() => ShowTooltip("Estado Representante", $"{item.IdRepresentante}-tooltip7"))">
+                                    <i class="bi bi-person-fill-exclamation"></i>
+                                </div>
+                                <div class="apartadoExtra">
+                                    <p>@item.EstadoRepresentante?.Estados</p>
+                                </div>
+                            </div>
+
+                            <AuthorizeView Roles="Administrador">
+                                <Authorized>
+
+                                    <div class="textoExtra miniEspacio">
+
+                                        <button class="edicion" @onclick="@(() => ShowModal(item.IdRepresentante))"><i class="bi bi-pencil-square"></i> Editar</button>
+
+                                        @if (item.IdEstadoRepresentante == 1)
+                                        {
+                                            <button class="rechazo" @onclick="(() => ModalLookup(item.IdRepresentante))"><i class="bi bi-x-circle"></i> Quitar</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="rechazo" @onclick="(() => ModalLookup(item.IdRepresentante))"><i class="bi bi-check-circle"></i> Habilitar</button>
+                                        }
+
+                                    </div>
+
+                                </Authorized>
+                            </AuthorizeView>
+
+                            <AuthorizeView Roles="Gerente">
+                                <Authorized>
+
+                                    <div class="textoExtra miniEspacio">
+
+                                        @if (item.IdEstadoRepresentante == 1)
+                                        {
+                                            <button class="rechazo" @onclick="(() => ModalLookup(item.IdRepresentante))"><i class="bi bi-x-circle"></i> Quitar</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="rechazo" @onclick="(() => ModalLookup(item.IdRepresentante))"><i class="bi bi-check-circle"></i> Habilitar</button>
+                                        }
+
+                                    </div>
+
+                                </Authorized>
+                            </AuthorizeView>
+
+                            <AuthorizeView Roles="Colaborador">
+                                <Authorized>
+
+                                    @* No se mostrara nada *@
+
+                                </Authorized>
+                            </AuthorizeView>
+
                         </div>
+
                     </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-circle"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>@item.Nickname</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>@item.Celular</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-envelope-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p class="correo">@item.Email</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-vcard-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>@item.DUI</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-postcard-fill"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>@item.ComprobanteOIA</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra">
-                        <div class="iconoExtra">
-                            <i class="bi bi-person-fill-exclamation"></i>
-                        </div>
-                        <div class="apartadoExtra">
-                            <p>@item.EstadoRepresentante?.Estados</p>
-                        </div>
-                    </div>
-
-                    <div class="textoExtra miniEspacio">
-
-                        <button class="edicion"  @onclick="@(() => ShowModal(item.IdRepresentante))" ><i class="bi bi-pencil-square"></i> Editar</button>
-
-                                <button class="rechazo" @onclick="(() => ModalLookup(item.IdRepresentante))"><i class="bi bi-x-circle"></i> Quitar</button>
-
-                    </div>
-
-                </div>
-
-            </div>
                 }
             }
             else
@@ -242,7 +301,7 @@
 
         <div class="paginacion">
 
-             <PaginadoRepresentante PaginaActual="@paginaActual"
+            <PaginadoRepresentante PaginaActual="@paginaActual"
             TotalPaginas="@totalPaginas"
             OnPageChanged="HandlePageChanged">
             </PaginadoRepresentante> 
@@ -284,6 +343,24 @@
 
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
+    // Apartado Tooltips mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private Dictionary<string, ElementReference> elementRefs = new();
+
+    void ShowTooltip(string content, string itemId)
+    {
+        if (elementRefs.ContainsKey(itemId))
+        {
+            var elementRef = elementRefs[itemId];
+            var options = new TooltipOptions()
+                {
+                    Style = "background: var(--rz-secondary-light); color: var(--rz-white)",
+                    Position = TooltipPosition.Left
+                };
+            tooltipService.Open(elementRef, content, options);
+        }
+    }
+
     // MetodoInicializador mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
     protected override async Task OnInitializedAsync()
@@ -303,6 +380,13 @@
         await CargarPagina(paginaActual, 0, 0, "Descendente");
         listaEstado = await estadoRepresentanteService.MostrarEstadoRepresentante();
         var r = await organismoService.MostrarOrganismos(parametros);
+
+        //--------------------------------------------------------------
+
+        await StartRegistro();
+
+        await StartEdicion();
+
     }
 
     // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
@@ -334,7 +418,7 @@
             estadoSeleccionado = valor;
         }
 
-        await CargarPagina(paginaActual, valor, estado, valorOrden);
+        await CargarPagina(paginaActual, valor, organismo, valorOrden);
         estado = valor;
     }
 
@@ -471,5 +555,76 @@
         }
     }
 
-    
+    // Metodos Notificaciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    void ShowNotification(NotificationMessage message)
+    {
+        NotificationService.Notify(message);
+    }
+
+    //-----------------------------------------------------------|
+
+    public async Task ShowRegistro(string message)
+    {
+        Console.WriteLine(message);
+
+        await CargarPagina(paginaActual, estado, organismo, valorOrden);
+
+        await InvokeAsync(StateHasChanged);
+
+        ShowNotification(new NotificationMessage 
+            { 
+                Severity = NotificationSeverity.Info, 
+                Summary = "Registro Exitoso", 
+                Detail = "Datos agregados correctamente", 
+                Duration = 4000, 
+                CloseOnClick = true, 
+                Payload = DateTime.Now 
+            });
+    }
+
+    public async Task StartRegistro()
+    {
+        hubRegistroService.OnRegisterReceived += ShowRegistro;
+        await hubRegistroService.ConnectAsync();
+    }
+
+    //-----------------------------------------------------------|
+
+    public async Task ShowEdicion(string message)
+    {
+        Console.WriteLine(message);
+
+        await CargarPagina(paginaActual, estado, organismo, valorOrden);
+
+        await InvokeAsync(StateHasChanged);
+
+        ShowNotification(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Warning,
+                Summary = "Registro Actualizado",
+                Detail = "Datos editados correctamente",
+                Duration = 4000,
+                CloseOnClick = true,
+                Payload = DateTime.Now
+            });
+    }
+
+    public async Task StartEdicion()
+    {
+        hubActualizacionService.OnRegisterEdited += ShowEdicion;
+        await hubActualizacionService.ConnectAsync();
+    }
+
+    //-----------------------------------------------------------|
+
+    public async ValueTask DisposeAsync()
+    {
+        hubRegistroService.OnRegisterReceived -= ShowRegistro;
+        await hubRegistroService.DisconnectAsync();
+
+        hubActualizacionService.OnRegisterEdited -= ShowEdicion;
+        await hubActualizacionService.DisconnectAsync();
+    }
+
 }

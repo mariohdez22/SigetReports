@@ -4,6 +4,13 @@
 @inject IRequisitoMayorService requisitoService;
 @inject IOrganismoService organismoService;
 @inject IRepresentanteService representanteService;
+@implements IAsyncDisposable;
+@inject IHubRegistroService hubRegistroService;
+@inject IHubActualizacionService hubActualizacionService;
+@inject TooltipService tooltipService
+@inject NotificationService NotificationService
+@attribute [Authorize]
+
 
 <section class="ContenedorGeneral">
 
@@ -138,17 +145,17 @@
                                 <div class="apartadoA">
 
                                     <div class="texto">
-                                        <div class="iconoTexto">
+                                        <div class="iconoTexto" @ref="@(elementRefs[$"{item.IdMayores}-tooltip0"])" @onmouseenter="@(() => ShowTooltip("Nombre OIA", $"{item.IdMayores}-tooltip0"))">
                                             <i class="bi bi-building-fill"></i>
                                         </div>
-                                        <p>@item.Organismo.NombreOIA</p>
+                                        <p>@item.Organismo?.NombreOIA</p>
                                     </div>
 
                                     <div class="texto">
-                                        <div class="iconoTexto">
+                                        <div class="iconoTexto" @ref="@(elementRefs[$"{item.IdMayores}-tooltip1"])" @onmouseenter="@(() => ShowTooltip("Representante", $"{item.IdMayores}-tooltip1"))">
                                             <i class="bi bi-person-circle"></i>
                                         </div>
-                                        <p>@item.Representante.Nombres</p>
+                                        <p>@item.Representante?.Nombres</p>
                                     </div>
 
                                     <div class="tituloChecks">
@@ -160,94 +167,94 @@
                                 <div class="apartadoB">
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip2"])" @onmouseenter="@(() => ShowTooltip("Factibilidad", $"{item.IdMayores}-tooltip2"))">
                                             <i class="bi bi-check-circle-fill"></i>
                                         </div>
                                         <input class="mtp" checked="@(item.Factibilidad == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip3"])" @onmouseenter="@(() => ShowTooltip("Formulario Totales", $"{item.IdMayores}-tooltip3"))">
                                             <i class="bi bi-clipboard2-check-fill"></i>
                                         </div>
                                         <input checked="@(item.TotalFormularios == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip4"])" @onmouseenter="@(() => ShowTooltip("Copia Dui Propietario", $"{item.IdMayores}-tooltip4"))">
                                             <i class="bi bi-person-vcard-fill"></i>
                                         </div>
                                         <input checked="@(item.CopiaDuiPropietario == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip5"])" @onmouseenter="@(() => ShowTooltip("Copia Retira Certificado", $"{item.IdMayores}-tooltip5"))">
                                             <i class="bi bi-person-vcard"></i>
                                         </div>
                                         <input checked="@(item.CopiaDuiRetiro == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip6"])" @onmouseenter="@(() => ShowTooltip("Copia Dui Electricista", $"{item.IdMayores}-tooltip6"))">
                                             <i class="bi bi-person-vcard"></i>
                                         </div>
                                         <input checked="@(item.CopiaDuiElectricista == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip7"])" @onmouseenter="@(() => ShowTooltip("Copia Carnet Electricista", $"{item.IdMayores}-tooltip7"))">
                                             <i class="bi bi-card-heading"></i>
                                         </div>
-                                        <input checked="@(item.CopiaDuiElectricista == true)" type="checkbox" id="" />
+                                        <input checked="@(item.CopiaCarnetElectricista == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip8"])" @onmouseenter="@(() => ShowTooltip("Planos Duales De Diseño Minimo", $"{item.IdMayores}-tooltip8"))">
                                             <i class="bi bi-map-fill"></i>
-                                        </div>
-                                        <input checked="@(item.CopiaCarnetElectricista == true)" type="checkbox" id="" />
-                                    </div>
-
-                                    <div class="checks">
-                                        <div class="iconoCheck">
-                                            <i class="bi bi-map"></i>
-                                        </div>
-                                        <input checked="@(item.CopiaCarnetElectricista == true)" type="checkbox" id="" />
-                                    </div>
-
-                                    <div class="checks">
-                                        <div class="iconoCheck">
-                                            <i class="bi bi-pass-fill"></i>
                                         </div>
                                         <input checked="@(item.PlanosDualesDeDiseñoMinimo == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
-                                            <i class="bi bi-patch-check-fill"></i>
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip9"])" @onmouseenter="@(() => ShowTooltip("Planos Duales De Construccion", $"{item.IdMayores}-tooltip9"))">
+                                            <i class="bi bi-map"></i>
                                         </div>
                                         <input checked="@(item.PlanosDualesDeConstruccion == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
-                                            <i class="bi bi-pass"></i>
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip10"])" @onmouseenter="@(() => ShowTooltip("Copia Factura De Materiales", $"{item.IdMayores}-tooltip10"))">
+                                            <i class="bi bi-pass-fill"></i>
                                         </div>
                                         <input checked="@(item.CopiaFacturaDeMateriales == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
-                                            <i class="bi bi-file-medical-fill"></i>
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip11"])" @onmouseenter="@(() => ShowTooltip("Copia Garantia De Transformador", $"{item.IdMayores}-tooltip11"))">
+                                            <i class="bi bi-patch-check-fill"></i>
                                         </div>
                                         <input checked="@(item.CopiaGarantiaDeTransformador == true)" type="checkbox" id="" />
                                     </div>
 
                                     <div class="checks">
-                                        <div class="iconoCheck">
-                                            <i class="bi bi-houses-fill"></i>
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip12"])" @onmouseenter="@(() => ShowTooltip("Comprobante De Pago", $"{item.IdMayores}-tooltip12"))">
+                                            <i class="bi bi-pass"></i>
                                         </div>
                                         <input checked="@(item.ComprobanteDePago == true)" type="checkbox" id="" />
+                                    </div>
+
+                                    <div class="checks">
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip13"])" @onmouseenter="@(() => ShowTooltip("Memoria de Calculo", $"{item.IdMayores}-tooltip13"))">
+                                            <i class="bi bi-file-medical-fill"></i>
+                                        </div>
+                                        <input checked="@(item.MemoriaDecalculo == true)" type="checkbox" id="" />
+                                    </div>
+
+                                    <div class="checks">
+                                        <div class="iconoCheck" @ref="@(elementRefs[$"{item.IdMayores}-tooltip14"])" @onmouseenter="@(() => ShowTooltip("Autocad CD", $"{item.IdMayores}-tooltip14"))">
+                                            <i class="bi bi-houses-fill"></i>
+                                        </div>
+                                        <input checked="@(item.AutocadCD == true)" type="checkbox" id="" />
                                     </div>
 
                                 </div>
@@ -257,7 +264,7 @@
                             <div class="extras">
 
                                 <div class="textoExtra">
-                                    <div class="iconoExtra">
+                                    <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdMayores}-tooltip15"])" @onmouseenter="@(() => ShowTooltip("Dui Propietario (PDF)", $"{item.IdMayores}-tooltip15"))">
                                         <i class="bi bi-person-vcard-fill"></i>
                                     </div>
                                     <div class="apartadoExtra">
@@ -266,7 +273,7 @@
                                 </div>
 
                                 <div class="textoExtra">
-                                    <div class="iconoExtra">
+                                    <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdMayores}-tooltip16"])" @onmouseenter="@(() => ShowTooltip("Dui Retira Certificado (PDF)", $"{item.IdMayores}-tooltip16"))">
                                         <i class="bi bi-person-vcard"></i>
                                     </div>
                                     <div class="apartadoExtra">
@@ -275,7 +282,7 @@
                                 </div>
 
                                 <div class="textoExtra">
-                                    <div class="iconoExtra">
+                                    <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdMayores}-tooltip17"])" @onmouseenter="@(() => ShowTooltip("Dui Electricista (PDF)", $"{item.IdMayores}-tooltip17"))">
                                         <i class="bi bi-person-vcard"></i>
                                     </div>
                                     <div class="apartadoExtra">
@@ -284,7 +291,7 @@
                                 </div>
 
                                 <div class="textoExtra">
-                                    <div class="iconoExtra">
+                                    <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdMayores}-tooltip18"])" @onmouseenter="@(() => ShowTooltip("Carnet Electricista (PDF)", $"{item.IdMayores}-tooltip18"))">
                                         <i class="bi bi-card-heading"></i>
                                     </div>
                                     <div class="apartadoExtra">
@@ -293,7 +300,7 @@
                                 </div>
 
                                 <div class="textoExtra">
-                                    <div class="iconoExtra">
+                                    <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdMayores}-tooltip19"])" @onmouseenter="@(() => ShowTooltip("Planos Diseño Minimo (PDF)", $"{item.IdMayores}-tooltip19"))">
                                         <i class="bi bi-map-fill"></i>
                                     </div>
                                     <div class="apartadoExtra">
@@ -302,7 +309,7 @@
                                 </div>
 
                                 <div class="textoExtra">
-                                    <div class="iconoExtra">
+                                    <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdMayores}-tooltip20"])" @onmouseenter="@(() => ShowTooltip("Planos Construccion (PDF)", $"{item.IdMayores}-tooltip20"))">
                                         <i class="bi bi-map"></i>
                                     </div>
                                     <div class="apartadoExtra">
@@ -311,7 +318,7 @@
                                 </div>
 
                                 <div class="textoExtra">
-                                    <div class="iconoExtra">
+                                    <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdMayores}-tooltip21"])" @onmouseenter="@(() => ShowTooltip("Factura Materiales (PDF)", $"{item.IdMayores}-tooltip21"))">
                                         <i class="bi bi-pass-fill"></i>
                                     </div>
                                     <div class="apartadoExtra">
@@ -320,7 +327,7 @@
                                 </div>
 
                                 <div class="textoExtra">
-                                    <div class="iconoExtra">
+                                    <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdMayores}-tooltip22"])" @onmouseenter="@(() => ShowTooltip("Garantia Transformador (PDF)", $"{item.IdMayores}-tooltip22"))">
                                         <i class="bi bi-patch-check-fill"></i>
                                     </div>
                                     <div class="apartadoExtra">
@@ -350,10 +357,10 @@
 
         <div class="paginacion">
 
-            <PaginadoPersonal PaginaActual="@paginaActual"
-            TotalPaginas="@totalPaginas"
-            OnPageChanged="HandlePageChanged">
-            </PaginadoPersonal>
+            <PaginadoRequisitosMayores PaginaActual="@paginaActual"
+                                       TotalPaginas="@totalPaginas"
+                                       OnPageChanged="HandlePageChanged">
+            </PaginadoRequisitosMayores>
 
         </div>
 
@@ -390,6 +397,24 @@
 
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
+    // Apartado Tooltips mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private Dictionary<string, ElementReference> elementRefs = new();
+
+    void ShowTooltip(string content, string itemId)
+    {
+        if (elementRefs.ContainsKey(itemId))
+        {
+            var elementRef = elementRefs[itemId];
+            var options = new TooltipOptions()
+                {
+                    Style = "background: var(--rz-secondary-light); color: var(--rz-white)",
+                    Position = TooltipPosition.Left
+                };
+            tooltipService.Open(elementRef, content, options);
+        }
+    }
+
     // MetodoInicializador mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
     protected override async Task OnInitializedAsync()
@@ -412,6 +437,13 @@
 
         listaOrganimos = rOrg.Resultado;
         listaRepresentante = rRep.Resultado;
+
+        //--------------------------------------------------------------
+
+        await StartRegistro();
+
+        await StartEdicion();
+
     }
 
     // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
@@ -480,5 +512,76 @@
         await CargarPagina(newPage, ID1, ID2, valorOrden);
     }
 
-    // Modals mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+    // Metodos Notificaciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    void ShowNotification(NotificationMessage message)
+    {
+        NotificationService.Notify(message);
+    }
+
+    //-----------------------------------------------------------|
+
+    public async Task ShowRegistro(string message)
+    {
+        Console.WriteLine(message);
+
+        await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+
+        await InvokeAsync(StateHasChanged);
+
+        ShowNotification(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = "Registro Exitoso",
+                Detail = "Datos agregados correctamente",
+                Duration = 4000,
+                CloseOnClick = true,
+                Payload = DateTime.Now
+            });
+    }
+
+    public async Task StartRegistro()
+    {
+        hubRegistroService.OnRegisterReceived += ShowRegistro;
+        await hubRegistroService.ConnectAsync();
+    }
+
+    //-----------------------------------------------------------|
+
+    public async Task ShowEdicion(string message)
+    {
+        Console.WriteLine(message);
+
+        await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+
+        await InvokeAsync(StateHasChanged);
+
+        ShowNotification(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Warning,
+                Summary = "Registro Actualizado",
+                Detail = "Datos editados correctamente",
+                Duration = 4000,
+                CloseOnClick = true,
+                Payload = DateTime.Now
+            });
+    }
+
+    public async Task StartEdicion()
+    {
+        hubActualizacionService.OnRegisterEdited += ShowEdicion;
+        await hubActualizacionService.ConnectAsync();
+    }
+
+    //-----------------------------------------------------------|
+
+    public async ValueTask DisposeAsync()
+    {
+        hubRegistroService.OnRegisterReceived -= ShowRegistro;
+        await hubRegistroService.DisconnectAsync();
+
+        hubActualizacionService.OnRegisterEdited -= ShowEdicion;
+        await hubActualizacionService.DisconnectAsync();
+    }
+
 }

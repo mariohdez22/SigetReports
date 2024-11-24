@@ -40,7 +40,7 @@
 
     OrganismoDTO? orgNew;
 
-    [CascadingParameter] BlazoredModalInstance blazoredModal { get; set; } = default;
+    [CascadingParameter] BlazoredModalInstance blazoredModal { get; set; } = default!;
 
     //----------------------------------------------------------------------------------
 
@@ -69,6 +69,7 @@
     }
 
     //----------------------------------------------------------------------------------
+    
     private async Task AcreditarOrganismo()
     {
         string ssres;

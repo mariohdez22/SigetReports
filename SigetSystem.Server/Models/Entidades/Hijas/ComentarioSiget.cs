@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using SigetSystem.Server.Models.Entidades.Padres;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SigetSystem.Server.Models.Entidades.Hijas
 {
@@ -18,6 +19,7 @@ namespace SigetSystem.Server.Models.Entidades.Hijas
         [ForeignKey(nameof(TipoConformidad))]
         public int IdTipoConformidad { get; set; }
 
+        [AllowNull]
         [ForeignKey(nameof(ReporteInspeccion))]
         public int? IdReporteInspeccion { get; set; }
 

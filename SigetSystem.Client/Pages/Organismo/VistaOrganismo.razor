@@ -4,6 +4,13 @@
 @inject IOrganismoService orgService;
 @inject IPersonalService perService;
 @inject IEstadoAcreditacionService acreService;
+@implements IAsyncDisposable;
+@inject IHubRegistroService hubRegistroService;
+@inject IHubActualizacionService hubActualizacionService;
+@inject TooltipService tooltipService
+@inject NotificationService NotificationService
+@attribute [Authorize]
+
 
 <section class="ContenedorGeneral">
 
@@ -17,17 +24,28 @@
 
                 @* Apartado de Opciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm *@
 
-                <div class="tituloOpciones">
-                    <p>Opciones para el organismo</p>
-                </div>
+                <AuthorizeView Roles="Administrador">
+                    <Authorized>
 
-                <div class="botonesOpciones">
+                        <div class="tituloOpciones">
+                            <p>Opciones para el organismo</p>
+                        </div>
 
-                    <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
+                        <div class="botonesOpciones">
 
-                    <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+                            <button class="agregar" @onclick="@(()=> ShowModal(0))"><i class="bi bi-plus-circle"></i> Agregar</button>
 
-                </div>
+                            <button class="informe"><i class="bi bi-file-earmark-plus"></i> Reporte</button>
+
+                        </div>
+
+                    </Authorized>
+                    <NotAuthorized>
+
+                        @* no se mostrara nada *@
+
+                    </NotAuthorized>
+                </AuthorizeView>
 
                 <div class="tituloOpciones">
                     <p>Buscador</p>
@@ -143,17 +161,19 @@
 
                         <div class="perfil">
 
-                            <p>Organismos</p>
+                            <p>@item.NombreOIA</p>
 
-                            <div class="estadoIcon color-Acreditado"><i class="bi bi-person-fill-exclamation"></i></div>
+                            <div class="estadoIcon @($"color-{item.EstadoAcreditacion?.Estados}")" @ref="@(elementRefs[$"{item.IdOrganismo}-tooltip0"])" @onmouseenter="@(() => ShowTooltip("Estado Acreditacion", $"{item.IdOrganismo}-tooltip0"))">
+                                <i class="bi bi-building-fill-exclamation"></i>
+                            </div>
 
                         </div>
 
                         <div class="extras">
 
                             <div class="textoExtra miniEspacio">
-                                <div class="iconoExtra">
-                                    <i class="bi bi-person-fill"></i>
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdOrganismo}-tooltip1"])" @onmouseenter="@(() => ShowTooltip("Nombre OIA", $"{item.IdOrganismo}-tooltip1"))">
+                                    <i class="bi bi-building-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
                                     <p>@item.NombreOIA</p>
@@ -161,7 +181,7 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdOrganismo}-tooltip2"])" @onmouseenter="@(() => ShowTooltip("Email", $"{item.IdOrganismo}-tooltip2"))">
                                     <i class="bi bi-envelope-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -170,7 +190,7 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdOrganismo}-tooltip3"])" @onmouseenter="@(() => ShowTooltip("Telefono", $"{item.IdOrganismo}-tooltip3"))">
                                     <i class="bi bi-telephone-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -179,7 +199,7 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdOrganismo}-tooltip4"])" @onmouseenter="@(() => ShowTooltip("Codigo Unico", $"{item.IdOrganismo}-tooltip4"))">
                                     <i class="bi bi-c-circle-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -188,7 +208,7 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdOrganismo}-tooltip5"])" @onmouseenter="@(() => ShowTooltip("Estado Acreditacion", $"{item.IdOrganismo}-tooltip5"))">
                                     <i class="bi bi-building-fill-exclamation"></i>
                                 </div>
                                 <div class="apartadoExtra">
@@ -197,8 +217,8 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
-                                    <i class="bi bi-person-circle"></i>
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdOrganismo}-tooltip6"])" @onmouseenter="@(() => ShowTooltip("Responsable", $"{item.IdOrganismo}-tooltip6"))">
+                                    <i class="bi bi-person-badge-fill"></i>
                                 </div>
                                 <div class="apartadoExtra">
                                     <p>@item.Responsable</p>
@@ -206,21 +226,61 @@
                             </div>
 
                             <div class="textoExtra">
-                                <div class="iconoExtra">
-                                    <i class="bi bi-building-fill-exclamation"></i>
+                                <div class="iconoExtra" @ref="@(elementRefs[$"{item.IdOrganismo}-tooltip7"])" @onmouseenter="@(() => ShowTooltip("Personal", $"{item.IdOrganismo}-tooltip7"))">
+                                    <i class="bi bi-person-circle"></i>
                                 </div>
                                 <div class="apartadoExtra">
-                                    <p>@item.Personal?.Nombres</p>
+                                    <p>@item.Personal?.Nickname</p>
                                 </div>
                             </div>
 
-                            <div class="textoExtra miniEspacio">
+                            <AuthorizeView Roles="Administrador">
+                                <Authorized>
 
-                                <button class="edicion" @onclick="@(() => ShowModal(item.IdOrganismo))"><i class="bi bi-pencil-square"></i> Editar</button>
+                                    <div class="textoExtra miniEspacio">
 
-                                <button class="rechazo" @onclick="(() => ModalLookup(item.IdEstadoAcreditacion))"><i class="bi bi-x-circle"></i> Quitar</button>
+                                        <button class="edicion" @onclick="@(() => ShowModal(item.IdOrganismo))"><i class="bi bi-pencil-square"></i> Editar</button>
 
-                            </div>
+                                        @if (item.IdEstadoAcreditacion == 1)
+                                        {
+                                            <button class="rechazo" @onclick="(() => ModalLookup(item.IdOrganismo))"><i class="bi bi-x-circle"></i> Quitar</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="rechazo" @onclick="(() => ModalLookup(item.IdOrganismo))"><i class="bi bi-check-circle"></i> Habilitar</button>
+                                        }
+
+                                    </div>
+
+                                </Authorized>
+                            </AuthorizeView>
+
+                            <AuthorizeView Roles="Gerente">
+                                <Authorized>
+
+                                    <div class="textoExtra miniEspacio">
+
+                                        @if (item.IdEstadoAcreditacion == 1)
+                                        {
+                                            <button class="rechazo" @onclick="(() => ModalLookup(item.IdOrganismo))"><i class="bi bi-x-circle"></i> Quitar</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="rechazo" @onclick="(() => ModalLookup(item.IdOrganismo))"><i class="bi bi-check-circle"></i> Habilitar</button>
+                                        }
+
+                                    </div>
+
+                                </Authorized>
+                            </AuthorizeView>
+
+                            <AuthorizeView Roles="Colaborador">
+                                <Authorized>
+
+                                    @* No se mostrara nada *@
+
+                                </Authorized>
+                            </AuthorizeView>
 
                         </div>
 
@@ -282,6 +342,24 @@
 
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
+    // Apartado Tooltips mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    private Dictionary<string, ElementReference> elementRefs = new();
+
+    void ShowTooltip(string content, string itemId)
+    {
+        if (elementRefs.ContainsKey(itemId))
+        {
+            var elementRef = elementRefs[itemId];
+            var options = new TooltipOptions()
+                {
+                    Style = "background: var(--rz-secondary-light); color: var(--rz-white)",
+                    Position = TooltipPosition.Left
+                };
+            tooltipService.Open(elementRef, content, options);
+        }
+    }
+
     // MetodoInicializador mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
 
     protected override async Task OnInitializedAsync()
@@ -305,6 +383,12 @@
 
         listaPersonalDto = r.Resultado;
         listaEstadoAcreditacion = await acreService.MostrarEstadoAcreditacion();
+
+        //--------------------------------------------------------------
+
+        await StartRegistro();
+
+        await StartEdicion();
     }
 
     // Metodos Generales mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
@@ -432,7 +516,7 @@
 
         var parametros = new ModalParameters().Add(nameof(ModalLookupOrganismo.idOrganismoKey), id);
 
-        var modal = Modal.Show<ModalLookupOrganismo>("Cambiar estado Personal", parametros, options);
+        var modal = Modal.Show<ModalLookupOrganismo>("Cambiar estado Organismo", parametros, options);
         var resultado = await modal.Result;
 
         if (resultado.Confirmed)
@@ -443,4 +527,77 @@
             }
         }
     }
+
+    // Metodos Notificaciones mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm|
+
+    void ShowNotification(NotificationMessage message)
+    {
+        NotificationService.Notify(message);
+    }
+
+    //-----------------------------------------------------------|
+
+    public async Task ShowRegistro(string message)
+    {
+        Console.WriteLine(message);
+
+        await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+
+        await InvokeAsync(StateHasChanged);
+
+        ShowNotification(new NotificationMessage
+        {
+            Severity = NotificationSeverity.Info,
+            Summary = "Registro Exitoso",
+            Detail = "Datos agregados correctamente",
+            Duration = 4000,
+            CloseOnClick = true,
+            Payload = DateTime.Now
+        });
+    }
+
+    public async Task StartRegistro()
+    {
+        hubRegistroService.OnRegisterReceived += ShowRegistro;
+        await hubRegistroService.ConnectAsync();
+    }
+
+    //-----------------------------------------------------------|
+
+    public async Task ShowEdicion(string message)
+    {
+        Console.WriteLine(message);
+
+        await CargarPagina(paginaActual, ID1, ID2, valorOrden);
+
+        await InvokeAsync(StateHasChanged);
+
+        ShowNotification(new NotificationMessage
+        {
+            Severity = NotificationSeverity.Warning,
+            Summary = "Registro Actualizado",
+            Detail = "Datos editados correctamente",
+            Duration = 4000,
+            CloseOnClick = true,
+            Payload = DateTime.Now
+        });
+    }
+
+    public async Task StartEdicion()
+    {
+        hubActualizacionService.OnRegisterEdited += ShowEdicion;
+        await hubActualizacionService.ConnectAsync();
+    }
+
+    //-----------------------------------------------------------|
+
+    public async ValueTask DisposeAsync()
+    {
+        hubRegistroService.OnRegisterReceived -= ShowRegistro;
+        await hubRegistroService.DisconnectAsync();
+
+        hubActualizacionService.OnRegisterEdited -= ShowEdicion;
+        await hubActualizacionService.DisconnectAsync();
+    }
+    
 }

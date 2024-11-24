@@ -14,6 +14,130 @@
 <h5 class="tituloModalAgregar">Agregar Comentario</h5>
 <br />
 
+<EditForm Model="comentario" OnValidSubmit="OnValidSubmit">
+
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="contenedorInputs">
+
+        <div class="parteInputsA">
+
+            <div class="parteRelacionales">
+
+                <div class="mb-3" style="width: 48%;">
+                    <div class="apartadoInput">
+                        <div class="input-group agrupacionInput">
+                            <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-exclamation-circle-fill"></i></span>
+                            <InputSelect class="form-select" @bind-Value="comentario.IdTipoConformidad" style="border: 1px solid var(--color-inputs);">
+                                <option value="0">Conformidad...</option>
+                                @foreach (var item in listaTipoComentario)
+                                {
+                                    <option value="@item.IdTipoConformidad">@item.Tipos</option>
+                                }
+                            </InputSelect>
+                        </div>
+                        <div class="errorInput">
+                            <ValidationMessage For="@(()=> comentario.IdTipoConformidad)"></ValidationMessage>
+                        </div>
+                    </div>                   
+                </div>
+
+                <div class="mb-3" style="width: 48%;">
+                    <div class="apartadoInput">
+                        <div class="input-group agrupacionInput">
+                            <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-file-earmark-binary"></i></span>
+                            <select @bind="comentario.IdReporteInspeccion" class="form-select" style="border: 1px solid var(--color-inputs);">
+                                <option value="0">Reporte...</option>
+                                @foreach (var item in listaReporteInspeccion)
+                                {
+                                    <option value="@item.IdReporteInspeccion.ToString()">@item.CodigoInspeccion</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="errorInput">
+                            
+                        </div>
+                    </div>                    
+                </div>
+
+            </div>
+
+            <div class="parteRelacionales">
+
+                <div class="mb-3">
+                    <div class="apartadoInput">
+                        <div class="input-group agrupacionInput">
+                            <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-badge-fill"></i></span>
+                            <InputSelect class="form-select" @bind-Value="comentario.IdRepresentante" style="border: 1px solid var(--color-inputs);">
+                                <option value="0">Representante...</option>
+                                @foreach (var item in listaRepresentante)
+                                {
+                                    <option value="@item.IdRepresentante">@item.Nickname</option>
+                                }
+                            </InputSelect>
+                        </div>
+                        <div class="errorInput">
+                            <ValidationMessage For="@(()=> comentario.IdRepresentante)"></ValidationMessage>
+                        </div>
+                    </div>                    
+                </div>
+
+                <div class="mb-3">
+                    <div class="apartadoInput">
+                        <div class="input-group agrupacionInput">
+                            <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
+                            <InputSelect class="form-select" @bind-Value="comentario.IdPersonal" style="border: 1px solid var(--color-inputs);">
+                                <option value="0">Personal...</option>
+                                @foreach (var item in listaPersonal)
+                                {
+                                    <option value="@item.IdPersonal">@item.Nombres</option>
+                                }
+                            </InputSelect>
+                        </div>
+                        <div class="errorInput">
+                            <ValidationMessage For="@(()=> comentario.IdPersonal)"></ValidationMessage>
+                        </div>
+                    </div>                   
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-chat-right-quote-fill"></i></span>
+                        <InputText type="text" maxlength="30" class="form-control" @bind-Value="comentario.MotivoComentario" placeholder="Agregar Motivo Comentario" style="border: 1px solid var(--color-inputs);"></InputText>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> comentario.MotivoComentario)"></ValidationMessage>
+                    </div>
+                </div>              
+            </div>
+             
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-chat-right-text-fill"></i></span>
+                        <InputTextArea type="text" maxlength="681" class="form-control" @bind-Value="comentario.Comentario" placeholder="Agregar Comentario" style="border: 1px solid var(--color-inputs);"></InputTextArea>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> comentario.Comentario)"></ValidationMessage>
+                    </div>
+                </div>               
+            </div>
+
+            <input type="hidden" value="@comentario.FechaComentario" />
+
+        </div>
+
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>&nbsp;&nbsp;@btnTexto</button>
+
+</EditForm>
+
 @code 
 {
     [Parameter]
@@ -40,6 +164,60 @@
 
     protected override async Task OnInitializedAsync()
     {
-        
+        if (idComentario != 0)
+        {
+            comentario = await comentariosSigetService.BuscarComentario(idComentario);
+            btnTexto = "Actualizar Registro";
+            titulo = "Editar Comentario";
+        }
+        else
+        {
+            btnTexto = "Agregar Registro";
+            titulo = "Agregar Comentario";
+            comentario.FechaComentario = DateTime.Now;
+        }
+
+        listaTipoComentario = await tipoConformidadService.MostrarTipoConformidad();
+        listaReporteInspeccion = await reporteInspeccionService.MostrarReporteSimple();
+        listaRepresentante = await representanteService.MostrarRepresentanteSimple();
+        listaPersonal = await personalService.MostrarPersonalSimple();
+    }
+
+    private async Task OnValidSubmit()
+    {
+        if (comentario.IdReporteInspeccion == 0)
+        {
+            comentario.IdReporteInspeccion = null;
+        }
+
+        string valorDevuelto = idComentario == 0
+            ? await comentariosSigetService.CrearComentario(comentario)
+            : await comentariosSigetService.EditarComentario(comentario, idComentario);
+
+        if (valorDevuelto == "Ejecucion Correcta")
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(valorDevuelto));
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <InputSelect class="form-select" @bind-Value="comentario.IdReporteInspeccion" style="border: 1px solid var(--color-inputs);">
+    <option value="0">Reporte...</option>
+    @foreach (var item in listaReporteInspeccion)
+    {
+        <option value="@item.IdReporteInspeccion">@item.CodigoInspeccion</option>
+    }
+</InputSelect> *@

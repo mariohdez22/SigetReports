@@ -10,9 +10,9 @@ namespace SigetSystem.Client.Services.Servicios
     {
         private readonly HttpClient _httpClient;
 
-        public EstadoPersonalService(HttpClient httpClient)
+        public EstadoPersonalService(IHttpClientFactory httpFactory)
         {
-            _httpClient = httpClient;
+            _httpClient = httpFactory.CreateClient("ApiSiget");
         }
 
         public async Task<List<EstadoPersonalDTO>> MostrarEstadoPersonal()

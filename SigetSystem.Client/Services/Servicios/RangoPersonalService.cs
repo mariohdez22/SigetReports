@@ -9,9 +9,9 @@ namespace SigetSystem.Client.Services.Servicios
     {
         private readonly HttpClient _httpClient;
 
-        public RangoPersonalService(HttpClient httpClient)
+        public RangoPersonalService(IHttpClientFactory httpFactory)
         {
-            _httpClient = httpClient;
+            _httpClient = httpFactory.CreateClient("ApiSiget");
         }
 
         public async Task<List<RangoPersonalDTO>> MostrarRangoPersonal()

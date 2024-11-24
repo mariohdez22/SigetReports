@@ -19,57 +19,134 @@
 
         <div class="parteInputsA">
         
-            <div class="input-group mb-3">
-                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
-                <InputText type="text" class="form-control" @bind-Value="representante.Nombres" placeholder="Agregar Representante" style="border: 1px solid var(--color-inputs);"></InputText>
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
+                        <InputText type="text" maxlength="23" class="form-control" @bind-Value="representante.Nombres" placeholder="Agregar Representante" style="border: 1px solid var(--color-inputs);"></InputText>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> representante.Nombres)"></ValidationMessage>
+                    </div>
+                </div>
             </div>
-            <div class="input-group mb-3">
-                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill"></i></span>
-                <InputText type="text" class="form-control" @bind-Value="representante.Celular" placeholder="Agregar Celular" style="border: 1px solid var(--color-inputs);"></InputText>
+
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill"></i></span>
+                        <InputText type="text" maxlength="8" class="form-control" @bind-Value="representante.Celular" placeholder="Agregar Celular" style="border: 1px solid var(--color-inputs);"></InputText>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> representante.Celular)"></ValidationMessage>
+                    </div>
+                </div>
             </div>
-            <div class="input-group mb-3">
-                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-envelope-fill"></i></span>
-                <InputText type="email" class="form-control" @bind-Value="representante.Email" placeholder="Agregar Email" style="border: 1px solid var(--color-inputs);"></InputText>
+
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-envelope-fill"></i></span>
+                        <InputText type="email" maxlength="28" class="form-control" @bind-Value="representante.Email" placeholder="Agregar Email" style="border: 1px solid var(--color-inputs);"></InputText>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> representante.Email)"></ValidationMessage>
+                    </div>
+                </div>              
             </div>
-            <div class="input-group mb-3">
-                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-vcard-fill"></i></span>
-                <InputText type="text" class="form-control" @bind-Value="representante.DUI" placeholder="Agregar DUI" style="border: 1px solid var(--color-inputs);"></InputText>
+
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-vcard-fill"></i></span>
+                        <InputText type="text" maxlength="9" class="form-control" @bind-Value="representante.DUI" placeholder="Agregar DUI" style="border: 1px solid var(--color-inputs);"></InputText>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> representante.DUI)"></ValidationMessage>
+                    </div>
+                </div>              
             </div>
 
         </div>
 
         <div class="parteInputsB">
 
-            <div class="input-group mb-3">
-                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-badge-fill"></i></span>
-                <InputText type="text" class="form-control" @bind-Value="representante.ComprobanteOIA" placeholder="Agregar Comprobante" style="border: 1px solid var(--color-inputs);"></InputText>
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-badge-fill"></i></span>
+                        <InputText type="text" maxlength="15" class="form-control" @bind-Value="representante.ComprobanteOIA" placeholder="Agregar Comprobante" style="border: 1px solid var(--color-inputs);"></InputText>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> representante.ComprobanteOIA)"></ValidationMessage>
+                    </div>
+                </div>
+                
             </div>
-            <div class="input-group mb-3">
-                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-badge-fill"></i></span>
-                <InputText type="text" class="form-control" @bind-Value="representante.Nickname" placeholder="Agregar Nickname" style="border: 1px solid var(--color-inputs);"></InputText>
+
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-badge-fill"></i></span>
+                        <InputText type="text" maxlength="23" class="form-control" @bind-Value="representante.Nickname" placeholder="Agregar Nickname" style="border: 1px solid var(--color-inputs);"></InputText>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> representante.Nickname)"></ValidationMessage>
+                    </div>
+                </div>
+                
             </div>
-            <div class="input-group mb-3">
-                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-shield-lock-fill"></i></span>
-                <InputText type="text" class="form-control" @bind-Value="representante.Contrasena" placeholder="Agregar Contraseña" style="border: 1px solid var(--color-inputs);"></InputText>
+
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-shield-lock-fill"></i></span>
+                        <InputText type="text" maxlength="28" class="form-control" @bind-Value="representante.Contrasena" placeholder="Agregar Contraseña" style="border: 1px solid var(--color-inputs);"></InputText>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> representante.Contrasena)"></ValidationMessage>
+                    </div>
+                </div>                
             </div>
-            <div class="input-group mb-3">
-                <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill-gear"></i></span>
-                <InputSelect class="form-select" @bind-Value="representante.IdOrganismo" style="border: 1px solid var(--color-inputs);">
-                    <option value="@idOrganismoTexto">@txtOrganismoTexto</option>
-                    @foreach (var item in listaOrganismo)
-                    {
-                        <option value="@item.IdOrganismo">@item.NombreOIA</option>
-                    }
-                </InputSelect>
+
+            <div class="mb-3">
+                <div class="apartadoInput">
+                    <div class="input-group agrupacionInput">
+                        <span style="background-color: var(--color-inputs); border: 1px solid var(--color-inputs); color: white;" class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill-gear"></i></span>
+                        <InputSelect class="form-select" @bind-Value="representante.IdOrganismo" style="border: 1px solid var(--color-inputs);">
+                            <option value="0">Seleccionar Organismo...</option>
+                            @foreach (var item in listaOrganismo)
+                            {
+                                <option value="@item.IdOrganismo">@item.NombreOIA</option>
+                            }
+                        </InputSelect>
+                    </div>
+                    <div class="errorInput">
+                        <ValidationMessage For="@(()=> representante.IdOrganismo)"></ValidationMessage>
+                    </div>
+                </div>                
             </div>
+
             <input type="hidden" value="@representante.IdEstadoRepresentante" />
+
         </div>
 
     </div>
 
     <br />
 
-    <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>&nbsp;&nbspIngresar</button>
+    @if (idRepresentanteEditar == 0)
+    {
+        <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>&nbsp;&nbsp;@btnTexto</button>
+
+        <button class="btn btn-success botonTerminar" @onclick="@(() => FinishProcess())"><i class="bi bi-box-arrow-right"></i>&nbsp;&nbsp;Finalizar Registros</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-success botonEjecutar"><i class="bi bi-check-circle-fill"></i>&nbsp;&nbsp;@btnTexto</button>
+    }
+
+    
 
  </EditForm> 
 
@@ -120,10 +197,10 @@
             titulo = "Agregar Representante";
             representante.IdEstadoRepresentante = 1;
         }
-       
+
         listaOrganismo = res.Resultado;
         listaEstado = await estadoRepresentanteService.MostrarEstadoRepresentante();
-        
+
     }
 
     //----------------------------------------------------------------------------------
@@ -135,15 +212,23 @@
         if (idRepresentanteEditar == 0)
         {
             ValorDevuelto = await representanteService.CrearRepresentante(representante);
+
+            representante = new RepresentanteDTO();
+
+            representante.IdEstadoRepresentante = 1;
+
+            StateHasChanged();
         }
         else
         {
             ValorDevuelto = await representanteService.EditarRepresentante(representante, idRepresentanteEditar);
-        }
 
-        if (ValorDevuelto == "Ejecucion Correcta")
-        {
             await BlazoredModal.CloseAsync(ModalResult.Ok(ValorDevuelto));
         }
+    }
+
+    private async Task FinishProcess()
+    {
+        await BlazoredModal.CloseAsync(ModalResult.Ok("Ejecucion Correcta"));
     }
 }

@@ -1,12 +1,12 @@
-.content {
-    padding: 0;
+.content
+{
+    padding: 0px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
-.user {
-    transform: translate(-40%, 0%);
-}
-
-.page {
+.page
+{
     position: relative;
     display: flex;
     flex-direction: column;

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using SigetSystem.Server.Hubs;
 using SigetSystem.Server.Models.Entidades.Hijas;
 using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
 using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
@@ -10,10 +12,13 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
     public class MetodoRequisitoMenor : IMetodoRequisitoMenor
     {
         private readonly IMetodoGenerico<RequisitoMenor> _repositorio;
+        private readonly IHubContext<HubRegistro> _hubRegistro;
 
-        public MetodoRequisitoMenor(IMetodoGenerico<RequisitoMenor> repositorio)
+        public MetodoRequisitoMenor(IMetodoGenerico<RequisitoMenor> repositorio,
+                                    IHubContext<HubRegistro> hubRegistro)
         {
             _repositorio = repositorio;
+            _hubRegistro = hubRegistro;
         }
 
         public IQueryable<RequisitoMenor> OrdenarRequisitosMenores(IQueryable<RequisitoMenor> lista, Expression<Func<RequisitoMenor, int>> criterioOrden, string FormatoOrden)
@@ -80,6 +85,8 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 RequisitoMenor requisitoMenores = await _repositorio.Crear(requisitoMenor);
 
+                await _hubRegistro.Clients.All.SendAsync("ObtencionMensaje", "El registro se creo correctamente.");
+
                 return requisitoMenores;
             }
             catch (Exception)
@@ -91,9 +98,19 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
 
         public async Task<RequisitoMenor> EditarRequisitoMenor(RequisitoMenor requisitoMenor)
         {
-            RequisitoMenor requisitoMenores = await _repositorio.Editar(requisitoMenor);
+            try
+            {
+                RequisitoMenor requisitoMenores = await _repositorio.Editar(requisitoMenor);
 
-            return requisitoMenores;
+                await _hubRegistro.Clients.All.SendAsync("RegistroEditado", "El registro se edito correctamente.");
+
+                return requisitoMenores;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task BorrarRequisitoMenor(RequisitoMenor requisitoMenor)

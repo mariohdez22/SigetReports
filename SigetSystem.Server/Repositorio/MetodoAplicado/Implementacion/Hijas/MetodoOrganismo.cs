@@ -1,6 +1,8 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using SigetSystem.Server.Hubs;
 using SigetSystem.Server.Models.Entidades.Hijas;
 using SigetSystem.Server.Repositorio.MetodoAplicado.Interfaces.Hijas;
 using SigetSystem.Server.Repositorio.MetodoGenerico.Interfaces;
@@ -11,10 +13,13 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
     public class MetodoOrganismo : IMetodoOrganismo
     {
         private readonly IMetodoGenerico<Organismo> _repoGenerico;
+        private readonly IHubContext<HubRegistro> _hubRegistro;
 
-        public MetodoOrganismo(IMetodoGenerico<Organismo> repoGenerico)
+        public MetodoOrganismo(IMetodoGenerico<Organismo> repoGenerico, 
+                               IHubContext<HubRegistro> hubRegistro)
         {
             _repoGenerico = repoGenerico;
+            _hubRegistro = hubRegistro;
         }
 
         public IQueryable<Organismo> OrdenarOrganismo(IQueryable<Organismo> lista, Expression<Func<Organismo, int>> criterioOrden, string FormatoOrden)
@@ -78,9 +83,13 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             try
             {
-                return await _repoGenerico.Crear(org);
+                Organismo organismo = await _repoGenerico.Crear(org);
+
+                await _hubRegistro.Clients.All.SendAsync("ObtencionMensaje", "El registro se creo correctamente.");
+
+                return organismo;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -90,9 +99,13 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
         {
             try
             {
-                return await _repoGenerico.Editar(org);
+                Organismo organismo = await _repoGenerico.Editar(org);
+
+                await _hubRegistro.Clients.All.SendAsync("RegistroEditado", "El registro se edito correctamente.");
+
+                return organismo;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -104,7 +117,7 @@ namespace SigetSystem.Server.Repositorio.MetodoAplicado.Implementacion.Hijas
             {
                 await _repoGenerico.Borrar(org);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

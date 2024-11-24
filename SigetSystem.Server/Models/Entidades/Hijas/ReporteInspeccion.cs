@@ -33,7 +33,7 @@ namespace SigetSystem.Server.Models.Entidades.Hijas
 
         public string? EspecificacionesCertificado { get; set; }
 
-        public decimal MontoSolicitante { get; set; }
+        public decimal? MontoSolicitante { get; set; }
 
         public string? NumeroCreditoFiscal { get; set; }
 

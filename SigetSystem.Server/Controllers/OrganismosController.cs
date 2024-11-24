@@ -6,6 +6,7 @@ using SigetSystem.Shared.DTOs.Hijas;
 using SigetSystem.Shared.MPPs;
 using System.Net;
 using SigetSystem.Server.Models.Entidades.Hijas;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SigetSystem.Server.Controllers
 {
@@ -25,6 +26,7 @@ namespace SigetSystem.Server.Controllers
         }
 
         [HttpGet("Consulta")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> ConsultaOrganismo([FromQuery] ParametrosPaginacion pp)
         {
@@ -52,6 +54,7 @@ namespace SigetSystem.Server.Controllers
         }
 
         [HttpGet("Buscar/{id:int}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -97,6 +100,7 @@ namespace SigetSystem.Server.Controllers
         }
 
         [HttpPost("Agregar")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AgregarOrganismos(OrganismoDTO dto)
@@ -133,6 +137,7 @@ namespace SigetSystem.Server.Controllers
         }
 
         [HttpPut("Editar/{id:int}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> EditarOrganismos(OrganismoDTO dto, int id)
@@ -169,6 +174,7 @@ namespace SigetSystem.Server.Controllers
 
 
         [HttpDelete("Eliminar/{id:int}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

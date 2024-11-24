@@ -1,0 +1,87 @@
+﻿
+/*
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Raleway', sans-serif;
+    font-family: "Readex Pro", sans-serif;
+*/
+
+.contenedorLogin
+{
+    background: url('../multimedia/FondoLoginB.jpg');
+    background-size: 106%;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedorTarjeta
+{
+    width: 24vw;
+    height: 60vh;
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.contenedorTarjeta h3
+{
+    font-family: 'Microsoft JhengHei';
+    text-align: center;
+    font-size: 45px;
+    font-weight: bold;
+    color: #6A4EBC;
+}
+
+.contenedorTarjeta p
+{
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+    color: #616161;
+}
+
+/* #d1d1d1 */
+
+.inputLogin
+{
+    width: 100%;
+    outline: none;
+    margin-top: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: none;
+    border-bottom: 1px solid #d1d1d1;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+}
+
+.botonLogin
+{
+    border: none;
+    background-color: #6A4EBC;
+    color: #1a1a1a;
+    margin-top: 40px;
+    padding: 10px;
+    font-weight: 300;
+    color: white;
+    border-radius: 8px;
+    font-family: 'Raleway', sans-serif;
+    transition: 0.5s;
+}
+
+.botonLogin:hover
+{
+    background-color: #46337E;
+}

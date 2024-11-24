@@ -10,9 +10,9 @@ namespace SigetSystem.Client.Services.Servicios
     {
         private readonly HttpClient _http;
 
-        public CodigoConformidadService(HttpClient http)
+        public CodigoConformidadService(IHttpClientFactory httpFactory)
         {
-            _http = http;
+            _http = httpFactory.CreateClient("ApiSiget");
         }
 
         public async Task<List<CodigoConformidadDTO>> MostrarCodigoConformidad()
